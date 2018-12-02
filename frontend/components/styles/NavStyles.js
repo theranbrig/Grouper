@@ -10,6 +10,7 @@ const NavStyles = styled.ul`
 	@media (max-width: 700px) {
 		padding: 8px 0 0;
 	}
+	.ui.item.dropdown,
 	p,
 	a,
 	button {
@@ -27,7 +28,6 @@ const NavStyles = styled.ul`
 		font-family: 'Roboto', sans-serif;
 		cursor: pointer;
 		@media (max-width: 700px) {
-			font-size: 10px;
 			padding: 0 10px;
 		}
 		&:last-child {
