@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { CURRENT_USER_QUERY } from './User';
+import FormStyles from './styles/FormStyles';
+import Error from './ErrorMessage';
 
 const SIGNUP_USER_MUTATION = gql`
 	mutation SIGNUP_USER_MUTATION($username: String!, $password: String!, $email: String!) {
@@ -13,40 +15,6 @@ const SIGNUP_USER_MUTATION = gql`
 			username
 			email
 		}
-	}
-`;
-
-const FormStyling = styled.div`
-	margin: 10px 0 0;
-	color: white;
-	font-family: 'Roboto', sans-serif;
-	padding: 0 0 150px;
-	h1 {
-		letter-spacing: 0.1rem;
-		color: ${props => props.theme.orange};
-		padding: 40px 0;
-		font-family: 'Lobster', cursive;
-		font-size: 4rem;
-	}
-	label {
-		font-size: 1.4rem !important;
-		letter-spacing: 0.1rem;
-	}
-	button {
-		color: ${props => props.theme.orange} !important;
-		font-size: 2rem !important;
-		margin: 15px 10% 30px !important;
-		width: 80%;
-		font-family: 'Lobster', sans-serif !important;
-		text-align: center;
-		padding: 10px 0;
-	}
-	a {
-		color: ${props => props.theme.orange} !important;
-		font-size: 1.5rem;
-	}
-	input {
-		margin: 20px 0 !important;
 	}
 `;
 
@@ -68,7 +36,7 @@ class SignUp extends Component {
 
 	render() {
 		return (
-			<FormStyling>
+			<FormStyles>
 				<Grid container textAlign="center">
 					<Grid.Column mobile={16} tablet={12} computer={8} textAlign="center">
 						<div>
@@ -79,9 +47,10 @@ class SignUp extends Component {
 							variables={this.state}
 							refetchQueries={[{ query: CURRENT_USER_QUERY }]}>
 							{(signup, { error, loading }) => {
-								if (error) return <p>Error...</p>;
+								if (error) return <Error error={error} />;
 								return (
 									<Form
+										inverted
 										loading={loading}
 										success={this.state.completed}
 										method="post"
@@ -134,7 +103,7 @@ class SignUp extends Component {
 						</Link>
 					</Grid.Column>
 				</Grid>
-			</FormStyling>
+			</FormStyles>
 		);
 	}
 }
