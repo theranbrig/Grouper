@@ -4,11 +4,10 @@ import Header from '../components/Header';
 import Meta from '../components/Meta';
 
 const theme = {
-	darkBlue: '#093C64',
-	regularBlue: '#476b97',
-	orange: '#dda01d',
-	lightBlue: '#dcf2ff',
-	black: '#232323',
+	darkBlue: '#4f5d75',
+	orange: '#ef8354',
+	lightGrey: '#bfc0c0',
+	black: '#2d3142',
 	offWhite: '#fefefe'
 };
 
@@ -18,9 +17,8 @@ const StyledPage = styled.div`
 `;
 
 const Inner = styled.div`
-	max-width: ${props => props.theme.maxWidth};
 	margin: 0 auto;
-	padding: 2rem;
+	background: ${props => props.theme.black};
 `;
 
 injectGlobal`

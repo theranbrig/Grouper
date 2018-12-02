@@ -54,9 +54,7 @@ const Header = () => (
 	<StyledHeader>
 		<Logo className="bar">
 			<div>
-				<a>
-					<h1>React BoilerPlate</h1>
-				</a>
+				<img src="../static/logo.png" alt="Grouper Logo" />
 			</div>
 			<Nav />
 		</Logo>
