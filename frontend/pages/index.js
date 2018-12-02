@@ -1,9 +1,9 @@
+import Home from '../components/Home';
 
-
-const Home = props => (
+const HomePage = props => (
 	<div>
-		<h1>Home Page</h1>
+		<Home />
 	</div>
 );
 
-export default Home;
+export default HomePage;

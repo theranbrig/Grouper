@@ -6,7 +6,9 @@ const Meta = () => (
 		<meta charSet="utf-8" />
 		<link rel="shortcut icon" href="/static/favicon.png" />
 		<link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
-		<title>React Boilerplate</title>
+		<title>Grouper | Shopping Lists</title>
+		<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css" />
+		<link href="https://fonts.googleapis.com/css?family=Lobster|Roboto" rel="stylesheet" />
 	</Head>
 );
 
