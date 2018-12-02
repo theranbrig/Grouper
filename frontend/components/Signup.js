@@ -4,7 +4,7 @@ import { Form, Grid, Button } from 'semantic-ui-react';
 import Link from 'next/link';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import {CURRENT_USER_QUERY} from './User'
+import { CURRENT_USER_QUERY } from './User';
 
 const SIGNUP_USER_MUTATION = gql`
 	mutation SIGNUP_USER_MUTATION($username: String!, $password: String!, $email: String!) {
@@ -75,33 +75,55 @@ class SignUp extends Component {
 							<h1>Sign Up for Grouper</h1>
 						</div>
 						<Mutation
-              mutation={SIGNUP_USER_MUTATION}
-              variables={this.state}
-              refetchQueries={[{query: CURRENT_USER_QUERY}]}
-              >
+							mutation={SIGNUP_USER_MUTATION}
+							variables={this.state}
+							refetchQueries={[{ query: CURRENT_USER_QUERY }]}>
 							{(signup, { error, loading }) => {
 								if (error) return <p>Error...</p>;
 								return (
-                  <Form
-                    loading={loading}
-                    success={this.state.completed}
-                    method="post"
-                  onSubmit={async e => {
-                    e.preventDefault();
-                    await signup();
-                    this.setState({username: '', email: '', password: ''});
-                  }}>
+									<Form
+										loading={loading}
+										success={this.state.completed}
+										method="post"
+										onSubmit={async e => {
+											e.preventDefault();
+											await signup();
+											this.setState({ username: '', email: '', password: '' });
+										}}>
 										<Form.Group>
-                      <Form.Input width={16} type="text" name="username" label="User Name" value={this.state.username} onChange={this.saveToState} placeholer="Choose User Name" />
+											<Form.Input
+												width={16}
+												type="text"
+												name="username"
+												label="User Name"
+												value={this.state.username}
+												onChange={this.saveToState}
+												placeholer="Choose User Name"
+											/>
 										</Form.Group>
 										<Form.Group>
-											<Form.Input type="email" name="email" width={16} label="Email" value={this.state.email} onChange={this.saveToState} placeholer="Enter Email Address" />
+											<Form.Input
+												type="email"
+												name="email"
+												width={16}
+												label="Email"
+												value={this.state.email}
+												onChange={this.saveToState}
+												placeholer="Enter Email Address"
+											/>
 										</Form.Group>
 										<Form.Group>
-											<Form.Input name="password" width={16} label="Password" type="password" value={this.state.password} onChange={this.saveToState}  />
+											<Form.Input
+												name="password"
+												width={16}
+												label="Password"
+												type="password"
+												value={this.state.password}
+												onChange={this.saveToState}
+											/>
 										</Form.Group>
 										<Button inverted type="submit">
-											Join
+											Join{loading ? 'ing' : ''}
 										</Button>
 									</Form>
 								);
