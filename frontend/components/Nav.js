@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import NavStyles from './styles/NavStyles';
 import User from './User';
+import { Dropdown, Button } from 'semantic-ui-react';
+import DeleteButton from './Logout';
 
 const Nav = () => (
 	<User>
@@ -15,9 +17,18 @@ const Nav = () => (
 							<Link href="/lists">
 								<a>Lists</a>
 							</Link>
-							<Link href="/profile">
-								<a>Profile</a>
-							</Link>
+							<Dropdown item text={`${me.username}`}>
+								<Dropdown.Menu>
+									<Dropdown.Item>
+										<Link>
+											<a>Profile</a>
+										</Link>
+									</Dropdown.Item>
+									<Dropdown.Item>
+										<DeleteButton />
+									</Dropdown.Item>
+								</Dropdown.Menu>
+							</Dropdown>
 						</>
 					)}
 					{!me && (
