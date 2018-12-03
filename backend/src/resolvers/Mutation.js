@@ -64,6 +64,37 @@ const Mutations = {
 			info
 		);
 		return list;
+	},
+	async addUser(parent, args, ctx, info) {
+		const user = await ctx.db.query.user({ where: { email: args.email } });
+		if (!user) throw new Error('User does not exist');
+		console.log(user);
+		const list = await ctx.db.mutation.updateList(
+			{
+				where: { id: args.id },
+				data: {
+					users: {
+						connect: { id: user.id }
+					}
+				}
+			},
+			info
+		);
+		console.log(list);
+		// const list = await ctx.db.mutation.updateList(
+		// 	{
+		// 		data: {
+		// 			users: {
+		// 				connect: { id: user.id }
+		// 			}
+		// 		},
+		// 		where: {
+		// 			id: args.id
+		// 		}
+		// 	},
+		// 	info
+		// );
+		return list;
 	}
 };
 

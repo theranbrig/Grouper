@@ -47,7 +47,7 @@ class List extends Component {
 									{data.list.users.map(user => (
 										<p>{user.username}</p>
 									))}
-									<AddUser />
+									<AddUser id={this.props.id} />
 								</Grid.Column>
 							</Grid>
 						</IndividualListStyles>
