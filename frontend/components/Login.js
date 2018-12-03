@@ -59,7 +59,7 @@ class Login extends Component {
 												label="User Name"
 												value={this.state.email}
 												onChange={this.saveToState}
-												placeholer="Enter Email Address"
+												placeholder="Enter Email Address"
 											/>
 										</Form.Group>
 										<Form.Group>

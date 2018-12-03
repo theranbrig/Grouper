@@ -15,6 +15,7 @@ const FormStyles = styled.div`
 	label {
 		font-size: 1.4rem !important;
 		letter-spacing: 0.1rem;
+		margin: 20px 0 !important;
 	}
 	button {
 		color: ${props => props.theme.orange} !important;
@@ -28,9 +29,6 @@ const FormStyles = styled.div`
 	a {
 		color: ${props => props.theme.orange} !important;
 		font-size: 1.5rem;
-	}
-	input {
-		margin: 20px 0 !important;
 	}
 	p {
 		color: ${props => props.theme.black};

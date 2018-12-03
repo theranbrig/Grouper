@@ -5,10 +5,13 @@ type SuccessMessage {
 
 type Mutation {
 	signup(username: String!, email: String!, password: String!): User!
-  signin(email: String!, password: String!): User!
-  signout: SuccessMessage
+	signin(email: String!, password: String!): User!
+	signout: SuccessMessage
+	createList(name: String!, type: String!): List!
 }
 
 type Query {
 	me: User
+	lists(where: ListWhereInput): [List]!
+	list(where: ListWhereInput): List
 }

@@ -47,6 +47,23 @@ const Mutations = {
 	async signout(parent, args, ctx, info) {
 		ctx.response.clearCookie('token');
 		return { message: 'Goodbye!' };
+	},
+	async createList(parent, args, ctx, info) {
+		if (!ctx.request.userId) {
+			throw new Error('You must log in first');
+		}
+		const list = ctx.db.mutation.createList(
+			{
+				data: {
+					users: {
+						connect: { id: ctx.request.userId }
+					},
+					...args
+				}
+			},
+			info
+		);
+		return list;
 	}
 };
 

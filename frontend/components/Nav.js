@@ -20,11 +20,6 @@ const Nav = () => (
 							<Dropdown item text={`${me.username}`}>
 								<Dropdown.Menu>
 									<Dropdown.Item>
-										<Link>
-											<a>Profile</a>
-										</Link>
-									</Dropdown.Item>
-									<Dropdown.Item>
 										<DeleteButton />
 									</Dropdown.Item>
 								</Dropdown.Menu>
