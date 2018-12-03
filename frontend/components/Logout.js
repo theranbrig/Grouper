@@ -14,7 +14,11 @@ const LOGOUT_USER_MUTATION = gql`
 
 const DeleteButton = props => (
 	<Mutation mutation={LOGOUT_USER_MUTATION} refetchQueries={[{ query: CURRENT_USER_QUERY }]}>
-		{signout => <Button onClick={signout}>Logout</Button>}
+		{signout => (
+			<Button onClick={signout} basic color="orange">
+				Logout
+			</Button>
+		)}
 	</Mutation>
 );
 
