@@ -47,6 +47,41 @@ const Mutations = {
 	async signout(parent, args, ctx, info) {
 		ctx.response.clearCookie('token');
 		return { message: 'Goodbye!' };
+	},
+	async createList(parent, args, ctx, info) {
+		if (!ctx.request.userId) {
+			throw new Error('You must log in first');
+		}
+		const list = ctx.db.mutation.createList(
+			{
+				data: {
+					users: {
+						connect: { id: ctx.request.userId }
+					},
+					...args
+				}
+			},
+			info
+		);
+		return list;
+	},
+	async addUser(parent, args, ctx, info) {
+    // Check if user exists
+		const user = await ctx.db.query.user({ where: { email: args.email } });
+    if (!user) throw new Error('User does not exist');
+    // Add user to list
+		const list = await ctx.db.mutation.updateList(
+			{
+				where: { id: args.id },
+				data: {
+					users: {
+						connect: { id: user.id }
+					}
+				}
+			},
+			info
+		);
+		return list;
 	}
 };
 

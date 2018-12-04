@@ -1,3 +1,5 @@
+const { forwardTo } = require('prisma-binding');
+
 const Query = {
 	me(parent, args, ctx, info) {
 		if (!ctx.request.userId) {
@@ -9,7 +11,9 @@ const Query = {
 			},
 			info
 		);
-	}
+  },
+  list: forwardTo('db'),
+  lists: forwardTo('db')
 };
 
 module.exports = Query;
