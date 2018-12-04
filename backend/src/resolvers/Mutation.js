@@ -66,9 +66,10 @@ const Mutations = {
 		return list;
 	},
 	async addUser(parent, args, ctx, info) {
+    // Check if user exists
 		const user = await ctx.db.query.user({ where: { email: args.email } });
-		if (!user) throw new Error('User does not exist');
-		console.log(user);
+    if (!user) throw new Error('User does not exist');
+    // Add user to list
 		const list = await ctx.db.mutation.updateList(
 			{
 				where: { id: args.id },
@@ -80,20 +81,6 @@ const Mutations = {
 			},
 			info
 		);
-		console.log(list);
-		// const list = await ctx.db.mutation.updateList(
-		// 	{
-		// 		data: {
-		// 			users: {
-		// 				connect: { id: user.id }
-		// 			}
-		// 		},
-		// 		where: {
-		// 			id: args.id
-		// 		}
-		// 	},
-		// 	info
-		// );
 		return list;
 	}
 };
