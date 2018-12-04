@@ -9,6 +9,7 @@ type Mutation {
 	signout: SuccessMessage
 	createList(name: String!, type: String!): List!
 	addUser(email: String!, id: ID!): User!
+	removeUser(email: String!, id: ID!): List
 }
 
 type Query {

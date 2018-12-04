@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import FormStyles from './styles/FormStyles';
 import gql from 'graphql-tag';
-import { Mutation } from 'react-apollo';
+import { Mutation, Query } from 'react-apollo';
+import { INDIVIDUAL_LIST_QUERY } from './List';
 
 const ADD_USER_MUTATION = gql`
 	mutation ADD_USER_MUTATION($email: String!, $id: ID!) {
@@ -25,7 +26,8 @@ class AddUser extends Component {
 		return (
 			<Mutation
 				mutation={ADD_USER_MUTATION}
-				variables={{ id: this.props.id, email: this.state.email }}>
+				variables={{ id: this.props.id, email: this.state.email }}
+				refetchQueries={[{ query: INDIVIDUAL_LIST_QUERY, variables: { id: this.props.id } }]}>
 				{(addUser, { loading, error }) => {
 					if (error) <p>Error...</p>;
 					return (

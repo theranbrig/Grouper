@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Grid } from 'semantic-ui-react';
+import { Grid, List, Segment, Icon, Button } from 'semantic-ui-react';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import AddUser from './AddUser';
 
 const INDIVIDUAL_LIST_QUERY = gql`
@@ -14,7 +14,16 @@ const INDIVIDUAL_LIST_QUERY = gql`
 			users {
 				id
 				username
+				email
 			}
+		}
+	}
+`;
+
+const REMOVE_USER_MUTATION = gql`
+	mutation REMOVE_USER_MUTATION($id: ID!, $email: String!) {
+		removeUser(id: $id, email: $email) {
+			id
 		}
 	}
 `;
@@ -25,11 +34,20 @@ const IndividualListStyles = styled.div`
 	h1 {
 		color: ${props => props.theme.orange} !important;
 		font-family: 'Lobster', cursive;import AddUser from './AddUser';
-
+	}
+  button {
+    margin-top: 5px !important;
+  }
+  .header {
+    padding: 5px 0 !important;
+    font-size: 1.2rem;
+  }
+  .ui.inverted.segment {
+		background: ${props => props.theme.darkBlue};
 	}
 `;
 
-class List extends Component {
+class IndividualList extends Component {
 	render() {
 		return (
 			<Query query={INDIVIDUAL_LIST_QUERY} variables={{ id: this.props.id }}>
@@ -44,9 +62,39 @@ class List extends Component {
 								</Grid.Column>
 								<Grid.Column mobile={16} tablet={4} computer={4} textAlign="center">
 									<h1>Users</h1>
-									{data.list.users.map(user => (
-										<p>{user.username}</p>
-									))}
+									<List inverted relaxed>
+										{data.list.users.map(user => (
+											<List.Item key={user.id}>
+												<Segment inverted textAlign="left">
+													<Mutation
+														mutation={REMOVE_USER_MUTATION}
+														variables={{ id: this.props.id, email: user.email }}
+														refetchQueries={[
+															{ query: INDIVIDUAL_LIST_QUERY, variables: { id: this.props.id } }
+														]}>
+														{(removeUser, { error, loading }) => {
+															if (error) <p>Error...</p>;
+															return (
+																<List.Content floated="right" verticalAlign="middle">
+																	<Button
+																		basic
+																		color="orange"
+																		icon="close"
+																		onClick={async e => {
+																			e.preventDefault();
+																			removeUser();
+																		}}
+																	/>
+																</List.Content>
+															);
+														}}
+													</Mutation>
+													<List.Header>{user.username}</List.Header>
+													<List.Description>{user.email}</List.Description>
+												</Segment>
+											</List.Item>
+										))}
+									</List>
 									<AddUser id={this.props.id} />
 								</Grid.Column>
 							</Grid>
@@ -58,4 +106,5 @@ class List extends Component {
 	}
 }
 
-export default List;
+export default IndividualList;
+export { INDIVIDUAL_LIST_QUERY };
