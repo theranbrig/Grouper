@@ -18,4 +18,13 @@ type List {
 	users: [User]
 	name: String!
 	type: String!
+	items: [ListItem]
+}
+
+type ListItem {
+	id: ID! @unique
+	name: String!
+	price: Int
+	list: String!
+  user: User!
 }

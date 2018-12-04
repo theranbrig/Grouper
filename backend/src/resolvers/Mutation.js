@@ -98,6 +98,23 @@ const Mutations = {
 			info
 		);
 		return list;
+	},
+	async addItem(parent, args, ctx, info) {
+		if (!ctx.request.userId) {
+			throw new Error('You must log in first');
+		}
+		const listItem = await ctx.db.mutation.createListItem({
+			data: {
+				user: { connect: { id: ctx.request.userId } },
+				...args
+			}
+		});
+		console.log(listItem);
+		const list = await ctx.db.mutation.updateList({
+			where: { id: args.list },
+			data: { items: { connect: { id: listItem.id } } }
+		});
+		return list;
 	}
 };
 

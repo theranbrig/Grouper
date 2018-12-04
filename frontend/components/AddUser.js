@@ -51,8 +51,8 @@ class AddUser extends Component {
 										placeholder="Enter New User Email"
 									/>
 								</Form.Group>
-								<Button inverted type="submit" size="medium">
-									Add User
+								<Button inverted type="submit">
+									Add{loading ? 'ing' : ''} User
 								</Button>
 							</Form>
 						</FormStyles>

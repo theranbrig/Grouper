@@ -13,7 +13,6 @@ const FormStyles = styled.div`
 		font-size: 4rem;
 	}
 	label {
-		font-size: 1.4rem !important;
 		letter-spacing: 0.1rem;
 		margin: 20px 0 !important;
 	}
