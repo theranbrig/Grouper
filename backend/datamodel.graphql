@@ -27,4 +27,5 @@ type ListItem {
 	price: Int
 	list: String!
   user: User!
+  inCart: Boolean! @default(value: false)
 }

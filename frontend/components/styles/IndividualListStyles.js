@@ -14,12 +14,29 @@ const IndividualListStyles = styled.div`
 		margin-top: 5px !important;
 	}
 	.header {
-		padding: 5px 0 !important;
-		font-size: 1.2rem;
+		padding: 5px 0 10px !important;
+		font-size: 1.5rem;
 	}
 	.ui.inverted.segment {
 		background: ${props => props.theme.darkBlue};
 	}
+  .in-cart {
+    background-color: ${props => props.theme.orange} !important;
+    .header {
+      color: ${props => props.theme.black}
+    }
+    i {
+      color: ${props => props.theme.black};
+    }
+  }
+  .out-cart {
+    div.header {
+      color: ${props => props.theme.orange} !important;
+    }
+    i {
+      color: ${props => props.theme.orange};
+    }
+  }
 `;
 
 export default IndividualListStyles;

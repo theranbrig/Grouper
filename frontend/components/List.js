@@ -42,9 +42,9 @@ class IndividualList extends Component {
 									<List inverted relaxed>
 										{data.list.items.map(item => (
 											<List.Item key={item.id}>
-												<Segment inverted>
+												<Segment inverted className={item.inCart ? `in-cart` : `out-cart`}>
 													<List.Content floated="left">
-														<Button inverted icon="cart arrow down" />
+														<Button inverted icon={item.inCart ? `check` : `cart arrow down`}/>
 													</List.Content>
 													<List.Content floated="right">
 														<Button inverted icon="close" />

@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/theran-3f2473/grouper/dev
-# timestamp: Tue Dec 04 2018 23:46:05 GMT+0900 (Korean Standard Time)
+# timestamp: Wed Dec 05 2018 01:12:36 GMT+0900 (Korean Standard Time)
 
 type AggregateList {
   count: Int!
@@ -58,6 +58,7 @@ type ListItem implements Node {
   price: Int
   list: String!
   user: User!
+  inCart: Boolean!
 }
 
 """A connection to a list of items."""
@@ -74,6 +75,7 @@ input ListItemCreateInput {
   name: String!
   price: Int
   list: String!
+  inCart: Boolean
   user: UserCreateOneInput!
 }
 
@@ -100,6 +102,8 @@ enum ListItemOrderByInput {
   price_DESC
   list_ASC
   list_DESC
+  inCart_ASC
+  inCart_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -111,6 +115,7 @@ type ListItemPreviousValues {
   name: String!
   price: Int
   list: String!
+  inCart: Boolean!
 }
 
 input ListItemScalarWhereInput {
@@ -264,6 +269,10 @@ input ListItemScalarWhereInput {
 
   """All values not ending with the given string."""
   list_not_ends_with: String
+  inCart: Boolean
+
+  """All values that are not equal to given value."""
+  inCart_not: Boolean
 }
 
 type ListItemSubscriptionPayload {
@@ -309,6 +318,7 @@ input ListItemUpdateDataInput {
   name: String
   price: Int
   list: String
+  inCart: Boolean
   user: UserUpdateOneRequiredInput
 }
 
@@ -316,6 +326,7 @@ input ListItemUpdateInput {
   name: String
   price: Int
   list: String
+  inCart: Boolean
   user: UserUpdateOneRequiredInput
 }
 
@@ -323,6 +334,7 @@ input ListItemUpdateManyDataInput {
   name: String
   price: Int
   list: String
+  inCart: Boolean
 }
 
 input ListItemUpdateManyInput {
@@ -340,6 +352,7 @@ input ListItemUpdateManyMutationInput {
   name: String
   price: Int
   list: String
+  inCart: Boolean
 }
 
 input ListItemUpdateManyWithWhereNestedInput {
@@ -509,6 +522,10 @@ input ListItemWhereInput {
 
   """All values not ending with the given string."""
   list_not_ends_with: String
+  inCart: Boolean
+
+  """All values that are not equal to given value."""
+  inCart_not: Boolean
   user: UserWhereInput
 }
 
