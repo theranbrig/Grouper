@@ -6,6 +6,7 @@ import { Query, Mutation } from 'react-apollo';
 import AddUser from './AddUser';
 import AddListItem from './AddListItem';
 import UserList from './UserList';
+import ListButtons from './ListButtons';
 
 const INDIVIDUAL_LIST_QUERY = gql`
 	query INDIVIDUAL_LIST_QUERY($id: ID!) {
@@ -22,6 +23,7 @@ const INDIVIDUAL_LIST_QUERY = gql`
 				id
 				name
 				price
+				inCart
 			}
 		}
 	}
@@ -43,12 +45,7 @@ class IndividualList extends Component {
 										{data.list.items.map(item => (
 											<List.Item key={item.id}>
 												<Segment inverted className={item.inCart ? `in-cart` : `out-cart`}>
-													<List.Content floated="left">
-														<Button inverted icon={item.inCart ? `check` : `cart arrow down`}/>
-													</List.Content>
-													<List.Content floated="right">
-														<Button inverted icon="close" />
-													</List.Content>
+													<ListButtons inCart={item.inCart} id={item.id} />
 													<List.Content>
 														<List.Header>{item.name}</List.Header>
 														{item.price ? (

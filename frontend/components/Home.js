@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
-import { Grid, Image, Button } from 'semantic-ui-react';
+import { Grid, Image, Button, Icon } from 'semantic-ui-react';
 import HomeStyles from './styles/HomeStyles';
 import User from './User';
 
@@ -40,14 +40,19 @@ class Home extends Component {
 									)}
 									<ul>
 										<li>
-											Divide and conquer while you shop. Split up and find what you need around the
-											store.
+                      <Icon name="group"/>
+											<p>Divide and conquer while you shop. Split up and find what you need around the
+											store.</p>
 										</li>
 										<li>
-											Check off items as you pick them up. Let others know you found what you were
-											looking for.
+                      <Icon name="shopping cart"/>
+											<p>Check off items as you pick them up. Let others know you found what you were
+											looking for.</p>
 										</li>
-										<li>Set price limits. Avoid overspending and stay within your budget.</li>
+										<li>
+                      <Icon name="dollar"/>
+                      <p>Set price limits. Avoid overspending and stay within your budget.</p>
+                    </li>
 									</ul>
 								</Grid.Column>
 							</Grid>

@@ -8,14 +8,14 @@ const HomeStyles = styled.div`
 	padding-bottom: 120px;
 	min-height: 90vh;
 	h1 {
-		font-family: 'Lobster', cursive;
+		font-family: 'Lobster Two', cursive;
 		color: ${props => props.theme.orange};
 		font-size: 5rem;
 		letter-spacing: 0.15rem;
 		padding: 40px 0 0 0;
 	}
 	h2 {
-		font-family: 'Lobster', cursive;
+		font-family: 'Lobster Two', cursive;
 		color: ${props => props.theme.orange};
 		font-size: 2rem;
 	}
@@ -28,26 +28,30 @@ const HomeStyles = styled.div`
 		font-size: 2rem;
 		margin: 15px 10% !important;
 		width: 80%;
-		font-family: 'Lobster', sans-serif;
-    text-align: center;
-    padding: 10px 0;
+		font-family: 'Lobster Two', sans-serif;
+		text-align: center;
+		padding: 10px 0;
 	}
 	.button-area {
 		display: grid;
 		padding-top: 20px;
 	}
 	ul {
-		list-style: circle;
+		list-style: none;
 		padding: 30px 0 0;
 	}
 	li {
 		font-family: 'Roboto', sans-serif;
 		font-size: 1.5rem;
 		width: 80%;
-		margin: 20px 12%;
-		text-align: left;
+		margin: 40px 12%;
+		text-align: center;
 	}
-
+	i {
+		margin: 10px 0;
+		font-size: 3rem;
+		color: ${props => props.theme.orange};
+	}
 `;
 
 export default HomeStyles;

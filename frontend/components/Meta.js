@@ -8,7 +8,7 @@ const Meta = () => (
 		<link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
 		<title>Grouper | Shopping Lists</title>
 		<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css" />
-		<link href="https://fonts.googleapis.com/css?family=Lobster|Roboto" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Lobster+Two|Roboto" rel="stylesheet" />
 	</Head>
 );
 

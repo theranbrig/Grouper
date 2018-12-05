@@ -6,7 +6,7 @@ const IndividualListStyles = styled.div`
 	color: ${props => props.theme.offWhite};
 	h1 {
 		color: ${props => props.theme.orange} !important;
-		font-family: 'Lobster', cursive;
+		font-family: 'Lobster Two', cursive;
 		font-size: 3.5rem;
 		padding-top: 20px;
 	}
@@ -15,15 +15,15 @@ const IndividualListStyles = styled.div`
 	}
 	.header {
 		padding: 5px 0 10px !important;
-		font-size: 1.5rem;
+		font-size: 1.3rem;
 	}
 	.ui.inverted.segment {
 		background: ${props => props.theme.darkBlue};
 	}
   .in-cart {
     background-color: ${props => props.theme.orange} !important;
-    .header {
-      color: ${props => props.theme.black}
+    div.header {
+      color: ${props => props.theme.black} !important;
     }
     i {
       color: ${props => props.theme.black};
