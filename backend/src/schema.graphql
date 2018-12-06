@@ -9,6 +9,7 @@ type Mutation {
 	signin(email: String!, password: String!): User!
 	signout: SuccessMessage
 	createList(name: String!, type: String!): List!
+	removeList(id: String!): List
 	addUser(email: String!, id: ID!): User!
 	removeUser(email: String!, id: ID!): List
 	addItem(name: String!, price: Int, list: String!): ListItem!

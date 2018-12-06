@@ -8,7 +8,7 @@ const IndividualListStyles = styled.div`
 		color: ${props => props.theme.orange} !important;
 		font-family: 'Lobster Two', cursive;
 		font-size: 3.5rem;
-		padding-top: 20px;
+		padding-top: 30px;
 	}
 	button {
 		margin-top: 5px !important;
@@ -20,23 +20,27 @@ const IndividualListStyles = styled.div`
 	.ui.inverted.segment {
 		background: ${props => props.theme.darkBlue};
 	}
-  .in-cart {
-    background-color: ${props => props.theme.orange} !important;
-    div.header {
-      color: ${props => props.theme.black} !important;
-    }
-    i {
-      color: ${props => props.theme.black};
-    }
-  }
-  .out-cart {
-    div.header {
-      color: ${props => props.theme.orange} !important;
-    }
-    i {
-      color: ${props => props.theme.orange};
-    }
-  }
+	.in-cart {
+		background-color: ${props => props.theme.orange} !important;
+		div.header {
+			color: ${props => props.theme.black} !important;
+		}
+		i {
+			color: ${props => props.theme.black};
+		}
+	}
+	.out-cart {
+		div.header {
+			color: ${props => props.theme.orange} !important;
+		}
+		i {
+			color: ${props => props.theme.orange};
+		}
+	}
+	a {
+		color: ${props => props.theme.orange};
+		font-size: 1.5rem;
+	}
 `;
 
 export default IndividualListStyles;

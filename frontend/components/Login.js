@@ -3,6 +3,7 @@ import { Mutation } from 'react-apollo';
 import FormStyles from './styles/FormStyles';
 import { Grid, Form, Button } from 'semantic-ui-react';
 import Link from 'next/link';
+import Router from 'next/router';
 import gql from 'graphql-tag';
 import { CURRENT_USER_QUERY } from './User';
 
@@ -50,6 +51,9 @@ class Login extends Component {
 											e.preventDefault();
 											await signin();
 											this.setState({ email: '', password: '' });
+											Router.push({
+												pathname: '/'
+											});
 										}}>
 										<Form.Group>
 											<Form.Input

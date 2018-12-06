@@ -57,7 +57,7 @@ class ListButtons extends Component {
 								<Button
 									inverted
 									icon="close"
-									diabled={loading}
+									disabled={loading}
 									onClick={async e => {
 										e.preventDefault();
 										removeListItem();

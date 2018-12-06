@@ -34,6 +34,11 @@ const ListsStyles = styled.div`
 		padding-right: 10px;
 		margin-bottom: 10px;
 	}
+	.delete-button {
+		margin-top: 3px !important;
+		color: ${props => props.theme.orange} !important;
+		width: 33px;
+	}
 `;
 
 export default ListsStyles;

@@ -1,10 +1,11 @@
 import React from 'react';
 import List from '../components/List';
+import LoginCheck from '../components/LoginCheck';
 
 const ListPage = props => (
-	<div>
+	<LoginCheck>
 		<List id={props.query.id} />
-	</div>
+	</LoginCheck>
 );
 
 export default ListPage;

@@ -64,6 +64,12 @@ const Mutations = {
 			info
 		);
 		return list;
+  },
+  async removeList(parent, args, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error('You must log in first');
+    }
+    return ctx.db.mutation.deleteList({ where: { id: args.id } }, info);
 	},
 	async addUser(parent, args, ctx, info) {
 		// Check if user exists
@@ -85,7 +91,9 @@ const Mutations = {
 	},
 	async removeUser(parent, args, ctx, info) {
 		const user = await ctx.db.query.user({ where: { email: args.email } });
-		if (!user) throw new Error('User does not exist');
+    if (!user) throw new Error('User does not exist');
+    const userCheck = await ctx.db.query.list({where: {id: args.id}}, `{id, users {id}}`);
+    if (userCheck.users.length <= 1) throw new Error('Need at least one user in list.')
 		const list = await ctx.db.mutation.updateList(
 			{
 				where: { id: args.id },
@@ -96,7 +104,7 @@ const Mutations = {
 				}
 			},
 			info
-		);
+    );
 		return list;
 	},
 	async addItem(parent, args, ctx, info) {
@@ -138,7 +146,8 @@ const Mutations = {
 			throw new Error('You must log in first');
 		}
 		return ctx.db.mutation.deleteListItem({ where: { id: args.id } }, info);
-	}
+	},
+
 };
 
 module.exports = Mutations;
