@@ -1,7 +1,11 @@
 # source: https://us1.prisma.sh/theran-3f2473/grouper/dev
-# timestamp: Mon Dec 03 2018 23:11:05 GMT+0900 (Korean Standard Time)
+# timestamp: Wed Dec 05 2018 01:12:36 GMT+0900 (Korean Standard Time)
 
 type AggregateList {
+  count: Int!
+}
+
+type AggregateListItem {
   count: Int!
 }
 
@@ -19,6 +23,7 @@ type List implements Node {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   name: String!
   type: String!
+  items(where: ListItemWhereInput, orderBy: ListItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ListItem!]
 }
 
 """A connection to a list of items."""
@@ -35,6 +40,7 @@ input ListCreateInput {
   name: String!
   type: String!
   users: UserCreateManyInput
+  items: ListItemCreateManyInput
 }
 
 """An edge in a connection."""
@@ -44,6 +50,487 @@ type ListEdge {
 
   """A cursor for use in pagination."""
   cursor: String!
+}
+
+type ListItem implements Node {
+  id: ID!
+  name: String!
+  price: Int
+  list: String!
+  user: User!
+  inCart: Boolean!
+}
+
+"""A connection to a list of items."""
+type ListItemConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ListItemEdge]!
+  aggregate: AggregateListItem!
+}
+
+input ListItemCreateInput {
+  name: String!
+  price: Int
+  list: String!
+  inCart: Boolean
+  user: UserCreateOneInput!
+}
+
+input ListItemCreateManyInput {
+  create: [ListItemCreateInput!]
+  connect: [ListItemWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type ListItemEdge {
+  """The item at the end of the edge."""
+  node: ListItem!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ListItemOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  price_ASC
+  price_DESC
+  list_ASC
+  list_DESC
+  inCart_ASC
+  inCart_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ListItemPreviousValues {
+  id: ID!
+  name: String!
+  price: Int
+  list: String!
+  inCart: Boolean!
+}
+
+input ListItemScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ListItemScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ListItemScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ListItemScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  price: Int
+
+  """All values that are not equal to given value."""
+  price_not: Int
+
+  """All values that are contained in given list."""
+  price_in: [Int!]
+
+  """All values that are not contained in given list."""
+  price_not_in: [Int!]
+
+  """All values less than the given value."""
+  price_lt: Int
+
+  """All values less than or equal the given value."""
+  price_lte: Int
+
+  """All values greater than the given value."""
+  price_gt: Int
+
+  """All values greater than or equal the given value."""
+  price_gte: Int
+  list: String
+
+  """All values that are not equal to given value."""
+  list_not: String
+
+  """All values that are contained in given list."""
+  list_in: [String!]
+
+  """All values that are not contained in given list."""
+  list_not_in: [String!]
+
+  """All values less than the given value."""
+  list_lt: String
+
+  """All values less than or equal the given value."""
+  list_lte: String
+
+  """All values greater than the given value."""
+  list_gt: String
+
+  """All values greater than or equal the given value."""
+  list_gte: String
+
+  """All values containing the given string."""
+  list_contains: String
+
+  """All values not containing the given string."""
+  list_not_contains: String
+
+  """All values starting with the given string."""
+  list_starts_with: String
+
+  """All values not starting with the given string."""
+  list_not_starts_with: String
+
+  """All values ending with the given string."""
+  list_ends_with: String
+
+  """All values not ending with the given string."""
+  list_not_ends_with: String
+  inCart: Boolean
+
+  """All values that are not equal to given value."""
+  inCart_not: Boolean
+}
+
+type ListItemSubscriptionPayload {
+  mutation: MutationType!
+  node: ListItem
+  updatedFields: [String!]
+  previousValues: ListItemPreviousValues
+}
+
+input ListItemSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ListItemSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ListItemSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ListItemSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ListItemWhereInput
+}
+
+input ListItemUpdateDataInput {
+  name: String
+  price: Int
+  list: String
+  inCart: Boolean
+  user: UserUpdateOneRequiredInput
+}
+
+input ListItemUpdateInput {
+  name: String
+  price: Int
+  list: String
+  inCart: Boolean
+  user: UserUpdateOneRequiredInput
+}
+
+input ListItemUpdateManyDataInput {
+  name: String
+  price: Int
+  list: String
+  inCart: Boolean
+}
+
+input ListItemUpdateManyInput {
+  create: [ListItemCreateInput!]
+  connect: [ListItemWhereUniqueInput!]
+  disconnect: [ListItemWhereUniqueInput!]
+  delete: [ListItemWhereUniqueInput!]
+  update: [ListItemUpdateWithWhereUniqueNestedInput!]
+  updateMany: [ListItemUpdateManyWithWhereNestedInput!]
+  deleteMany: [ListItemScalarWhereInput!]
+  upsert: [ListItemUpsertWithWhereUniqueNestedInput!]
+}
+
+input ListItemUpdateManyMutationInput {
+  name: String
+  price: Int
+  list: String
+  inCart: Boolean
+}
+
+input ListItemUpdateManyWithWhereNestedInput {
+  where: ListItemScalarWhereInput!
+  data: ListItemUpdateManyDataInput!
+}
+
+input ListItemUpdateWithWhereUniqueNestedInput {
+  where: ListItemWhereUniqueInput!
+  data: ListItemUpdateDataInput!
+}
+
+input ListItemUpsertWithWhereUniqueNestedInput {
+  where: ListItemWhereUniqueInput!
+  update: ListItemUpdateDataInput!
+  create: ListItemCreateInput!
+}
+
+input ListItemWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ListItemWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ListItemWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ListItemWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  price: Int
+
+  """All values that are not equal to given value."""
+  price_not: Int
+
+  """All values that are contained in given list."""
+  price_in: [Int!]
+
+  """All values that are not contained in given list."""
+  price_not_in: [Int!]
+
+  """All values less than the given value."""
+  price_lt: Int
+
+  """All values less than or equal the given value."""
+  price_lte: Int
+
+  """All values greater than the given value."""
+  price_gt: Int
+
+  """All values greater than or equal the given value."""
+  price_gte: Int
+  list: String
+
+  """All values that are not equal to given value."""
+  list_not: String
+
+  """All values that are contained in given list."""
+  list_in: [String!]
+
+  """All values that are not contained in given list."""
+  list_not_in: [String!]
+
+  """All values less than the given value."""
+  list_lt: String
+
+  """All values less than or equal the given value."""
+  list_lte: String
+
+  """All values greater than the given value."""
+  list_gt: String
+
+  """All values greater than or equal the given value."""
+  list_gte: String
+
+  """All values containing the given string."""
+  list_contains: String
+
+  """All values not containing the given string."""
+  list_not_contains: String
+
+  """All values starting with the given string."""
+  list_starts_with: String
+
+  """All values not starting with the given string."""
+  list_not_starts_with: String
+
+  """All values ending with the given string."""
+  list_ends_with: String
+
+  """All values not ending with the given string."""
+  list_not_ends_with: String
+  inCart: Boolean
+
+  """All values that are not equal to given value."""
+  inCart_not: Boolean
+  user: UserWhereInput
+}
+
+input ListItemWhereUniqueInput {
+  id: ID
 }
 
 enum ListOrderByInput {
@@ -108,6 +595,7 @@ input ListUpdateInput {
   name: String
   type: String
   users: UserUpdateManyInput
+  items: ListItemUpdateManyInput
 }
 
 input ListUpdateManyMutationInput {
@@ -247,6 +735,9 @@ input ListWhereInput {
   users_every: UserWhereInput
   users_some: UserWhereInput
   users_none: UserWhereInput
+  items_every: ListItemWhereInput
+  items_some: ListItemWhereInput
+  items_none: ListItemWhereInput
 }
 
 input ListWhereUniqueInput {
@@ -261,16 +752,22 @@ scalar Long
 
 type Mutation {
   createList(data: ListCreateInput!): List!
+  createListItem(data: ListItemCreateInput!): ListItem!
   createUser(data: UserCreateInput!): User!
   updateList(data: ListUpdateInput!, where: ListWhereUniqueInput!): List
+  updateListItem(data: ListItemUpdateInput!, where: ListItemWhereUniqueInput!): ListItem
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   deleteList(where: ListWhereUniqueInput!): List
+  deleteListItem(where: ListItemWhereUniqueInput!): ListItem
   deleteUser(where: UserWhereUniqueInput!): User
   upsertList(where: ListWhereUniqueInput!, create: ListCreateInput!, update: ListUpdateInput!): List!
+  upsertListItem(where: ListItemWhereUniqueInput!, create: ListItemCreateInput!, update: ListItemUpdateInput!): ListItem!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   updateManyLists(data: ListUpdateManyMutationInput!, where: ListWhereInput): BatchPayload!
+  updateManyListItems(data: ListItemUpdateManyMutationInput!, where: ListItemWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   deleteManyLists(where: ListWhereInput): BatchPayload!
+  deleteManyListItems(where: ListItemWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
@@ -308,10 +805,13 @@ enum Permission {
 
 type Query {
   lists(where: ListWhereInput, orderBy: ListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [List]!
+  listItems(where: ListItemWhereInput, orderBy: ListItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ListItem]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   list(where: ListWhereUniqueInput!): List
+  listItem(where: ListItemWhereUniqueInput!): ListItem
   user(where: UserWhereUniqueInput!): User
   listsConnection(where: ListWhereInput, orderBy: ListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ListConnection!
+  listItemsConnection(where: ListItemWhereInput, orderBy: ListItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ListItemConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
 
   """Fetches an object given its ID"""
@@ -323,6 +823,7 @@ type Query {
 
 type Subscription {
   list(where: ListSubscriptionWhereInput): ListSubscriptionPayload
+  listItem(where: ListItemSubscriptionWhereInput): ListItemSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -358,6 +859,11 @@ input UserCreateInput {
 input UserCreateManyInput {
   create: [UserCreateInput!]
   connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreatepermissionsInput {
@@ -726,6 +1232,13 @@ input UserUpdateManyWithWhereNestedInput {
   data: UserUpdateManyDataInput!
 }
 
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
 input UserUpdatepermissionsInput {
   set: [Permission!]
 }
@@ -733,6 +1246,11 @@ input UserUpdatepermissionsInput {
 input UserUpdateWithWhereUniqueNestedInput {
   where: UserWhereUniqueInput!
   data: UserUpdateDataInput!
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserUpsertWithWhereUniqueNestedInput {

@@ -64,6 +64,12 @@ const Mutations = {
 			info
 		);
 		return list;
+  },
+  async removeList(parent, args, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error('You must log in first');
+    }
+    return ctx.db.mutation.deleteList({ where: { id: args.id } }, info);
 	},
 	async addUser(parent, args, ctx, info) {
 		// Check if user exists
@@ -85,7 +91,9 @@ const Mutations = {
 	},
 	async removeUser(parent, args, ctx, info) {
 		const user = await ctx.db.query.user({ where: { email: args.email } });
-		if (!user) throw new Error('User does not exist');
+    if (!user) throw new Error('User does not exist');
+    const userCheck = await ctx.db.query.list({where: {id: args.id}}, `{id, users {id}}`);
+    if (userCheck.users.length <= 1) throw new Error('Need at least one user in list.')
 		const list = await ctx.db.mutation.updateList(
 			{
 				where: { id: args.id },
@@ -96,9 +104,50 @@ const Mutations = {
 				}
 			},
 			info
-		);
+    );
 		return list;
-	}
+	},
+	async addItem(parent, args, ctx, info) {
+		if (!ctx.request.userId) {
+			throw new Error('You must log in first');
+		}
+		const listItem = await ctx.db.mutation.createListItem({
+			data: {
+				user: { connect: { id: ctx.request.userId } },
+				...args
+			}
+		});
+		console.log(listItem);
+		const list = await ctx.db.mutation.updateList({
+			where: { id: args.list },
+			data: { items: { connect: { id: listItem.id } } }
+		});
+		return list;
+	},
+	async toggleInCart(parent, args, ctx, info) {
+		if (!ctx.request.userId) {
+			throw new Error('You must log in first');
+		}
+		// Get list item
+		const item = await ctx.db.query.listItem({
+			where: { id: args.id }
+		});
+		// Toggle if in cart
+		const listItem = await ctx.db.mutation.updateListItem({
+			where: { id: args.id },
+			data: {
+				inCart: !item.inCart
+			}
+		});
+		return listItem;
+	},
+	async removeListItem(parent, args, ctx, info) {
+		if (!ctx.request.userId) {
+			throw new Error('You must log in first');
+		}
+		return ctx.db.mutation.deleteListItem({ where: { id: args.id } }, info);
+	},
+
 };
 
 module.exports = Mutations;

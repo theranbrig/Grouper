@@ -9,11 +9,10 @@ const FormStyles = styled.div`
 		letter-spacing: 0.1rem;
 		color: ${props => props.theme.orange};
 		padding: 40px 0;
-		font-family: 'Lobster', cursive;
+		font-family: 'Lobster Two', cursive;
 		font-size: 4rem;
 	}
 	label {
-		font-size: 1.4rem !important;
 		letter-spacing: 0.1rem;
 		margin: 20px 0 !important;
 	}
@@ -22,7 +21,7 @@ const FormStyles = styled.div`
 		font-size: 2rem !important;
 		margin: 15px 10% 30px !important;
 		width: 80%;
-		font-family: 'Lobster', sans-serif !important;
+		font-family: 'Lobster Two', sans-serif !important;
 		text-align: center;
 		padding: 10px 0;
 	}
