@@ -7,7 +7,7 @@ import AddList from './AddList';
 import User from './User';
 import Meta from './Meta';
 import Link from 'next/link';
-import ListsStyles from './styles/ListsStyles'
+import ListsStyles from './styles/ListsStyles';
 
 const LISTS_QUERY = gql`
 	query LISTS_QUERY {
@@ -19,11 +19,12 @@ const LISTS_QUERY = gql`
 				id
 				username
 			}
+			items {
+				id
+			}
 		}
 	}
 `;
-
-
 
 class Lists extends Component {
 	render() {
@@ -34,7 +35,6 @@ class Lists extends Component {
 						<ListsStyles>
 							<Query query={LISTS_QUERY}>
 								{({ data, loading, error }) => {
-									console.log(data);
 									if (error) return <p>Error...</p>;
 									return (
 										<Grid container centered>
@@ -46,6 +46,9 @@ class Lists extends Component {
 															<List.Item>
 																<Segment inverted textAlign="left">
 																	<List.Content floated="right">
+																		<Icon name="check" />
+																		{list.items.length}
+																		<br />
 																		<Icon name="user outline" />
 																		{list.users.length}
 																	</List.Content>

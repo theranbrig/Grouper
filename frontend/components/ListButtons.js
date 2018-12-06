@@ -13,17 +13,25 @@ const TOGGLE_LIST_ITEM_MUTATION = gql`
 	}
 `;
 
+const DELETE_ITEM_MUTATION = gql`
+	mutation DELETE_ITEM_MUTATION($id: String!) {
+		removeListItem(id: $id) {
+			id
+		}
+	}
+`;
+
 class ListButtons extends Component {
 	render() {
 		return (
-			<Mutation
-				mutation={TOGGLE_LIST_ITEM_MUTATION}
-				variables={{ id: this.props.id }}
-				refetchQueries={[{ query: INDIVIDUAL_LIST_QUERY, variables: { id: this.props.id } }]}>
-				{(toggleInCart, { loading, error }) => {
-					if (error) return <p>Error...</p>;
-					return (
-						<div>
+			<div>
+				<Mutation
+					mutation={TOGGLE_LIST_ITEM_MUTATION}
+					variables={{ id: this.props.id }}
+					refetchQueries={[{ query: INDIVIDUAL_LIST_QUERY, variables: { id: this.props.id } }]}>
+					{(toggleInCart, { loading, error }) => {
+						if (error) return <p>Error...</p>;
+						return (
 							<List.Content floated="left">
 								<Button
 									inverted
@@ -35,13 +43,31 @@ class ListButtons extends Component {
 									}}
 								/>
 							</List.Content>
+						);
+					}}
+				</Mutation>
+				<Mutation
+					mutation={DELETE_ITEM_MUTATION}
+					variables={{ id: this.props.id }}
+					refetchQueries={[{ query: INDIVIDUAL_LIST_QUERY, variables: { id: this.props.id } }]}>
+					{(removeListItem, { loading, error }) => {
+						if (error) return <p>Error...</p>;
+						return (
 							<List.Content floated="right">
-								<Button inverted icon="close" />
+								<Button
+									inverted
+									icon="close"
+									diabled={loading}
+									onClick={async e => {
+										e.preventDefault();
+										removeListItem();
+									}}
+								/>
 							</List.Content>
-						</div>
-					);
-				}}
-			</Mutation>
+						);
+					}}
+				</Mutation>
+			</div>
 		);
 	}
 }

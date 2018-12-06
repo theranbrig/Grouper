@@ -115,6 +115,29 @@ const Mutations = {
 			data: { items: { connect: { id: listItem.id } } }
 		});
 		return list;
+	},
+	async toggleInCart(parent, args, ctx, info) {
+		if (!ctx.request.userId) {
+			throw new Error('You must log in first');
+		}
+		// Get list item
+		const item = await ctx.db.query.listItem({
+			where: { id: args.id }
+		});
+		// Toggle if in cart
+		const listItem = await ctx.db.mutation.updateListItem({
+			where: { id: args.id },
+			data: {
+				inCart: !item.inCart
+			}
+		});
+		return listItem;
+	},
+	async removeListItem(parent, args, ctx, info) {
+		if (!ctx.request.userId) {
+			throw new Error('You must log in first');
+		}
+		return ctx.db.mutation.deleteListItem({ where: { id: args.id } }, info);
 	}
 };
 

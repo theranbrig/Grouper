@@ -32,6 +32,7 @@ const ListsStyles = styled.div`
 	i {
 		width: 20px;
 		padding-right: 10px;
+		margin-bottom: 10px;
 	}
 `;
 

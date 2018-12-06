@@ -20,7 +20,7 @@ const ADD_ITEM_MUTATION = gql`
 class AddListItem extends Component {
 	state = {
 		name: '',
-		price: null
+		price: undefined
 	};
 
 	saveToState = e => {
@@ -67,6 +67,8 @@ class AddListItem extends Component {
 										value={this.state.price}
 										onChange={this.saveToState}
 										placeholder="Optional"
+										icon="dollar"
+										iconPosition="left"
 									/>
 									<Button inverted icon="add" className="add-item-button" />
 								</Form.Group>

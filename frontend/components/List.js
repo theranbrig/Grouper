@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import IndividualListStyles from './styles/IndividualListStyles';
 import { Grid, List, Segment, Icon, Button } from 'semantic-ui-react';
 import gql from 'graphql-tag';
-import { Query, Mutation } from 'react-apollo';
+import { Query, Subscription } from 'react-apollo';
 import AddUser from './AddUser';
 import AddListItem from './AddListItem';
 import UserList from './UserList';
@@ -29,20 +29,33 @@ const INDIVIDUAL_LIST_QUERY = gql`
 	}
 `;
 
+const LIST_ITEMS_SUBSCRIPTION = gql`
+	subscription {
+		listItems {
+			node {
+				id
+				name
+				price
+				inCart
+			}
+		}
+	}
+`;
+
 class IndividualList extends Component {
 	render() {
 		return (
-			<Query query={INDIVIDUAL_LIST_QUERY} variables={{ id: this.props.id }}>
-				{({ data, loading, error }) => {
+			<Query query={INDIVIDUAL_LIST_QUERY} variables={{ id: this.props.id }} pollInterval={5000}>
+				{({ data, loading, error, subscribeToMore }) => {
 					if (loading) return <p>Loading...</p>;
-					console.log(data);
+					const items = data.list.items;
 					return (
 						<IndividualListStyles>
 							<Grid container centered>
 								<Grid.Column mobile={16} tablet={16} computer={12} textAlign="center">
 									<h1>{data.list.name}</h1>
 									<List inverted relaxed>
-										{data.list.items.map(item => (
+										{items.map(item => (
 											<List.Item key={item.id}>
 												<Segment inverted className={item.inCart ? `in-cart` : `out-cart`}>
 													<ListButtons inCart={item.inCart} id={item.id} />
