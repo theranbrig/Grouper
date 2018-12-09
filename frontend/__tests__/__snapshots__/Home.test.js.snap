@@ -1,0 +1,559 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavBar should render the Navbar 1`] = `
+Array [
+  <NavStyles
+    className="navigation-bar"
+  >
+    <ul
+      className="navigation-bar NavStyles-wwrd64-0 jWneNs"
+    >
+      <Link
+        href="/"
+      >
+        <a
+          href="/"
+          onClick={[Function]}
+        >
+          Home
+        </a>
+      </Link>
+      <Link
+        href="/join"
+      >
+        <a
+          href="/join"
+          onClick={[Function]}
+        >
+          Join
+        </a>
+      </Link>
+      <Link
+        href="/login"
+      >
+        <a
+          href="/login"
+          onClick={[Function]}
+        >
+          Login
+        </a>
+      </Link>
+    </ul>
+  </NavStyles>,
+  <ul
+    className="navigation-bar NavStyles-wwrd64-0 jWneNs"
+  >
+    <Link
+      href="/"
+    >
+      <a
+        href="/"
+        onClick={[Function]}
+      >
+        Home
+      </a>
+    </Link>
+    <Link
+      href="/join"
+    >
+      <a
+        href="/join"
+        onClick={[Function]}
+      >
+        Join
+      </a>
+    </Link>
+    <Link
+      href="/login"
+    >
+      <a
+        href="/login"
+        onClick={[Function]}
+      >
+        Login
+      </a>
+    </Link>
+  </ul>,
+]
+`;
+
+exports[`NavBar should render the Navbar 2`] = `
+Array [
+  <NavStyles
+    className="navigation-bar"
+  >
+    <ul
+      className="navigation-bar NavStyles-wwrd64-0 jWneNs"
+    >
+      <Link
+        href="/"
+      >
+        <a
+          href="/"
+          onClick={[Function]}
+        >
+          Home
+        </a>
+      </Link>
+      <Link
+        href="/lists"
+      >
+        <a
+          href="/lists"
+          onClick={[Function]}
+        >
+          Lists
+        </a>
+      </Link>
+      <Dropdown
+        additionLabel="Add "
+        additionPosition="top"
+        closeOnBlur={true}
+        deburr={false}
+        icon="dropdown"
+        item={true}
+        minCharacters={1}
+        noResultsMessage="No results found."
+        openOnFocus={true}
+        renderLabel={[Function]}
+        searchInput="text"
+        selectOnBlur={true}
+        selectOnNavigation={true}
+        text="Miss Coleman Berge"
+        wrapSelection={true}
+      >
+        <div
+          aria-expanded={false}
+          className="ui item dropdown"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseDown={[Function]}
+          role="listbox"
+          tabIndex={0}
+        >
+          <div
+            aria-live="polite"
+            className="text"
+            role="alert"
+          >
+            Miss Coleman Berge
+          </div>
+          <Icon
+            as="i"
+            className=""
+            name="dropdown"
+            onClick={[Function]}
+          >
+            <i
+              aria-hidden="true"
+              className="dropdown icon"
+              onClick={[Function]}
+            />
+          </Icon>
+          <DropdownMenu
+            className=""
+          >
+            <div
+              className="menu transition"
+            >
+              <DropdownItem>
+                <div
+                  className="item"
+                  onClick={[Function]}
+                  role="option"
+                >
+                  <DeleteButton>
+                    <Mutation
+                      mutation={
+                        Object {
+                          "definitions": Array [
+                            Object {
+                              "directives": Array [],
+                              "kind": "OperationDefinition",
+                              "name": Object {
+                                "kind": "Name",
+                                "value": "LOGOUT_USER_MUTATION",
+                              },
+                              "operation": "mutation",
+                              "selectionSet": Object {
+                                "kind": "SelectionSet",
+                                "selections": Array [
+                                  Object {
+                                    "alias": undefined,
+                                    "arguments": Array [],
+                                    "directives": Array [],
+                                    "kind": "Field",
+                                    "name": Object {
+                                      "kind": "Name",
+                                      "value": "signout",
+                                    },
+                                    "selectionSet": Object {
+                                      "kind": "SelectionSet",
+                                      "selections": Array [
+                                        Object {
+                                          "alias": undefined,
+                                          "arguments": Array [],
+                                          "directives": Array [],
+                                          "kind": "Field",
+                                          "name": Object {
+                                            "kind": "Name",
+                                            "value": "message",
+                                          },
+                                          "selectionSet": undefined,
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                              "variableDefinitions": Array [],
+                            },
+                          ],
+                          "kind": "Document",
+                          "loc": Object {
+                            "end": 64,
+                            "start": 0,
+                          },
+                        }
+                      }
+                      refetchQueries={
+                        Array [
+                          Object {
+                            "query": Object {
+                              "definitions": Array [
+                                Object {
+                                  "directives": Array [],
+                                  "kind": "OperationDefinition",
+                                  "name": undefined,
+                                  "operation": "query",
+                                  "selectionSet": Object {
+                                    "kind": "SelectionSet",
+                                    "selections": Array [
+                                      Object {
+                                        "alias": undefined,
+                                        "arguments": Array [],
+                                        "directives": Array [],
+                                        "kind": "Field",
+                                        "name": Object {
+                                          "kind": "Name",
+                                          "value": "me",
+                                        },
+                                        "selectionSet": Object {
+                                          "kind": "SelectionSet",
+                                          "selections": Array [
+                                            Object {
+                                              "alias": undefined,
+                                              "arguments": Array [],
+                                              "directives": Array [],
+                                              "kind": "Field",
+                                              "name": Object {
+                                                "kind": "Name",
+                                                "value": "id",
+                                              },
+                                              "selectionSet": undefined,
+                                            },
+                                            Object {
+                                              "alias": undefined,
+                                              "arguments": Array [],
+                                              "directives": Array [],
+                                              "kind": "Field",
+                                              "name": Object {
+                                                "kind": "Name",
+                                                "value": "email",
+                                              },
+                                              "selectionSet": undefined,
+                                            },
+                                            Object {
+                                              "alias": undefined,
+                                              "arguments": Array [],
+                                              "directives": Array [],
+                                              "kind": "Field",
+                                              "name": Object {
+                                                "kind": "Name",
+                                                "value": "username",
+                                              },
+                                              "selectionSet": undefined,
+                                            },
+                                          ],
+                                        },
+                                      },
+                                    ],
+                                  },
+                                  "variableDefinitions": Array [],
+                                },
+                              ],
+                              "kind": "Document",
+                              "loc": Object {
+                                "end": 51,
+                                "start": 0,
+                              },
+                            },
+                          },
+                        ]
+                      }
+                    >
+                      <Button
+                        as="button"
+                        basic={true}
+                        color="orange"
+                        onClick={[Function]}
+                        role="button"
+                      >
+                        <button
+                          className="ui orange basic button"
+                          onClick={[Function]}
+                          role="button"
+                        >
+                          Logout
+                        </button>
+                      </Button>
+                    </Mutation>
+                  </DeleteButton>
+                </div>
+              </DropdownItem>
+            </div>
+          </DropdownMenu>
+        </div>
+      </Dropdown>
+    </ul>
+  </NavStyles>,
+  <ul
+    className="navigation-bar NavStyles-wwrd64-0 jWneNs"
+  >
+    <Link
+      href="/"
+    >
+      <a
+        href="/"
+        onClick={[Function]}
+      >
+        Home
+      </a>
+    </Link>
+    <Link
+      href="/lists"
+    >
+      <a
+        href="/lists"
+        onClick={[Function]}
+      >
+        Lists
+      </a>
+    </Link>
+    <Dropdown
+      additionLabel="Add "
+      additionPosition="top"
+      closeOnBlur={true}
+      deburr={false}
+      icon="dropdown"
+      item={true}
+      minCharacters={1}
+      noResultsMessage="No results found."
+      openOnFocus={true}
+      renderLabel={[Function]}
+      searchInput="text"
+      selectOnBlur={true}
+      selectOnNavigation={true}
+      text="Miss Coleman Berge"
+      wrapSelection={true}
+    >
+      <div
+        aria-expanded={false}
+        className="ui item dropdown"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseDown={[Function]}
+        role="listbox"
+        tabIndex={0}
+      >
+        <div
+          aria-live="polite"
+          className="text"
+          role="alert"
+        >
+          Miss Coleman Berge
+        </div>
+        <Icon
+          as="i"
+          className=""
+          name="dropdown"
+          onClick={[Function]}
+        >
+          <i
+            aria-hidden="true"
+            className="dropdown icon"
+            onClick={[Function]}
+          />
+        </Icon>
+        <DropdownMenu
+          className=""
+        >
+          <div
+            className="menu transition"
+          >
+            <DropdownItem>
+              <div
+                className="item"
+                onClick={[Function]}
+                role="option"
+              >
+                <DeleteButton>
+                  <Mutation
+                    mutation={
+                      Object {
+                        "definitions": Array [
+                          Object {
+                            "directives": Array [],
+                            "kind": "OperationDefinition",
+                            "name": Object {
+                              "kind": "Name",
+                              "value": "LOGOUT_USER_MUTATION",
+                            },
+                            "operation": "mutation",
+                            "selectionSet": Object {
+                              "kind": "SelectionSet",
+                              "selections": Array [
+                                Object {
+                                  "alias": undefined,
+                                  "arguments": Array [],
+                                  "directives": Array [],
+                                  "kind": "Field",
+                                  "name": Object {
+                                    "kind": "Name",
+                                    "value": "signout",
+                                  },
+                                  "selectionSet": Object {
+                                    "kind": "SelectionSet",
+                                    "selections": Array [
+                                      Object {
+                                        "alias": undefined,
+                                        "arguments": Array [],
+                                        "directives": Array [],
+                                        "kind": "Field",
+                                        "name": Object {
+                                          "kind": "Name",
+                                          "value": "message",
+                                        },
+                                        "selectionSet": undefined,
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                            "variableDefinitions": Array [],
+                          },
+                        ],
+                        "kind": "Document",
+                        "loc": Object {
+                          "end": 64,
+                          "start": 0,
+                        },
+                      }
+                    }
+                    refetchQueries={
+                      Array [
+                        Object {
+                          "query": Object {
+                            "definitions": Array [
+                              Object {
+                                "directives": Array [],
+                                "kind": "OperationDefinition",
+                                "name": undefined,
+                                "operation": "query",
+                                "selectionSet": Object {
+                                  "kind": "SelectionSet",
+                                  "selections": Array [
+                                    Object {
+                                      "alias": undefined,
+                                      "arguments": Array [],
+                                      "directives": Array [],
+                                      "kind": "Field",
+                                      "name": Object {
+                                        "kind": "Name",
+                                        "value": "me",
+                                      },
+                                      "selectionSet": Object {
+                                        "kind": "SelectionSet",
+                                        "selections": Array [
+                                          Object {
+                                            "alias": undefined,
+                                            "arguments": Array [],
+                                            "directives": Array [],
+                                            "kind": "Field",
+                                            "name": Object {
+                                              "kind": "Name",
+                                              "value": "id",
+                                            },
+                                            "selectionSet": undefined,
+                                          },
+                                          Object {
+                                            "alias": undefined,
+                                            "arguments": Array [],
+                                            "directives": Array [],
+                                            "kind": "Field",
+                                            "name": Object {
+                                              "kind": "Name",
+                                              "value": "email",
+                                            },
+                                            "selectionSet": undefined,
+                                          },
+                                          Object {
+                                            "alias": undefined,
+                                            "arguments": Array [],
+                                            "directives": Array [],
+                                            "kind": "Field",
+                                            "name": Object {
+                                              "kind": "Name",
+                                              "value": "username",
+                                            },
+                                            "selectionSet": undefined,
+                                          },
+                                        ],
+                                      },
+                                    },
+                                  ],
+                                },
+                                "variableDefinitions": Array [],
+                              },
+                            ],
+                            "kind": "Document",
+                            "loc": Object {
+                              "end": 51,
+                              "start": 0,
+                            },
+                          },
+                        },
+                      ]
+                    }
+                  >
+                    <Button
+                      as="button"
+                      basic={true}
+                      color="orange"
+                      onClick={[Function]}
+                      role="button"
+                    >
+                      <button
+                        className="ui orange basic button"
+                        onClick={[Function]}
+                        role="button"
+                      >
+                        Logout
+                      </button>
+                    </Button>
+                  </Mutation>
+                </DeleteButton>
+              </div>
+            </DropdownItem>
+          </div>
+        </DropdownMenu>
+      </div>
+    </Dropdown>
+  </ul>,
+]
+`;

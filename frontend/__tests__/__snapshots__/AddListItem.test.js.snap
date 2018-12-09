@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddList/> renders and matches the snap shot 1`] = `null`;
+
+exports[`<AddList/> renders and matches the snap shot 2`] = `
+<Button
+  as="button"
+  className="add-item-button"
+  icon="add"
+  inverted={true}
+  role="button"
+>
+  <button
+    className="ui icon inverted button add-item-button"
+    onClick={[Function]}
+    role="button"
+  >
+    <Icon
+      as="i"
+      name="add"
+    >
+      <i
+        aria-hidden="true"
+        className="add icon"
+      />
+    </Icon>
+  </button>
+</Button>
+`;

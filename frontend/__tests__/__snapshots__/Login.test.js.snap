@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Login/> should render the login page 1`] = `
+<h1>
+  Sign In to Grouper
+</h1>
+`;
+
+exports[`<Login/> should render the login page 2`] = `
+<a>
+  Not yet a member?
+</a>
+`;

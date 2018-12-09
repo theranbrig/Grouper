@@ -2,7 +2,19 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: 'variables.env' });
 
+// Check if user is a member of list
+const checkUser = async (listId, ctx, args) => {
+	const list = await ctx.db.query.list({ where: { id: listId } }, `{id, users {id}}`);
+	if (!list.users.some(user => user.id === ctx.request.userId)) {
+		throw new Error('You do not have permission to do that');
+	}
+	return true;
+};
+
 const Mutations = {
+	//////////////////////////////////////////////////////////////////////
+	//         USER ACTIONS
+	//////////////////////////////////////////////////////////////////////
 	async signup(parent, args, ctx, info) {
 		args.email = args.email.toLowerCase();
 		// Set password hash and user info
@@ -48,6 +60,9 @@ const Mutations = {
 		ctx.response.clearCookie('token');
 		return { message: 'Goodbye!' };
 	},
+	//////////////////////////////////////////////////////////////////////
+	//         LIST ACTIONS
+	//////////////////////////////////////////////////////////////////////
 	async createList(parent, args, ctx, info) {
 		if (!ctx.request.userId) {
 			throw new Error('You must log in first');
@@ -64,14 +79,20 @@ const Mutations = {
 			info
 		);
 		return list;
-  },
-  async removeList(parent, args, ctx, info) {
-    if (!ctx.request.userId) {
-      throw new Error('You must log in first');
-    }
-    return ctx.db.mutation.deleteList({ where: { id: args.id } }, info);
+	},
+	async removeList(parent, args, ctx, info) {
+		if (!ctx.request.userId) {
+			throw new Error('You must log in first');
+		}
+		checkUser(args.id, ctx, args);
+		// Delete List
+		return ctx.db.mutation.deleteList({ where: { id: args.id } }, info);
 	},
 	async addUser(parent, args, ctx, info) {
+		if (!ctx.request.userId) {
+			throw new Error('You must log in first');
+		}
+		checkUser(args.id, ctx, args);
 		// Check if user exists
 		const user = await ctx.db.query.user({ where: { email: args.email } });
 		if (!user) throw new Error('User does not exist');
@@ -90,10 +111,16 @@ const Mutations = {
 		return list;
 	},
 	async removeUser(parent, args, ctx, info) {
+		if (!ctx.request.userId) {
+			throw new Error('You must log in first');
+		}
+		checkUser(args.id, ctx, args);
 		const user = await ctx.db.query.user({ where: { email: args.email } });
-    if (!user) throw new Error('User does not exist');
-    const userCheck = await ctx.db.query.list({where: {id: args.id}}, `{id, users {id}}`);
-    if (userCheck.users.length <= 1) throw new Error('Need at least one user in list.')
+		if (!user) throw new Error('User does not exist');
+		// Check list has at least one user in it
+		const checkForOneUser = await ctx.db.query.list({ where: { id: args.id } }, `{id, users {id}}`);
+		if (checkForOneUser.users.length <= 1) throw new Error('Need at least one user in list.');
+		// Update List
 		const list = await ctx.db.mutation.updateList(
 			{
 				where: { id: args.id },
@@ -104,25 +131,29 @@ const Mutations = {
 				}
 			},
 			info
-    );
+		);
 		return list;
 	},
+	//////////////////////////////////////////////////////////////////////
+	//         LIST ITEM ACTIONS
+	//////////////////////////////////////////////////////////////////////
 	async addItem(parent, args, ctx, info) {
 		if (!ctx.request.userId) {
 			throw new Error('You must log in first');
 		}
+		checkUser(args.list, ctx, args);
+		// Create list item and add to list
 		const listItem = await ctx.db.mutation.createListItem({
 			data: {
 				user: { connect: { id: ctx.request.userId } },
 				...args
 			}
 		});
-		console.log(listItem);
-		const list = await ctx.db.mutation.updateList({
+		const updatedList = await ctx.db.mutation.updateList({
 			where: { id: args.list },
 			data: { items: { connect: { id: listItem.id } } }
 		});
-		return list;
+		return updatedList;
 	},
 	async toggleInCart(parent, args, ctx, info) {
 		if (!ctx.request.userId) {
@@ -146,8 +177,7 @@ const Mutations = {
 			throw new Error('You must log in first');
 		}
 		return ctx.db.mutation.deleteListItem({ where: { id: args.id } }, info);
-	},
-
+	}
 };
 
 module.exports = Mutations;
