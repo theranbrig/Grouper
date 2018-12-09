@@ -1,12 +1,10 @@
 import { mount } from 'enzyme';
-import wait from 'waait';
 import toJSON from 'enzyme-to-json';
 import { MockedProvider } from 'react-apollo/test-utils';
-import { ApolloConsumer } from 'react-apollo';
-import { INDIVIDUAL_LIST_QUERY } from '../components/List';
-import AddListItem, { ADD_ITEM_MUTATION } from '../components/AddListItem';
+import wait from 'waait';
+import AddListItem from '../components/AddListItem';
 import { CURRENT_USER_QUERY } from '../components/User';
-import { fakeUser, fakeList } from '../lib/testUtils';
+import { fakeUser } from '../lib/testUtils';
 
 const mocks = [
 	{

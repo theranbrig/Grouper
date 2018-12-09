@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import FormStyles from './styles/FormStyles';
-import { Form, Button } from 'semantic-ui-react';
-import styled from 'styled-components';
-import AddItemStyles from './styles/AddItemStyles';
-import { Mutation } from 'react-apollo';
-import { INDIVIDUAL_LIST_QUERY } from './List';
 import gql from 'graphql-tag';
+import React, { Component } from 'react';
+import { Mutation } from 'react-apollo';
+import { Button, Form } from 'semantic-ui-react';
+import Error from './ErrorMessage';
+import { INDIVIDUAL_LIST_QUERY } from './List';
+import AddItemStyles from './styles/AddItemStyles';
 
 const ADD_ITEM_MUTATION = gql`
 	mutation ADD_ITEM_MUTATION($name: String!, $price: Int, $list: String!) {
@@ -34,7 +33,7 @@ class AddListItem extends Component {
 				variables={{ list: this.props.id, name: this.state.name, price: this.state.price }}
 				refetchQueries={[{ query: INDIVIDUAL_LIST_QUERY, variables: { id: this.props.id } }]}>
 				{(addItem, { loading, error }) => {
-					if (error) return <p>Error...</p>;
+					if (error) return <Error error={error} />;
 					return (
 						<AddItemStyles>
 							<Form

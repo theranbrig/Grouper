@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import { Mutation } from 'react-apollo';
-import FormStyles from './styles/FormStyles';
-import { Grid, Form, Button } from 'semantic-ui-react';
+import gql from 'graphql-tag';
+import Head from 'next/head';
 import Link from 'next/link';
 import Router from 'next/router';
-import gql from 'graphql-tag';
+import React, { Component } from 'react';
+import { Mutation } from 'react-apollo';
+import { Button, Form, Grid } from 'semantic-ui-react';
+import FormStyles from './styles/FormStyles';
 import { CURRENT_USER_QUERY } from './User';
 
 const LOGIN_USER_MUTATION = gql`
@@ -31,6 +32,9 @@ class Login extends Component {
 	render() {
 		return (
 			<FormStyles>
+				<Head>
+					<title>Grouper | Login</title>
+				</Head>
 				<Grid container textAlign="center">
 					<Grid.Column mobile={16} tablet={12} computer={8} textAlign="center">
 						<div>

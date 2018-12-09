@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Button, Form } from 'semantic-ui-react';
-import FormStyles from './styles/FormStyles';
 import gql from 'graphql-tag';
-import { Mutation, Query } from 'react-apollo';
+import React, { Component } from 'react';
+import { Mutation } from 'react-apollo';
+import { Button, Form } from 'semantic-ui-react';
 import { INDIVIDUAL_LIST_QUERY } from './List';
+import FormStyles from './styles/FormStyles';
 
 const ADD_USER_MUTATION = gql`
 	mutation ADD_USER_MUTATION($email: String!, $id: ID!) {

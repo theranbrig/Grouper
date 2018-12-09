@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { ThemeProvider, injectGlobal } from 'styled-components';
+import styled, { injectGlobal, ThemeProvider } from 'styled-components';
 import Header from '../components/Header';
 import Meta from '../components/Meta';
 
@@ -22,7 +22,6 @@ const Inner = styled.div`
 `;
 
 injectGlobal`
-
 	html {
 		box-sizing: border-box;
 	}

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { List, Button, icon } from 'semantic-ui-react';
 import gql from 'graphql-tag';
+import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
+import { Button, List } from 'semantic-ui-react';
 import { INDIVIDUAL_LIST_QUERY } from './List';
 
 const TOGGLE_LIST_ITEM_MUTATION = gql`

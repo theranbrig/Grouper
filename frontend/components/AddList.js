@@ -1,8 +1,9 @@
+import gql from 'graphql-tag';
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
-import { Form, Button, Select } from 'semantic-ui-react';
+import { Button, Form, Select } from 'semantic-ui-react';
 import { typeOptions } from '../lib/formData';
+import Error from './ErrorMessage';
 import { LISTS_QUERY } from './Lists';
 import FormStyles from './styles/FormStyles';
 
@@ -39,7 +40,7 @@ class AddList extends Component {
 					refetchQueries={[{ query: LISTS_QUERY }]}
 					variables={this.state}>
 					{(createList, { error, loading }) => {
-						if (error) <p>New error...</p>;
+						if (error) return <Error error={error} />;
 						return (
 							<FormStyles>
 								<Form

@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { Query, Mutation } from 'react-apollo';
-import { Grid, List, Segment, Icon, Button } from 'semantic-ui-react';
 import gql from 'graphql-tag';
-import AddList from './AddList';
-import User from './User';
-import Meta from './Meta';
+import Head from 'next/head';
 import Link from 'next/link';
-import ListsStyles from './styles/ListsStyles';
+import React, { Component } from 'react';
+import { Query } from 'react-apollo';
+import { Grid, Icon, List, Segment } from 'semantic-ui-react';
+import AddList from './AddList';
 import RemoveListButton from './RemoveListButton';
+import ListsStyles from './styles/ListsStyles';
+import User from './User';
 
 const LISTS_QUERY = gql`
 	query LISTS_QUERY {
@@ -34,6 +33,9 @@ class Lists extends Component {
 				{({ data: { me } }) => {
 					return (
 						<ListsStyles>
+							<Head>
+								<title>Grouper | {me.username} Lists</title>
+							</Head>
 							<Query query={LISTS_QUERY} pollInterval={10000}>
 								{({ data, loading, error }) => {
 									if (error) return <p>Error...</p>;

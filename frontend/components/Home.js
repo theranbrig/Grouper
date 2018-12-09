@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
 import Link from 'next/link';
-import { Grid, Image, Button, Icon } from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { Button, Grid, Icon, Image } from 'semantic-ui-react';
 import HomeStyles from './styles/HomeStyles';
 import User from './User';
 
