@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const AddItemStyles = styled.div`
 	padding-top: 50px;
-	button {
+	.add-item-button {
 		margin-top: 32px !important;
 		height: 40px;
 		width: 40px;

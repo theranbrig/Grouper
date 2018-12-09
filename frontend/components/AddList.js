@@ -77,7 +77,7 @@ class AddList extends Component {
 											searchInput={{ id: 'type' }}
 										/>
 									</Form.Group>
-									<Button inverted type="submit" size="medium">
+									<Button inverted type="submit" size="medium" className="add-item-button">
 										Add{loading ? 'ing' : ''} List
 									</Button>
 								</Form>
