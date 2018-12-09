@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import IndividualListStyles from './styles/IndividualListStyles';
-import { Grid, List, Segment, Icon, Button } from 'semantic-ui-react';
 import gql from 'graphql-tag';
-import { Query, Subscription } from 'react-apollo';
-import AddUser from './AddUser';
-import AddListItem from './AddListItem';
-import UserList from './UserList';
-import ListButtons from './ListButtons';
-import User from './User';
-import Login from './Login';
+import Head from 'next/head';
 import Link from 'next/link';
+import React, { Component } from 'react';
+import { Query } from 'react-apollo';
+import { Grid, List, Segment } from 'semantic-ui-react';
+import AddListItem from './AddListItem';
+import AddUser from './AddUser';
+import ListButtons from './ListButtons';
+import IndividualListStyles from './styles/IndividualListStyles';
+import User from './User';
+import UserList from './UserList';
 
 const INDIVIDUAL_LIST_QUERY = gql`
 	query INDIVIDUAL_LIST_QUERY($id: ID!) {
@@ -50,9 +50,15 @@ class IndividualList extends Component {
 								const userCheck = data.list.users.some(user => user.id === me.id);
 								return (
 									<IndividualListStyles>
+										<Head>
+											<title>Grouper | {data.list.name}</title>
+										</Head>
 										<Grid container centered>
 											{!userCheck ? (
 												<div>
+													<Head>
+														<title>Grouper | Oops</title>
+													</Head>
 													<h1>Halt! You can't go there.</h1>
 													<p>You are not authorized to view this list.</p>
 													<Link href="/lists">
@@ -113,3 +119,4 @@ class IndividualList extends Component {
 
 export default IndividualList;
 export { INDIVIDUAL_LIST_QUERY };
+

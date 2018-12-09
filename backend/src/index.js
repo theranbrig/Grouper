@@ -19,7 +19,7 @@ server.express.use((req, res, next) => {
 	next();
 });
 
-// Populate user on request
+// Populate user in request
 server.express.use((req, res, next) => {
 	if (!req.userId) return next();
 	const user = db.query.user({ where: { id: req.userId } }, '{id, permissions, email, username}');
@@ -27,6 +27,7 @@ server.express.use((req, res, next) => {
 	next();
 });
 
+// Start server
 server.start(
 	{
 		cors: {

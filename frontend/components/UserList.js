@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { List, Segment, Icon, Button } from 'semantic-ui-react';
 import gql from 'graphql-tag';
+import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
+import { Button, List, Segment } from 'semantic-ui-react';
 import { INDIVIDUAL_LIST_QUERY } from './List';
 
 const REMOVE_USER_MUTATION = gql`

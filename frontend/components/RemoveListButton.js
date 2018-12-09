@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { Button, Icon } from 'semantic-ui-react';
-import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import { LISTS_QUERY } from './Lists';
+import React, { Component } from 'react';
+import { Mutation } from 'react-apollo';
+import { Button } from 'semantic-ui-react';
 
 const REMOVE_LIST = gql`
 	mutation REMOVE_LIST($id: String!) {

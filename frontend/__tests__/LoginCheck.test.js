@@ -1,9 +1,8 @@
 import { mount } from 'enzyme';
+import { MockedProvider } from 'react-apollo/test-utils';
 import wait from 'waait';
-import toJSON from 'enzyme-to-json';
 import LoginCheck from '../components/LoginCheck';
 import { CURRENT_USER_QUERY } from '../components/User';
-import { MockedProvider } from 'react-apollo/test-utils';
 import { fakeUser } from '../lib/testUtils';
 
 const notSignedInMocks = [

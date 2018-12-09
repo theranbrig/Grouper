@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { Form, Grid, Button } from 'semantic-ui-react';
-import Link from 'next/link';
-import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import { CURRENT_USER_QUERY } from './User';
-import FormStyles from './styles/FormStyles';
+import Head from 'next/head';
+import Link from 'next/link';
+import React, { Component } from 'react';
+import { Mutation } from 'react-apollo';
+import { Button, Form, Grid } from 'semantic-ui-react';
 import Error from './ErrorMessage';
+import FormStyles from './styles/FormStyles';
+import { CURRENT_USER_QUERY } from './User';
 
 const SIGNUP_USER_MUTATION = gql`
 	mutation SIGNUP_USER_MUTATION($username: String!, $password: String!, $email: String!) {
@@ -37,6 +37,9 @@ class SignUp extends Component {
 	render() {
 		return (
 			<FormStyles>
+				<Head>
+					<title>Grouper | Sign Up</title>
+				</Head>
 				<Grid container textAlign="center">
 					<Grid.Column mobile={16} tablet={12} computer={8} textAlign="center">
 						<div>

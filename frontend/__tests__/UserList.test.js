@@ -1,9 +1,7 @@
-import { mount, shallow } from 'enzyme';
-import wait from 'waait';
+import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import UserList from '../components/UserList';
-import { MockedProvider } from 'react-apollo/test-utils';
-import { fakeUser, fakeItem } from '../lib/testUtils';
+import { fakeItem, fakeUser } from '../lib/testUtils';
 
 const listData = {
 	id: '01234567890',

@@ -1,8 +1,6 @@
-import { mount, shallow } from 'enzyme';
-import wait from 'waait';
+import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import Login from '../components/Signup';
-import { MockedProvider } from 'react-apollo/test-utils';
 
 describe('<Login/>', () => {
 	it('should render the login page', () => {
