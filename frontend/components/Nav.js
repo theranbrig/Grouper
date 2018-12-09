@@ -8,7 +8,7 @@ const Nav = () => (
 	<User>
 		{({ data: { me } }) => {
 			return (
-				<NavStyles>
+				<NavStyles className="navigation-bar">
 					<Link href="/">
 						<a>Home</a>
 					</Link>

@@ -43,7 +43,6 @@ class IndividualList extends Component {
 							variables={{ id: this.props.id }}
 							pollInterval={5000}>
 							{({ data, loading, error, subscribeToMore }) => {
-								console.log(me.id);
 								if (error) return <p>Error...</p>;
 								if (loading) return <p>Loading...</p>;
 								const items = data.list.items;
@@ -57,7 +56,7 @@ class IndividualList extends Component {
 													<h1>Halt! You can't go there.</h1>
 													<p>You are not authorized to view this list.</p>
 													<Link href="/lists">
-														<a>Back to Your Lists</a>
+														<a>Go Back to Your Lists</a>
 													</Link>
 												</div>
 											) : (
