@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddList/> renders and matches the snap shot 1`] = `
+<h2>
+  Add New List
+</h2>
+`;
