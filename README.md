@@ -1,18 +1,23 @@
 # Grouper
 
-Group shopping and lists made easy.  Check them off as you go and get real-time updates as you shop.
+Group shopping and lists made easy. Check them off as you go and get real-time updates as you shop.  Split up and let others get items.  Mark them off as you find them.
 
 ## About
 
 Frontend
-  * Next.js React - Server Side Rendered React
-  * Apollo Boost - Mutations / Queries / State Management
+
+- Next.js React - Server Side Rendered React
+- Apollo Boost - Mutations / Queries / State Management
 
 Backend
-  * GraphQL Yoga Server - Express Server
-  * Prisma DB - PostgreSQL Relational Database
 
-This project is developed from a boilerplate that I adapted for React and GraphQL.  It can be found [HERE](https://github.com/theranbrig/React-GraphQL-Fullstack-Boilerplate)
+- GraphQL Yoga Server - Express Server
+- Prisma DB - PostgreSQL Relational Database
+
+This project is developed from a boilerplate that I adapted for React and GraphQL. It can be found [HERE](https://github.com/theranbrig/React-GraphQL-Fullstack-Boilerplate).  This was built to utilize Next.js with React on the frontend.  The API uses GraphQL with Apollo Client to connect to a Prisma database that is built using PostgreSQL.  A testing suite was built using Jest and Enzyme to make sure that everything is up and running properly.  This was a quick five day build meant to act as a coding challenge interview, so it is not mean to be perfect, but rather show off my ability to build a complete project in a short amount of time.  The app is deployed using Heroku.
+
+[Deployed Application](https://grouper-frontend.herokuapp.com)
+* **Note** - Since both the frontend and backend are deployed on Heroku there is an issue with iOS devices where the CORS does not work unless you change your settings.  On iOS you must change the Prevent Cross-Site Tracking setting to off.  This issue is noted, and will be fixed in the future.
 
 ## Installation
 
@@ -24,7 +29,7 @@ Download and install dependencies.
 
 ```sh
 git clone git@github.com:theranbrig/grown # or clone your own fork
-cd grown
+cd grouper
 <!-- Be sure to install dependencies in both frontend and backend folders -->
 cd frontend
 npm install
@@ -34,7 +39,7 @@ npm install
 
 ### Prisma Setup
 
-Make sure that you connect your app to a database first. This one is connected to a Prisma test database, but you can connect it to your own SQL database by following the directions at [Prisma](https://prisma.io).  Below is a guide to set up your own Prisma Database.
+Make sure that you connect your app to a database first. This one is connected to a Prisma test database, but you can connect it to your own SQL database by following the directions at [Prisma](https://prisma.io). Below is a guide to set up your own Prisma Database.
 
 ### Backend
 
@@ -62,9 +67,9 @@ Next you need to initialize the database by using.
 prisma init
 ```
 
-Follow the prompts as they are given. I recommend using the `Demo Server` to test, but you may use any other DB that you want.  Follow through with the rest of the steps by naming it and giving it the stage `dev`.  You may also get a prompt asking for the Programming Language.  For that you may set it to `Don't Generate`.
+Follow the prompts as they are given. I recommend using the `Demo Server` to test, but you may use any other DB that you want. Follow through with the rest of the steps by naming it and giving it the stage `dev`. You may also get a prompt asking for the Programming Language. For that you may set it to `Don't Generate`.
 
-Your Prisma server should be set up.  You now need to change the files a bit to work with our project.
+Your Prisma server should be set up. You now need to change the files a bit to work with our project.
 
 **Optional** - You may also delete the `datamodel.prisma` file that was created, as our data model will be built using the `datamodel.graphql`.
 
@@ -77,12 +82,13 @@ touch `variables.env`
 
 ```
 
-Fill in the `variables.env` file with your own information.  The `PRISMA_ENDPOINT` is found in the `prisma.yml` file.
+Fill in the `variables.env` file with your own information. The `PRISMA_ENDPOINT` is found in the `prisma.yml` file.
 
 ```env
 FRONTEND_URL="http://localhost:7777"
 PRISMA_ENDPOINT="YOUR PRISMA ENDPOINT HERE FROM PRISMA.YML FILE THAT WAS CREATED"
 PRISMA_SECRET="MAKEUPYOUROWNSECRET"
+APP_SECRET="MAKEUAUPANOTHERSECRET"
 PORT=4444
 STRIPE_SECRET="PRIVATEKEYNEEDEDFORDEPLOY"
 ```
@@ -120,7 +126,7 @@ Your backend should now be running on [localhost:4444](http://localhost:4444/).
 
 ### Frontend
 
-Make sure your dependencies are installed in the `frontend` folder.  You may then use:
+Make sure your dependencies are installed in the `frontend` folder. You may then use:
 
 ```sh
 npm run dev
@@ -130,4 +136,26 @@ Your app should now be visible on [localhost:7777](http://localhost:7777/).
 
 Make sure you are running both the `frontend` and `backend` folders.
 
-**Adapted from Wes Bos Advanced React Course**
+## Built With
+
+- [Node](https://github.com/nodejs/node)
+- [React](https://reactjs.org)
+- [GraphQL](https://graphql.org/)
+- [Prisma](https://prisma.io)
+- [Apollo](https://www.apollographql.com/client)
+- [Semantic UI](https://github.com/Semantic-Org/Semantic-UI-React)
+- [Jest](https://github.com/facebook/jest/)
+- [Heroku](https://github.com/heroku)
+
+## Author
+
+## Author
+
+Theran Brigowatz is a Full-stack Web Developer currently out of Seoul, South Korea, but transitioning back to the US. Check him out at the following:
+
+- [theran.co](https://www.theran.co)
+- theran.brigowatz@gmail.com
+- [twitter.com/wellBuilt](https://www.twitter.com/wellBuilt)
+- [github.com/theranbrig](https://www.github.com/theranbrig)
+
+> Made with :heart: and :coffee:.
