@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import { Button, Form, Grid, Icon, Message } from 'semantic-ui-react';
 import AddItemStyles from './styles/AddItemStyles';
+import Head from 'next/head';
 
 const ITEM_QUERY = gql`
 	query ITEM_QUERY($id: ID!) {
@@ -47,7 +48,6 @@ class EditItem extends Component {
 		this.setState({ completed: true });
 	};
 
-
 	render() {
 		return (
 			<Query query={ITEM_QUERY} variables={{ id: this.props.id }}>
@@ -55,6 +55,9 @@ class EditItem extends Component {
 					if (error) return <p>Error...</p>;
 					return (
 						<AddItemStyles>
+							<Head>
+								<title>Grouper | Edit {data.listItem.name}</title>
+							</Head>
 							<Grid container textAlign="center">
 								<Grid.Column>
 									<h1>Edit {data.listItem.name}</h1>
