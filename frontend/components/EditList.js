@@ -7,6 +7,7 @@ import { typeOptions } from '../lib/formData';
 import Error from './ErrorMessage';
 import { INDIVIDUAL_LIST_QUERY } from './List';
 import FormStyles from './styles/FormStyles';
+import Head from 'next/head';
 
 const EDIT_LIST_MUTATION = gql`
 	mutation EDIT_LIST_MUTATION($id: ID!, $name: String, $type: String) {
@@ -46,10 +47,12 @@ class EditList extends Component {
 		return (
 			<Query query={INDIVIDUAL_LIST_QUERY} variables={{ id: this.props.id }}>
 				{({ data, loading, error }) => {
-					console.log(data);
 					if (error) return <p>Error...</p>;
 					return (
 						<FormStyles>
+							<Head>
+								<title>Grouper | Edit {data.list.name}</title>
+							</Head>
 							<Grid container textAlign="center">
 								<Grid.Column>
 									<h1>
