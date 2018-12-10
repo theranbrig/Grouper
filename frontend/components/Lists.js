@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
-import { Grid, Icon, List, Segment } from 'semantic-ui-react';
+import { Grid, Icon, List, Segment, Button } from 'semantic-ui-react';
 import AddList from './AddList';
 import RemoveListButton from './RemoveListButton';
 import ListsStyles from './styles/ListsStyles';
@@ -55,20 +55,35 @@ class Lists extends Component {
 																href={{ pathname: 'list', query: { id: list.id } }}
 																key={list.id}>
 																<List.Item>
-																	<Segment inverted textAlign="left">
-																		<List.Content floated="right">
-																			<RemoveListButton id={list.id} />
-																		</List.Content>
-																		<List.Content floated="right">
+																	<Segment.Group horizontal>
+																		<Segment inverted textAlign="left">
+																			<List.Header>{list.name}</List.Header>
+																			<List.Description>{list.type}</List.Description>
 																			<Icon name="check" />
 																			{list.items.length}
-																			<br />
-																			<Icon name="user outline" />
+																			<span> </span>
+																			<Icon name="user outline" className="user-icon"/>
 																			{list.users.length}
-																		</List.Content>
-																		<List.Header>{list.name}</List.Header>
-																		<List.Description>{list.type}</List.Description>
-																	</Segment>
+																		</Segment>
+																		<Segment inverted>
+																			<List.Content floated="right">
+																				<Link
+																					href={{ pathname: 'editlist', query: { id: list.id } }}>
+																					<Button
+																						className="edit-button"
+																						inverted
+																						icon="edit"
+																						disabled={loading}
+																					/>
+																				</Link>
+																				<br />
+																				<RemoveListButton id={list.id} />
+																			</List.Content>
+																			<List.Content floated="right">
+																				<br />
+																			</List.Content>
+																		</Segment>
+																	</Segment.Group>
 																</List.Item>
 															</Link>
 														))}

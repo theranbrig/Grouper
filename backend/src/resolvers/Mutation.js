@@ -80,6 +80,26 @@ const Mutations = {
 		);
 		return list;
 	},
+	async editList(parent, args, ctx, info) {
+		if (!ctx.request.userId) {
+			throw new Error('You must be logged in to do that!');
+		}
+    checkUser(args.id, ctx, args)
+		// Create Updates
+		const updates = { ...args };
+		console.log(updates);
+		// Remove new ID to save old ID over it
+		delete updates.id;
+		return ctx.db.mutation.updateList(
+			{
+				data: updates,
+				where: {
+					id: args.id
+				}
+			},
+			info
+		);
+	},
 	async removeList(parent, args, ctx, info) {
 		if (!ctx.request.userId) {
 			throw new Error('You must log in first');
@@ -171,6 +191,26 @@ const Mutations = {
 			}
 		});
 		return listItem;
+	},
+	async editListItem(parent, args, ctx, info) {
+		if (!ctx.request.userId) {
+			throw new Error('You must be logged in to do that!');
+		}
+
+		// Create Updates
+		const updates = { ...args };
+		console.log(updates);
+		// Remove new ID to save old ID over it
+		delete updates.id;
+		return ctx.db.mutation.updateListItem(
+			{
+				data: updates,
+				where: {
+					id: args.id
+				}
+			},
+			info
+		);
 	},
 	async removeListItem(parent, args, ctx, info) {
 		if (!ctx.request.userId) {

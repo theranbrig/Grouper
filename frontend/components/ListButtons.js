@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { Button, List } from 'semantic-ui-react';
 import { INDIVIDUAL_LIST_QUERY } from './List';
+import Link from 'next/link';
 
 const TOGGLE_LIST_ITEM_MUTATION = gql`
 	mutation TOGGLE_LIST_ITEM_MUTATION($id: String!) {
@@ -53,17 +54,26 @@ class ListButtons extends Component {
 					{(removeListItem, { loading, error }) => {
 						if (error) return <p>Error...</p>;
 						return (
-							<List.Content floated="right">
-								<Button
-									inverted
-									icon="close"
-									disabled={loading}
-									onClick={async e => {
-										e.preventDefault();
-										removeListItem();
-									}}
-								/>
-							</List.Content>
+							<>
+								<List.Content floated="right">
+									<Button
+										inverted
+										icon="close"
+										disabled={loading}
+										onClick={async e => {
+											e.preventDefault();
+											removeListItem();
+										}}
+									/>
+								</List.Content>
+								<List.Content floated="right">
+									<Link
+										floated="right"
+										href={{ pathname: 'edititem', query: { id: this.props.id } }}>
+										<Button inverted icon="edit" disabled={loading} />
+									</Link>
+								</List.Content>
+							</>
 						);
 					}}
 				</Mutation>

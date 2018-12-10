@@ -54,9 +54,10 @@ class AddListItem extends Component {
 										type="text"
 										name="name"
 										label="Item"
-										value={this.state.name}
+                    value={this.state.name}
+                    maxLength="50"
 										onChange={this.saveToState}
-										placeholder="Enter Item Name"
+										placeholder="Enter Item Name - 50 Character Max"
 									/>
 									<Form.Input
 										width={3}
@@ -65,7 +66,7 @@ class AddListItem extends Component {
 										label="Maximum Price"
 										value={this.state.price}
 										onChange={this.saveToState}
-										placeholder="Optional"
+										placeholder="Optional - Enter Whole Dollar Amounts"
 										icon="dollar"
 										iconPosition="left"
 									/>

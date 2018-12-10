@@ -4,6 +4,7 @@ const ListsStyles = styled.div`
 	color: ${props => props.theme.offWhite};
 	margin-top: 10px;
 	font-family: 'Roboto', sans-serif;
+	min-height: 95vh;
 	h1,
 	h2 {
 		font-family: 'Lobster Two', cursive;
@@ -18,13 +19,18 @@ const ListsStyles = styled.div`
 	}
 	.header {
 		font-size: 1.5rem !important;
+		line-height: 2rem !important;
 	}
 	.description {
 		font-size: 1.2rem !important;
-		padding-top: 10px;
+		line-height: 1.75rem !important;
+		padding: 10px 0 !important;
 	}
 	.ui.inverted.segment {
 		background: ${props => props.theme.darkBlue};
+	}
+	.ui.horizontal.segments {
+		border: none;
 	}
 	.ui.list {
 		padding-bottom: 50px;
@@ -34,11 +40,20 @@ const ListsStyles = styled.div`
 		padding-right: 10px;
 		margin-bottom: 10px;
 	}
-	.delete-button {
+	.delete-button,
+	.edit-button {
 		margin-top: 3px !important;
 		color: ${props => props.theme.orange} !important;
 		width: 33px;
+    margin-top: 7px !important;
 	}
+	.ui.segment {
+		border: none !important;
+	}
+  .user-icon {
+    margin-left: 15px;
+  }
+  
 `;
 
 export default ListsStyles;

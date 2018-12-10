@@ -9,10 +9,12 @@ type Mutation {
 	signin(email: String!, password: String!): User!
 	signout: SuccessMessage
 	createList(name: String!, type: String!): List!
+	editList(id: ID!, name: String, type: String): List!
 	removeList(id: String!): List
 	addUser(email: String!, id: ID!): User!
 	removeUser(email: String!, id: ID!): List
 	addItem(name: String!, price: Int, list: String!): ListItem!
+	editListItem(id: ID!, name: String, price: Int): ListItem
 	removeListItem(id: String!): ListItem
 	toggleInCart(id: String!): ListItem
 }
@@ -21,6 +23,7 @@ type Query {
 	me: User
 	lists(where: ListWhereInput): [List]!
 	list(where: ListWhereInput): List
+	listItem(where: ListItemWhereInput): ListItem
 }
 
 type Subscription {

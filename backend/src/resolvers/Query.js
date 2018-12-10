@@ -11,9 +11,10 @@ const Query = {
 			},
 			info
 		);
-  },
-  list: forwardTo('db'),
-  lists: forwardTo('db')
+	},
+	list: forwardTo('db'),
+	lists: forwardTo('db'),
+	listItem: forwardTo('db')
 };
 
 module.exports = Query;
