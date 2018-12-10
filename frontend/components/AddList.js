@@ -20,7 +20,7 @@ const CREATE_LIST_MUTATION = gql`
 class AddList extends Component {
 	state = {
 		name: '',
-		type: ''
+		type: 'All Purpose'
 	};
 
 	saveToState = e => {
@@ -63,7 +63,8 @@ class AddList extends Component {
 											label="List Name"
 											value={this.state.name}
 											onChange={this.saveToState}
-											placeholder="Enter List Name"
+											maxLength="40"
+											placeholder="Enter List Name - 40 Char Max"
 										/>
 										<Form.Field
 											width={4}

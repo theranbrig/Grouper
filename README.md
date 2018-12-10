@@ -14,7 +14,9 @@ Backend
 - GraphQL Yoga Server - Express Server
 - Prisma DB - PostgreSQL Relational Database
 
-This project is developed from a boilerplate that I adapted for React and GraphQL. It can be found [HERE](https://github.com/theranbrig/React-GraphQL-Fullstack-Boilerplate).  This was built to utilize Next.js with React on the frontend.  The API uses GraphQL with Apollo Client to connect to a Prisma database that is built using PostgreSQL.  A testing suite was built using Jest and Enzyme to make sure that everything is up and running properly.  This was a quick five day build meant to act as a coding challenge interview, so it is not mean to be perfect, but rather show off my ability to build a complete project in a short amount of time.  The app is deployed using Heroku.
+This project is developed first from a boilerplate that I have adapted for Next.js React and GraphQL with a Prisma SQL database. It can be found [HERE](https://github.com/theranbrig/React-GraphQL-Fullstack-Boilerplate).
+
+This was built to utilize Next.js with React on the frontend.  Apollo Boost works as the   The API uses GraphQL with Apollo Client to connect to a Prisma database that is built using PostgreSQL.  A testing suite was built using Jest and Enzyme to make sure that everything is up and running properly.  This was a quick five day build meant to act as a coding challenge interview, so it is not mean to be perfect, but rather show off my ability to build a complete project in a short amount of time.  The app is deployed using Heroku.
 
 [Deployed Application](https://grouper-frontend.herokuapp.com)
 * **Note** - Since both the frontend and backend are deployed on Heroku there is an issue with iOS devices where the CORS does not work unless you change your settings.  On iOS you must change the Prevent Cross-Site Tracking setting to off.  This issue is noted, and will be fixed in the future.
