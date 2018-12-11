@@ -164,6 +164,17 @@ Your app should now be visible on [localhost:7777](http://localhost:7777/).
 
 Make sure you are running both the `frontend` and `backend` folders.
 
+### Testing
+
+Testing should be run from the frontend folder.  Be sure that you have run `git init` on the repo to make sure that the tests will run.
+
+```sh
+cd frontend
+npm test
+```
+
+
+
 ## Built With
 
 - [Node](https://github.com/nodejs/node)
