@@ -38,7 +38,6 @@ class EditItem extends Component {
 
 	updateItem = async (e, updateItemMutation) => {
 		e.preventDefault();
-		console.log(this.state);
 		const res = await updateItemMutation({
 			variables: {
 				id: this.props.id,
@@ -46,6 +45,10 @@ class EditItem extends Component {
 			}
 		});
 		this.setState({ completed: true });
+	};
+
+	handleDismiss = () => {
+		this.setState({ completed: false });
 	};
 
 	render() {
@@ -69,14 +72,12 @@ class EditItem extends Component {
 											content="Return to List"
 										/>
 									</Link>
-									<Mutation
-										mutation={EDIT_ITEM_MUTATION}
-										variables={this.state}
-										onCompleted={this.completed}>
+									<Mutation mutation={EDIT_ITEM_MUTATION} variables={this.state}>
 										{(editListItem, { loading, error }) => {
 											if (error) return <p>Error...</p>;
 											return (
 												<Form
+													error={error}
 													success={this.state.completed}
 													inverted
 													loading={loading}
@@ -86,19 +87,27 @@ class EditItem extends Component {
 													}}>
 													>
 													<Message
+														onDismiss={this.handleDismiss}
 														success
 														header={`${data.listItem.name} Updated`}
 														content="Make further edits or go back to your list."
 													/>
+													<Message
+														error
+														header="Oops!"
+														content={error && error.message.replace('GraphQL error: ', '')}
+													/>
 													<Form.Group>
 														<Form.Input
+															required
 															width={13}
 															type="text"
 															name="name"
 															id="name"
 															label="Item"
 															defaultValue={data.listItem.name || ''}
-															maxLength="50"
+															minLength={5}
+															maxLength={50}
 															onChange={this.handleChange}
 															placeholder="Enter Item Name - 50 Character Max"
 														/>
@@ -107,7 +116,7 @@ class EditItem extends Component {
 															type="number"
 															name="price"
 															id="price"
-															label="Maximum Price"
+															label="Max Price: 0 = No Max."
 															defaultValue={data.listItem.price}
 															onChange={this.handleChange}
 															placeholder="Optional - Enter Whole Dollar Amounts"

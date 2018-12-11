@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
-import { Button, Form, Select } from 'semantic-ui-react';
+import { Button, Form, Select, Message } from 'semantic-ui-react';
 import { typeOptions } from '../lib/formData';
 import Error from './ErrorMessage';
 import { LISTS_QUERY } from './Lists';
@@ -20,7 +20,8 @@ const CREATE_LIST_MUTATION = gql`
 class AddList extends Component {
 	state = {
 		name: '',
-		type: 'All Purpose'
+		type: 'General',
+		completed: false
 	};
 
 	saveToState = e => {
@@ -29,6 +30,10 @@ class AddList extends Component {
 
 	selectInput = (e, data) => {
 		this.setState({ type: data.value });
+	};
+
+	handleDismiss = () => {
+		this.setState({ completed: false });
 	};
 
 	render() {
@@ -40,10 +45,11 @@ class AddList extends Component {
 					refetchQueries={[{ query: LISTS_QUERY }]}
 					variables={this.state}>
 					{(createList, { error, loading }) => {
-						if (error) return <Error error={error} />;
 						return (
 							<FormStyles>
 								<Form
+									success={this.state.completed}
+									error={error}
 									inverted
 									method="post"
 									loading={loading}
@@ -51,12 +57,26 @@ class AddList extends Component {
 										e.preventDefault();
 										const res = await createList();
 										this.setState({
+											completed: true,
 											name: '',
 											type: ''
 										});
 									}}>
+									<Message
+										onDismiss={this.handleDismiss}
+										success
+										header="Success!"
+										content={'New List Added.'}
+									/>
+									<Message
+										error
+										header="Oops!"
+										content={error && error.message.replace('GraphQL error: ', '')}
+									/>
 									<Form.Group>
 										<Form.Input
+											required
+											minLength={5}
 											width={12}
 											type="text"
 											name="name"
@@ -70,7 +90,7 @@ class AddList extends Component {
 											width={4}
 											control={Select}
 											options={typeOptions}
-											value={this.state.type}
+											defaultValue="General"
 											onChange={this.selectInput}
 											label={{ children: 'Types', htmlFor: 'type' }}
 											search

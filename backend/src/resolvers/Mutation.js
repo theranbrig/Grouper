@@ -67,6 +67,9 @@ const Mutations = {
 		if (!ctx.request.userId) {
 			throw new Error('You must log in first');
 		}
+		if (args.name.length < 1) {
+			throw new Error('You must enter an list name.');
+		}
 		const list = ctx.db.mutation.createList(
 			{
 				data: {
@@ -84,10 +87,9 @@ const Mutations = {
 		if (!ctx.request.userId) {
 			throw new Error('You must be logged in to do that!');
 		}
-    checkUser(args.id, ctx, args)
+		checkUser(args.id, ctx, args);
 		// Create Updates
 		const updates = { ...args };
-		console.log(updates);
 		// Remove new ID to save old ID over it
 		delete updates.id;
 		return ctx.db.mutation.updateList(
@@ -128,7 +130,7 @@ const Mutations = {
 			},
 			info
 		);
-		return list;
+		return user;
 	},
 	async removeUser(parent, args, ctx, info) {
 		if (!ctx.request.userId) {
@@ -162,6 +164,9 @@ const Mutations = {
 			throw new Error('You must log in first');
 		}
 		checkUser(args.list, ctx, args);
+		if (args.name.length < 1) {
+			throw new Error('You must enter an item name.');
+		}
 		// Create list item and add to list
 		const listItem = await ctx.db.mutation.createListItem({
 			data: {
@@ -196,7 +201,6 @@ const Mutations = {
 		if (!ctx.request.userId) {
 			throw new Error('You must be logged in to do that!');
 		}
-
 		// Create Updates
 		const updates = { ...args };
 		console.log(updates);

@@ -42,7 +42,10 @@ const FormStyles = styled.div`
 	}
 	.edit-list-button {
 		margin-top: 30px !important;
-    width: 70%;
+		width: 70%;
+	}
+	input.number-input {
+		text-align: right !important;
 	}
 `;
 

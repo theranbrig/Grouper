@@ -72,7 +72,7 @@ class IndividualList extends Component {
 														<h1>{data.list.name}</h1>
 														{!items.length && (
 															<div>
-																<h3>No items in {data.list.name}. Add items today.</h3>
+																<h3>No items in {data.list.name}. Start Adding Items.</h3>
 															</div>
 														)}
 														<List inverted relaxed>
@@ -119,4 +119,3 @@ class IndividualList extends Component {
 
 export default IndividualList;
 export { INDIVIDUAL_LIST_QUERY };
-

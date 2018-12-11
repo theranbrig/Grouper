@@ -38,7 +38,6 @@ class Lists extends Component {
 							</Head>
 							<Query query={LISTS_QUERY} pollInterval={10000}>
 								{({ data, loading, error }) => {
-									if (error) return <p>Error...</p>;
 									let userLists = data.lists.filter(list => {
 										return list.users.some(user => user.id === me.id);
 									});
@@ -62,7 +61,7 @@ class Lists extends Component {
 																			<Icon name="check" />
 																			{list.items.length}
 																			<span> </span>
-																			<Icon name="user outline" className="user-icon"/>
+																			<Icon name="user outline" className="user-icon" />
 																			{list.users.length}
 																		</Segment>
 																		<Segment inverted>

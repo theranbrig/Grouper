@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ErrorStyles = styled.div`
+	color: ${props => props.theme.black};
 	padding: 2rem;
 	background: white;
 	margin: 2rem 0;

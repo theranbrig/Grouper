@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import { Button, Form, Grid, Select, Message, Icon } from 'semantic-ui-react';
 import { typeOptions } from '../lib/formData';
-import Error from './ErrorMessage';
 import { INDIVIDUAL_LIST_QUERY } from './List';
 import FormStyles from './styles/FormStyles';
 import Head from 'next/head';
@@ -33,7 +32,6 @@ class EditList extends Component {
 
 	updateList = async (e, updateListMutation) => {
 		e.preventDefault();
-		console.log(this.state);
 		const res = await updateListMutation({
 			variables: {
 				id: this.props.id,
@@ -43,11 +41,14 @@ class EditList extends Component {
 		this.setState({ completed: true });
 	};
 
+	handleDismiss = () => {
+		this.setState({ completed: false });
+	};
+
 	render() {
 		return (
 			<Query query={INDIVIDUAL_LIST_QUERY} variables={{ id: this.props.id }}>
 				{({ data, loading, error }) => {
-					if (error) return <p>Error...</p>;
 					return (
 						<FormStyles>
 							<Head>
@@ -70,10 +71,10 @@ class EditList extends Component {
 									</Link>
 									<Mutation mutation={EDIT_LIST_MUTATION} variables={this.state}>
 										{(editList, { error, loading }) => {
-											if (error) return <Error error={error} />;
 											return (
 												<Form
 													success={this.state.completed}
+													error={error}
 													inverted
 													method="post"
 													loading={loading}
@@ -81,16 +82,25 @@ class EditList extends Component {
 														await this.updateList(e, editList);
 													}}>
 													<Message
+														onDismiss={this.handleDismiss}
 														success
 														header={`${data.list.name} Updated`}
 														content="Make further edits or go back to your list."
 													/>
+													<Message
+														error
+														header="Oops!"
+														content={error && error.message.replace('GraphQL error: ', '')}
+													/>
 													<Form.Group>
 														<Form.Input
+															required
 															width={12}
 															type="text"
+															id="name"
 															name="name"
 															label="List Name"
+															minLength={5}
 															defaultValue={data.list.name}
 															onChange={this.handleChange}
 															maxLength="40"

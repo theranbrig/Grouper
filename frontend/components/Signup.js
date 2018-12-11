@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import Head from 'next/head';
 import Link from 'next/link';
+import Router from 'next/router';
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { Button, Form, Grid } from 'semantic-ui-react';
@@ -61,6 +62,9 @@ class SignUp extends Component {
 											e.preventDefault();
 											await signup();
 											this.setState({ username: '', email: '', password: '' });
+											Router.push({
+												pathname: '/'
+											});
 										}}>
 										<Form.Group>
 											<Form.Input

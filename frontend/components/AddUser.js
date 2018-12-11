@@ -1,25 +1,40 @@
 import gql from 'graphql-tag';
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
-import { Button, Form } from 'semantic-ui-react';
+import { Button, Form, Message } from 'semantic-ui-react';
 import { INDIVIDUAL_LIST_QUERY } from './List';
 import FormStyles from './styles/FormStyles';
+import Error from './ErrorMessage';
 
 const ADD_USER_MUTATION = gql`
 	mutation ADD_USER_MUTATION($email: String!, $id: ID!) {
 		addUser(email: $email, id: $id) {
 			id
+			username
 		}
 	}
 `;
 
 class AddUser extends Component {
 	state = {
-		email: ''
+		email: '',
+		completed: false
 	};
 
 	saveToState = e => {
 		this.setState({ [e.target.name]: e.target.value });
+	};
+
+	addNewUser = async (e, addUserMutation) => {
+		e.preventDefault();
+		const res = await addUserMutation({
+			variables: { id: this.props.id, email: this.state.email }
+		});
+		this.setState({ completed: true, email: '' });
+	};
+
+	handleDismiss = () => {
+		this.setState({ completed: false });
 	};
 
 	render() {
@@ -29,17 +44,30 @@ class AddUser extends Component {
 				variables={{ id: this.props.id, email: this.state.email }}
 				refetchQueries={[{ query: INDIVIDUAL_LIST_QUERY, variables: { id: this.props.id } }]}>
 				{(addUser, { loading, error }) => {
-					if (error) <p>Error...</p>;
+					console.log(error);
 					return (
 						<FormStyles>
 							<Form
+
+								error={error}
+								success={this.state.completed}
+								loading={loading}
 								inverted
 								method="post"
 								onSubmit={async e => {
-									e.preventDefault();
-									await addUser();
-									this.setState({ email: '' });
+									await this.addNewUser(e, addUser);
 								}}>
+								<Message
+									onDismiss={this.handleDismiss}
+									success
+									header="Success!"
+									content={'User added.'}
+								/>
+								<Message
+									error
+									header="Oops!"
+									content={error && error.message.replace('GraphQL error: ', '')}
+								/>
 								<Form.Group>
 									<Form.Input
 										width={16}

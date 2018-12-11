@@ -31,19 +31,20 @@ class ListButtons extends Component {
 					variables={{ id: this.props.id }}
 					refetchQueries={[{ query: INDIVIDUAL_LIST_QUERY, variables: { id: this.props.id } }]}>
 					{(toggleInCart, { loading, error }) => {
-						if (error) return <p>Error...</p>;
 						return (
-							<List.Content floated="left">
-								<Button
-									inverted
-									icon={this.props.inCart ? `check` : `cart arrow down`}
-									disabled={loading}
-									onClick={async e => {
-										e.preventDefault();
-										toggleInCart();
-									}}
-								/>
-							</List.Content>
+							<>
+								<List.Content floated="left">
+									<Button
+										inverted
+										icon={this.props.inCart ? `check` : `cart arrow down`}
+										disabled={loading}
+										onClick={async e => {
+											e.preventDefault();
+											toggleInCart();
+										}}
+									/>
+								</List.Content>
+							</>
 						);
 					}}
 				</Mutation>
