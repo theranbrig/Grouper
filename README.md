@@ -1,6 +1,6 @@
 # Grouper
 
-Group shopping and lists made easy. Check them off as you go and get real-time updates as you shop.  Split up and let others get items.  Mark them off as you find them.
+Group shopping and lists made easy. Check them off as you go and get real-time updates as you shop. Split up and let others get items. Mark them off as you find them.
 
 ## About
 
@@ -19,16 +19,20 @@ This project is developed first from a boilerplate that I have adapted for Next.
 **Features**
 
 - This was built to utilize Next.js with React on the frontend for quick SSR React Components and caching.
-- Apollo Boost works to connect the backend data to the client side, as well has hold local state.  All GraphQL Mutations and Queries are handled through Apollo.
-- The API uses GraphQL with a GraphQL server to connect to a Prisma database that is built using PostgreSQL.  The relational data structure allows for quick querying to the server.
-- A testing suite was built using Jest and Enzyme to make sure that everything is up and running properly.  Snapshot testing was integrated as well.
+- Apollo Boost works to connect the backend data to the client side, as well has hold local state. All GraphQL Mutations and Queries are handled through Apollo.
+- The API uses GraphQL with a GraphQL server to connect to a Prisma database that is built using PostgreSQL. The relational data structure allows for quick querying to the server.
+- A testing suite was built using Jest and Enzyme to make sure that everything is up and running properly. Snapshot testing was integrated as well.
 - The app is deployed using Heroku on both the front and back ends.
 
 This was a quick five day build meant to act as a coding challenge interview, so it is far from perfect yet.
 
 [Deployed Application](https://grouper-frontend.herokuapp.com)
 
-* **Note** - Since both the frontend and backend are deployed on Heroku there is an issue with Safari and the new cross site tracking blocker feature.  This can be worked around, though it is just best to use Chrome or Firefox at this point in time.  If you would like to use it on Safari you must change the Prevent Cross-Site Tracking setting to off.  This issue is noted, and will be fixed in the future, with custom domain names to the frontend and backend.
+**Test Users**
+
+To test the deployed site you may user _user1@email.com_, _user2@email.com_, _user3@email.com_, _user4@email.com_, or _user5@email.com_. It is simply _password_ as the password for each user. You may also feel free to create your own user. Full site testing can be done with each user. You may add other users to your lists, or test the app by logging in a another user account in an incognito window to see the live updates.
+
+- **Note** - Since both the frontend and backend are deployed on Heroku there is an issue with Safari and the new cross site tracking blocker feature. This can be worked around, though it is just best to use Chrome or Firefox at this point in time. If you would like to use it on Safari you must change the Prevent Cross-Site Tracking setting to off. This issue is noted, and will be fixed in the future, with custom domain names to the frontend and backend.
 
 ## Installation
 
