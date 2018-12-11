@@ -1,3 +1,6 @@
+
+![Grouper](frontend/static/logo.png)
+
 # Grouper
 
 Group shopping and lists made easy. Check them off as you go and get real-time updates as you shop. Split up and let others get items. Mark them off as you find them.
@@ -26,11 +29,21 @@ This project is developed first from a boilerplate that I have adapted for Next.
 
 This was a quick five day build meant to act as a coding challenge interview, so it is far from perfect yet.
 
+**Deploy**
+
 [Deployed Application](https://grouper-frontend.herokuapp.com)
 
 **Test Users**
 
-To test the deployed site you may user _user1@email.com_, _user2@email.com_, _user3@email.com_, _user4@email.com_, or _user5@email.com_. It is simply _password_ as the password for each user. You may also feel free to create your own user. Full site testing can be done with each user. You may add other users to your lists, or test the app by logging in a another user account in an incognito window to see the live updates.
+To test the deployed site you may use:
+* _user1@email.com_
+* _user2@email.com_
+* _user3@email.com_
+* _user4@email.com_
+* _user5@email.com_
+* All user passwords are: _password_
+
+You may also feel free to create your own user. Full site testing can be done with each user. You may add other users to your lists, or test the app by logging in a another user account in an incognito window to see the live updates.
 
 - **Note** - Since both the frontend and backend are deployed on Heroku there is an issue with Safari and the new cross site tracking blocker feature. This can be worked around, though it is just best to use Chrome or Firefox at this point in time. If you would like to use it on Safari you must change the Prevent Cross-Site Tracking setting to off. This issue is noted, and will be fixed in the future, with custom domain names to the frontend and backend.
 
