@@ -4,22 +4,31 @@ Group shopping and lists made easy. Check them off as you go and get real-time u
 
 ## About
 
-Frontend
+**Frontend**
 
 - Next.js React - Server Side Rendered React
 - Apollo Boost - Mutations / Queries / State Management
 
-Backend
+**Backend**
 
 - GraphQL Yoga Server - Express Server
 - Prisma DB - PostgreSQL Relational Database
 
 This project is developed first from a boilerplate that I have adapted for Next.js React and GraphQL with a Prisma SQL database. It can be found [HERE](https://github.com/theranbrig/React-GraphQL-Fullstack-Boilerplate).
 
-This was built to utilize Next.js with React on the frontend.  Apollo Boost works as the   The API uses GraphQL with Apollo Client to connect to a Prisma database that is built using PostgreSQL.  A testing suite was built using Jest and Enzyme to make sure that everything is up and running properly.  This was a quick five day build meant to act as a coding challenge interview, so it is not mean to be perfect, but rather show off my ability to build a complete project in a short amount of time.  The app is deployed using Heroku.
+**Features**
+
+- This was built to utilize Next.js with React on the frontend for quick SSR React Components and caching.
+- Apollo Boost works to connect the backend data to the client side, as well has hold local state.  All GraphQL Mutations and Queries are handled through Apollo.
+- The API uses GraphQL with a GraphQL server to connect to a Prisma database that is built using PostgreSQL.  The relational data structure allows for quick querying to the server.
+- A testing suite was built using Jest and Enzyme to make sure that everything is up and running properly.  Snapshot testing was integrated as well.
+- The app is deployed using Heroku on both the front and back ends.
+
+This was a quick five day build meant to act as a coding challenge interview, so it is far from perfect yet.
 
 [Deployed Application](https://grouper-frontend.herokuapp.com)
-* **Note** - Since both the frontend and backend are deployed on Heroku there is an issue with iOS devices where the CORS does not work unless you change your settings.  On iOS you must change the Prevent Cross-Site Tracking setting to off.  This issue is noted, and will be fixed in the future.
+
+* **Note** - Since both the frontend and backend are deployed on Heroku there is an issue with Safari and the new cross site tracking blocker feature.  This can be worked around, though it is just best to use Chrome or Firefox at this point in time.  If you would like to use it on Safari you must change the Prevent Cross-Site Tracking setting to off.  This issue is noted, and will be fixed in the future, with custom domain names to the frontend and backend.
 
 ## Installation
 
