@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/theran-3f2473/grouper/dev
-# timestamp: Wed Dec 05 2018 01:12:36 GMT+0900 (Korean Standard Time)
+# timestamp: Wed Dec 12 2018 21:35:41 GMT+0900 (Korean Standard Time)
 
 type AggregateList {
   count: Int!
@@ -1494,5 +1494,6 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  username: String
   email: String
 }

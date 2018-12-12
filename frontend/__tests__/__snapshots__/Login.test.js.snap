@@ -8,6 +8,6 @@ exports[`<Login/> should render the login page 1`] = `
 
 exports[`<Login/> should render the login page 2`] = `
 <a>
-  Not yet a member?
+  Not yet a member? Sign Up Here.
 </a>
 `;

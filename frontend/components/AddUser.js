@@ -4,7 +4,6 @@ import { Mutation } from 'react-apollo';
 import { Button, Form, Message } from 'semantic-ui-react';
 import { INDIVIDUAL_LIST_QUERY } from './List';
 import FormStyles from './styles/FormStyles';
-import Error from './ErrorMessage';
 
 const ADD_USER_MUTATION = gql`
 	mutation ADD_USER_MUTATION($email: String!, $id: ID!) {
@@ -44,11 +43,9 @@ class AddUser extends Component {
 				variables={{ id: this.props.id, email: this.state.email }}
 				refetchQueries={[{ query: INDIVIDUAL_LIST_QUERY, variables: { id: this.props.id } }]}>
 				{(addUser, { loading, error }) => {
-					console.log(error);
 					return (
 						<FormStyles>
 							<Form
-
 								error={error}
 								success={this.state.completed}
 								loading={loading}
@@ -73,7 +70,7 @@ class AddUser extends Component {
 										width={16}
 										type="text"
 										name="email"
-										label="User Email"
+										label="Add New User - Enter Email"
 										value={this.state.email}
 										onChange={this.saveToState}
 										placeholder="Enter New User Email"

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
-import { Button, Form, Grid } from 'semantic-ui-react';
+import { Button, Form, Grid, Message } from 'semantic-ui-react';
 import Error from './ErrorMessage';
 import FormStyles from './styles/FormStyles';
 import { CURRENT_USER_QUERY } from './User';
@@ -51,47 +51,66 @@ class SignUp extends Component {
 							variables={this.state}
 							refetchQueries={[{ query: CURRENT_USER_QUERY }]}>
 							{(signup, { error, loading }) => {
-								if (error) return <Error error={error} />;
 								return (
 									<Form
+										success={this.state.completed}
+										error={error}
 										inverted
 										loading={loading}
-										success={this.state.completed}
 										method="post"
 										onSubmit={async e => {
 											e.preventDefault();
 											await signup();
-											this.setState({ username: '', email: '', password: '' });
+											this.setState({ username: '', email: '', password: '', completed: true });
 											Router.push({
 												pathname: '/'
 											});
 										}}>
+										<Message
+											onDismiss={this.handleDismiss}
+											success
+											header="Success!"
+											content={'User account created.'}
+										/>
+										<Message
+											error
+											header="Oops!"
+											content={error && error.message.replace('GraphQL error: ', '')}
+										/>
 										<Form.Group>
 											<Form.Input
+												minLength={5}
+												maxLength={20}
+												required
 												width={16}
 												type="text"
 												name="username"
 												label="User Name"
 												value={this.state.username}
 												onChange={this.saveToState}
-												placeholer="Choose User Name"
+												placeholder="Choose User Name: 5 - 20 Characters"
 											/>
 										</Form.Group>
 										<Form.Group>
 											<Form.Input
+												required
 												type="email"
 												name="email"
 												width={16}
 												label="Email"
 												value={this.state.email}
 												onChange={this.saveToState}
-												placeholer="Enter Email Address"
+												placeholder="Enter Email Address"
 											/>
 										</Form.Group>
 										<Form.Group>
 											<Form.Input
+												minLength={8}
+												maxLength={32}
+												required
 												name="password"
 												width={16}
+												placeholder="8 - 32 Characters"
 												label="Password"
 												type="password"
 												value={this.state.password}
@@ -106,7 +125,7 @@ class SignUp extends Component {
 							}}
 						</Mutation>
 						<Link href="/login">
-							<a>Already a member?</a>
+							<a>Already a member? Sign In Here.</a>
 						</Link>
 					</Grid.Column>
 				</Grid>
