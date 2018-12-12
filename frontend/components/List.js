@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
-import { Grid, List, Segment } from 'semantic-ui-react';
+import { Grid, List, Loader, Segment } from 'semantic-ui-react';
 import AddListItem from './AddListItem';
 import AddUser from './AddUser';
 import ListButtons from './ListButtons';
@@ -119,3 +119,4 @@ class IndividualList extends Component {
 
 export default IndividualList;
 export { INDIVIDUAL_LIST_QUERY };
+

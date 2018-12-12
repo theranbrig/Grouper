@@ -1,4 +1,4 @@
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import React from 'react';
 import { MockedProvider } from 'react-apollo/test-utils';
 import IndividualList from '../components/List';
@@ -19,8 +19,6 @@ const signedInMocks = [
 	}
 ];
 
-
-
 describe('<List/>', () => {
 	it('renders loading screen', () => {
 		const wrapper = mount(
@@ -28,6 +26,15 @@ describe('<List/>', () => {
 				<IndividualList id="1234567890" />
 			</MockedProvider>
 		);
-		expect(wrapper.text()).toContain('Loading...');
+		expect(wrapper.find('p').text()).toBe('Loading...');
+	});
+
+	it('renders loading screen', () => {
+		const wrapper = mount(
+			<MockedProvider mocks={notSignedInMocks}>
+				<IndividualList id="1234567890" />
+			</MockedProvider>
+		);
+		expect(wrapper.find('p').text()).toBe('Loading...');
 	});
 });

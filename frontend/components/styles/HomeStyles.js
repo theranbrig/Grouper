@@ -44,7 +44,7 @@ const HomeStyles = styled.div`
 		font-family: 'Roboto', sans-serif;
 		font-size: 1.5rem;
 		width: 80%;
-		margin: 40px 12%;
+		margin: 40px 10%;
 		text-align: center;
 	}
 	i {

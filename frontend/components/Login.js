@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
-import { Button, Form, Grid } from 'semantic-ui-react';
+import { Button, Form, Grid, Message } from 'semantic-ui-react';
 import FormStyles from './styles/FormStyles';
 import { CURRENT_USER_QUERY } from './User';
 
@@ -21,7 +21,8 @@ const LOGIN_USER_MUTATION = gql`
 class Login extends Component {
 	state = {
 		email: '',
-		password: ''
+		password: '',
+		completed: false
 	};
 
 	// Save to state form information
@@ -45,22 +46,35 @@ class Login extends Component {
 							variables={this.state}
 							refetchQueries={[{ query: CURRENT_USER_QUERY }]}>
 							{(signin, { error, loading }) => {
-								if (error) return <Error error={error} />;
 								return (
 									<Form
+										success={this.state.completed}
+										error={error}
 										loading={loading}
 										inverted
 										method="post"
 										onSubmit={async e => {
 											e.preventDefault();
 											await signin();
-											this.setState({ email: '', password: '' });
+											this.setState({ email: '', password: '', completed: true });
 											Router.push({
 												pathname: '/'
 											});
 										}}>
+										<Message
+											onDismiss={this.handleDismiss}
+											success
+											header="Success!"
+											content={'User added.'}
+										/>
+										<Message
+											error
+											header="Oops!"
+											content={error && error.message.replace('GraphQL error: ', '')}
+										/>
 										<Form.Group>
 											<Form.Input
+												required
 												width={16}
 												type="email"
 												name="email"
@@ -72,6 +86,7 @@ class Login extends Component {
 										</Form.Group>
 										<Form.Group>
 											<Form.Input
+												required
 												name="password"
 												width={16}
 												label="Password"
@@ -88,7 +103,7 @@ class Login extends Component {
 							}}
 						</Mutation>
 						<Link href="/join">
-							<a>Not yet a member?</a>
+							<a>Not yet a member? Sign Up Here.</a>
 						</Link>
 					</Grid.Column>
 				</Grid>
