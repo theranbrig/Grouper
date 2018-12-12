@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const AddItemStyles = styled.div`
 	padding-top: 50px;
-	min-height: 95vh;
+	min-height: 90vh;
 	.add-item-button {
 		margin-top: 32px !important;
 		height: 40px;
@@ -28,6 +28,9 @@ const AddItemStyles = styled.div`
 		font-size: 3rem;
 		color: ${props => props.theme.orange};
 		text-align: center;
+	}
+	@media (min-height: 758px) {
+		min-height: 350px;
 	}
 `;
 

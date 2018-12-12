@@ -44,8 +44,8 @@ const FormStyles = styled.div`
 		margin-top: 30px !important;
 		width: 70%;
 	}
-	input.number-input {
-		text-align: right !important;
+	label#name {
+		color: green;
 	}
 `;
 

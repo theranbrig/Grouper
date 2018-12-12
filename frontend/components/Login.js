@@ -91,6 +91,7 @@ class Login extends Component {
 												width={16}
 												label="Password"
 												type="password"
+												placeholder="Enter Email"
 												value={this.state.password}
 												onChange={this.saveToState}
 											/>

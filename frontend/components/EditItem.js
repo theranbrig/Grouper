@@ -99,8 +99,9 @@ class EditItem extends Component {
 													/>
 													<Form.Group>
 														<Form.Input
+															className="item-input"
 															required
-															width={13}
+															width={16}
 															type="text"
 															name="name"
 															id="name"

@@ -63,21 +63,21 @@ class AddListItem extends Component {
 								/>
 								<Form.Group>
 									<Form.Input
-                    required
-										width={13}
+										required
+										width={12}
 										type="text"
 										name="name"
 										id="name"
 										label="Item"
-                    value={this.state.name}
-                    minLength={5}
+										value={this.state.name}
+										minLength={5}
 										maxLength={50}
 										onChange={this.saveToState}
 										placeholder="Enter Item Name - 5 Char Min / 50 Char Max"
 									/>
 									<Form.Input
-                    className="number-input"
-                    width={3}
+										className="number-input"
+										width={4}
 										id="price"
 										type="number"
 										name="price"
