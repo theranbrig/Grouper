@@ -68,7 +68,7 @@ class AddUser extends Component {
 								<Form.Group>
 									<Form.Input
 										width={16}
-										type="text"
+										type="email"
 										name="email"
 										label="Add New User - Enter Email"
 										value={this.state.email}
