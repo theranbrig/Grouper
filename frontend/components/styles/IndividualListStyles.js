@@ -41,6 +41,16 @@ const IndividualListStyles = styled.div`
 		color: ${props => props.theme.orange};
 		font-size: 1.5rem;
 	}
+	.top-edit-button {
+		margin-left: 10px !important;
+		margin-top: 0 !important;
+		i {
+			color: ${props => props.theme.orange};
+		}
+	}
+	h2 {
+		margin: 5px 0 !important;
+	}
 `;
 
 export default IndividualListStyles;

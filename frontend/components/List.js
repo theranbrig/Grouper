@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
-import { Grid, List, Loader, Segment } from 'semantic-ui-react';
+import { Grid, List, Loader, Segment, Button } from 'semantic-ui-react';
 import AddListItem from './AddListItem';
 import AddUser from './AddUser';
 import ListButtons from './ListButtons';
@@ -70,6 +70,18 @@ class IndividualList extends Component {
 													<Grid.Column mobile={16} tablet={16} computer={12} textAlign="center">
 														{!data && <p>There is nothing for you to see here.</p>}
 														<h1>{data.list.name}</h1>
+														<h2>
+															{data.list.type}
+															<Link href={{ pathname: 'editlist', query: { id: data.list.id } }}>
+																<Button
+																	className="top-edit-button"
+																	inverted
+																	icon="edit"
+																	disabled={loading}
+																/>
+															</Link>
+														</h2>
+
 														{!items.length && (
 															<div>
 																<h3>No items in {data.list.name}. Start Adding Items.</h3>
@@ -119,4 +131,3 @@ class IndividualList extends Component {
 
 export default IndividualList;
 export { INDIVIDUAL_LIST_QUERY };
-

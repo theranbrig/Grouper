@@ -5,7 +5,6 @@ enum Permission {
 
 type User {
 	id: ID! @unique
-  # TODO - Needs username to be updated to unique with check in sign up mutation
 	username: String! @unique
 	email: String! @unique
 	password: String!
