@@ -11,6 +11,7 @@ import IndividualListStyles from './styles/IndividualListStyles';
 import User from './User';
 import UserList from './UserList';
 
+// Query Mutation
 const INDIVIDUAL_LIST_QUERY = gql`
 	query INDIVIDUAL_LIST_QUERY($id: ID!) {
 		list(where: { id: $id }) {
