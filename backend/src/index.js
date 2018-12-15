@@ -13,31 +13,31 @@ server.express.use(cookieParser());
 
 // Decode JWT for user ID on request
 server.express.use((req, res, next) => {
-	const { token } = req.cookies;
-	if (token) {
-		const { userId } = jwt.verify(token, process.env.APP_SECRET);
-		req.userId = userId;
-	}
-	next();
+  const { token } = req.cookies;
+  if (token) {
+    const { userId } = jwt.verify(token, process.env.APP_SECRET);
+    req.userId = userId;
+  }
+  next();
 });
 
 // Populate user in request
 server.express.use((req, res, next) => {
-	if (!req.userId) return next();
-	const user = db.query.user({ where: { id: req.userId } }, '{id, permissions, email, username}');
-	req.user = user;
-	next();
+  if (!req.userId) return next();
+  const user = db.query.user({ where: { id: req.userId } }, '{id, permissions, email, username}');
+  req.user = user;
+  next();
 });
 
 // Start server
 server.start(
-	{
-		cors: {
-			credentials: true,
-			origin: process.env.FRONTEND_URL
-		}
-	},
-	deets => {
-		console.log(`Server is now running on port http:/localhost:${deets.port}`);
-	}
+  {
+    cors: {
+      credentials: true,
+      origin: process.env.FRONTEND_URL,
+    },
+  },
+  deets => {
+    console.log(`Server is now running on port http:/localhost:${deets.port}`);
+  }
 );
