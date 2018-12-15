@@ -54,7 +54,7 @@ const IndividualList = props => (
                     <Head>
                       <title>Grouper | Oops</title>
                     </Head>
-                    <h1>Halt! You can't go there.</h1>
+                    <h1>Halt! You can not go there.</h1>
                     <p>You are not authorized to view this list.</p>
                     <Link href="/lists">
                       <a>Go Back to Your Lists</a>
