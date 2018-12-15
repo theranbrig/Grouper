@@ -6,26 +6,26 @@ import Logo from './styles/Logo';
 import StyledHeader from './styles/HeaderStyles';
 
 Router.onRouteChangeStart = () => {
-	NProgress.start();
+  NProgress.start();
 };
 
 Router.onRouteChangeComplete = () => {
-	NProgress.done();
+  NProgress.done();
 };
 
 Router.onRouteChangeError = () => {
-	NProgress.done();
+  NProgress.done();
 };
 
 const Header = () => (
-	<StyledHeader>
-		<Logo className="bar">
-			<div>
-				<img src="../static/logo.png" alt="Grouper Logo" />
-			</div>
-			<Nav />
-		</Logo>
-	</StyledHeader>
+  <StyledHeader>
+    <Logo className="bar">
+      <div>
+        <img src="../static/logo.png" alt="Grouper Logo" />
+      </div>
+      <Nav />
+    </Logo>
+  </StyledHeader>
 );
 
 export default Header;

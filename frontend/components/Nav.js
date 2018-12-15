@@ -5,41 +5,39 @@ import NavStyles from './styles/NavStyles';
 import User from './User';
 
 const Nav = () => (
-	<User>
-		{({ data: { me } }) => {
-			return (
-				<NavStyles className="navigation-bar">
-					<Link href="/">
-						<a>Home</a>
-					</Link>
-					{me && (
-						<>
-							<Link href="/lists">
-								<a>Lists</a>
-							</Link>
-							<Dropdown item text={`${me.username}`}>
-								<Dropdown.Menu>
-									<Dropdown.Item>
-										<DeleteButton />
-									</Dropdown.Item>
-								</Dropdown.Menu>
-							</Dropdown>
-						</>
-					)}
-					{!me && (
-						<>
-							<Link href="/join">
-								<a>Join</a>
-							</Link>
-							<Link href="/login">
-								<a>Login</a>
-							</Link>
-						</>
-					)}
-				</NavStyles>
-			);
-		}}
-	</User>
+  <User>
+    {({ data: { me } }) => (
+      <NavStyles className="navigation-bar">
+        <Link href="/">
+          <a>Home</a>
+        </Link>
+        {me && (
+          <React.Fragment>
+            <Link href="/lists">
+              <a>Lists</a>
+            </Link>
+            <Dropdown item text={`${me.username}`}>
+              <Dropdown.Menu>
+                <Dropdown.Item>
+                  <DeleteButton />
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </React.Fragment>
+        )}
+        {!me && (
+          <React.Fragment>
+            <Link href="/join">
+              <a>Join</a>
+            </Link>
+            <Link href="/login">
+              <a>Login</a>
+            </Link>
+          </React.Fragment>
+        )}
+      </NavStyles>
+    )}
+  </User>
 );
 
 export default Nav;
