@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { Button } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 const REMOVE_LIST = gql`
   mutation REMOVE_LIST($id: String!) {
@@ -30,5 +31,9 @@ const RemoveListButton = props => (
     }}
   </Mutation>
 );
+
+RemoveListButton.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default RemoveListButton;

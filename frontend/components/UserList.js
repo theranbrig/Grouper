@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { Button, List, Segment } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 import { INDIVIDUAL_LIST_QUERY } from './List';
 
 const REMOVE_USER_MUTATION = gql`
@@ -43,5 +44,10 @@ const UserList = props => (
     ))}
   </List>
 );
+
+UserList.propTypes = {
+  list: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
+};
 
 export default UserList;

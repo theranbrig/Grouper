@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from 'next/link';
 import { Dropdown } from 'semantic-ui-react';
 import DeleteButton from './Logout';

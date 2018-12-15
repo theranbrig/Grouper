@@ -10,7 +10,7 @@
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
       "impliedStrict": true,
-      "classes": true,
+      "classes": true
     }
   },
   "env": {
@@ -57,6 +57,7 @@
         ]
       }
     ],
+    "react/prop-types": 0,
     "radix": 0,
     "no-shadow": [
       2,

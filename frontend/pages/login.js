@@ -1,9 +1,9 @@
 import Login from '../components/Login';
 
 const LoginPage = () => (
-	<div>
-		<Login />
-	</div>
+  <div>
+    <Login />
+  </div>
 );
 
 export default LoginPage;

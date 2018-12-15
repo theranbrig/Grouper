@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import { Grid, List, Loader, Segment, Button } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 import AddListItem from './AddListItem';
 import AddUser from './AddUser';
 import ListButtons from './ListButtons';
@@ -110,6 +111,10 @@ const IndividualList = props => (
     )}
   </User>
 );
+
+IndividualList.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default IndividualList;
 export { INDIVIDUAL_LIST_QUERY };

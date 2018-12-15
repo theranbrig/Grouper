@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import { Button, Form, Grid, Select, Message, Icon } from 'semantic-ui-react';
 import Head from 'next/head';
-import { typeOptions } from '../lib/formData';
+import PropTypes from 'prop-types';
+import typeOptions from '../lib/formData';
 import { INDIVIDUAL_LIST_QUERY } from './List';
 import FormStyles from './styles/FormStyles';
 
@@ -127,5 +128,9 @@ class EditList extends Component {
     );
   }
 }
+
+EditList.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default EditList;

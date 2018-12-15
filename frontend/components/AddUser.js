@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { Button, Form, Message } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 import { INDIVIDUAL_LIST_QUERY } from './List';
 import FormStyles from './styles/FormStyles';
 
@@ -78,5 +79,9 @@ class AddUser extends Component {
     );
   }
 }
+
+AddUser.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default AddUser;

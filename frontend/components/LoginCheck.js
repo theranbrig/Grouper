@@ -1,4 +1,5 @@
 import { Query } from 'react-apollo';
+import PropTypes from 'prop-types';
 import Login from './Login';
 import { CURRENT_USER_QUERY } from './User';
 
@@ -17,5 +18,9 @@ const LoginCheck = props => (
     }}
   </Query>
 );
+
+LoginCheck.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default LoginCheck;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled, { injectGlobal, ThemeProvider } from 'styled-components';
+import PropTypes from 'prop-types';
 import Header from './Header';
 import Meta from './Meta';
 
@@ -45,5 +46,9 @@ const Page = props => (
     </StyledPage>
   </ThemeProvider>
 );
+
+Page.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Page;

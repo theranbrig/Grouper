@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import { Button, Form, Grid, Icon, Message } from 'semantic-ui-react';
 import Head from 'next/head';
+import PropTypes from 'prop-types';
 import AddItemStyles from './styles/AddItemStyles';
 
 const ITEM_QUERY = gql`
@@ -135,5 +136,9 @@ class EditItem extends Component {
     );
   }
 }
+
+EditItem.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default EditItem;

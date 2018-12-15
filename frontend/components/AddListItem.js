@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { Button, Form, Message } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 import { INDIVIDUAL_LIST_QUERY } from './List';
 import AddItemStyles from './styles/AddItemStyles';
 
@@ -88,5 +89,9 @@ class AddListItem extends Component {
     );
   }
 }
+
+AddListItem.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default AddListItem;
