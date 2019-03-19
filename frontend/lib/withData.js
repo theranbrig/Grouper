@@ -3,7 +3,7 @@ import withApollo from 'next-with-apollo';
 import { endpoint, prodEndpoint } from '../config';
 
 function createClient({ headers }) {
-  // Set up apollo clietn
+  // Set up apollo client
   return new ApolloClient({
     uri: process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint,
     request: operation => {
