@@ -1,11 +1,28 @@
 import React from 'react';
 import { Text, View, Button, StyleSheet } from 'react-native';
+import User from '../components/User';
 
 const Login = ({ history }) => (
-  <View style={styles.container}>
-    <Text style={styles.paragraph}>This is the Login</Text>
-    <Button title="Create Product" onPress={() => history.push('/')} />
-  </View>
+  <User>
+    {({ data: { me } }) => {
+      console.log(me);
+      return (
+        <>
+          {me ? (
+            <View style={styles.container}>
+              <Text style={styles.paragraph}>There is a Me</Text>
+              <Button title="Create Product" onPress={() => history.push('/')} />
+            </View>
+          ) : (
+            <View style={styles.container}>
+              <Text style={styles.paragraph}>This is No Me</Text>
+              <Button title="Create Product" onPress={() => history.push('/')} />
+            </View>
+          )}
+        </>
+      );
+    }}
+  </User>
 );
 
 const styles = StyleSheet.create({

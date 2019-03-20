@@ -11,6 +11,7 @@ type User {
 	resetToken: String
 	resetTokenExpiry: Float
 	permissions: [Permission]
+	token: String
 }
 
 type List {
@@ -26,6 +27,6 @@ type ListItem {
 	name: String!
 	price: Int
 	list: String!
-  user: User!
-  inCart: Boolean! @default(value: false)
+	user: User!
+	inCart: Boolean! @default(value: false)
 }

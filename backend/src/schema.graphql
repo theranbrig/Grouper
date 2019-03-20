@@ -17,6 +17,7 @@ type Mutation {
 	editListItem(id: ID!, name: String, price: Int): ListItem
 	removeListItem(id: String!): ListItem
 	toggleInCart(id: String!): ListItem
+	refreshToken(token: String!): String!
 }
 
 type Query {

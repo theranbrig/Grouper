@@ -10,7 +10,7 @@ const Lists = ({ history }) => (
         <Image source={require('../../assets/images/colorfish.png')} resizeMode="contain" />
       </View>
       <Text style={styles.paragraph}>Shop Faster. Shop Together. Shop Smarter</Text>
-      <Button block style={styles.orangeButton} onPress={() => history.push('/login')}>
+      <Button block style={styles.orangeButton} onPress={() => history.push('/signup')}>
         <Text style={styles.orangeButtonText}>Sign Up</Text>
       </Button>
       <Button block style={styles.orangeButton} onPress={() => history.push('/login')}>
