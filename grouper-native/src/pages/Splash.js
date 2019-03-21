@@ -1,23 +1,39 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { Container, Button, Text } from 'native-base';
+import User from '../components/User';
 
-const Lists = ({ history }) => (
-  <Container>
-    <View style={styles.container}>
-      <Text style={styles.heading}>Grouper</Text>
-      <View style={styles.mainImage}>
-        <Image source={require('../../assets/images/colorfish.png')} resizeMode="contain" />
-      </View>
-      <Text style={styles.paragraph}>Shop Faster. Shop Together. Shop Smarter</Text>
-      <Button block style={styles.orangeButton} onPress={() => history.push('/signup')}>
-        <Text style={styles.orangeButtonText}>Sign Up</Text>
-      </Button>
-      <Button block style={styles.orangeButton} onPress={() => history.push('/login')}>
-        <Text style={styles.orangeButtonText}>Login</Text>
-      </Button>
-    </View>
-  </Container>
+const Splash = () => (
+  <User>
+    {({ data: { me } }) => (
+      <Container>
+        <View style={styles.container}>
+          <Text style={styles.heading}>Grouper</Text>
+          <View style={styles.mainImage}>
+            <Image source={require('../../assets/images/colorfish.png')} resizeMode="contain" />
+          </View>
+          <Text style={styles.paragraph}>Shop Faster. Shop Together. Shop Smarter</Text>
+          {me ? (
+            <>
+              <Text>{me.email}</Text>
+              <Button block style={styles.orangeButton} onPress={() => history.push('/lists')}>
+                <Text>Go To Lists</Text>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button block style={styles.orangeButton} onPress={() => history.push('/signup')}>
+                <Text style={styles.orangeButtonText}>Sign Up</Text>
+              </Button>
+              <Button block style={styles.orangeButton} onPress={() => history.push('/login')}>
+                <Text style={styles.orangeButtonText}>Login</Text>
+              </Button>
+            </>
+          )}
+        </View>
+      </Container>
+    )}
+  </User>
 );
 
 const styles = StyleSheet.create({
@@ -60,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Lists;
+export default Splash;
