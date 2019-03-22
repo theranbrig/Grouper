@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import { Container, Button, Text } from 'native-base';
+import { Container, Button, Text, Spinner } from 'native-base';
 import User from '../components/User';
 
-const Splash = () => (
+const Splash = ({ history }) => (
   <User>
-    {({ data: { me } }) => (
+    {({ data: { me }, loading, error }) => (
       <Container>
         <View style={styles.container}>
           <Text style={styles.heading}>Grouper</Text>
@@ -13,11 +13,12 @@ const Splash = () => (
             <Image source={require('../../assets/images/colorfish.png')} resizeMode="contain" />
           </View>
           <Text style={styles.paragraph}>Shop Faster. Shop Together. Shop Smarter</Text>
-          {me ? (
+          {loading ? (
+            <Spinner color="#ef8354" />
+          ) : me ? (
             <>
-              <Text>{me.email}</Text>
               <Button block style={styles.orangeButton} onPress={() => history.push('/lists')}>
-                <Text>Go To Lists</Text>
+                <Text style={styles.orangeButtonText}>Go To Lists</Text>
               </Button>
             </>
           ) : (

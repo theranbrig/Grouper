@@ -30,6 +30,7 @@ const Mutations = {
         data: {
           ...args,
           password,
+          token: jwt.sign({ userId: args.email }, process.env.APP_SECRET),
           permissions: { set: ['USER'] },
         },
       },
@@ -41,17 +42,7 @@ const Mutations = {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 14, // Two week token
     });
-
-    const updatedUser = await ctx.db.mutation.updateUser(
-      {
-        data: { token },
-        where: {
-          id: user.id,
-        },
-      },
-      info
-    );
-    return updatedUser;
+    return user;
   },
   async signin(parent, { email, password }, ctx, info) {
     // Check email and password
@@ -69,15 +60,11 @@ const Mutations = {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 14, // Two week token
     });
-    return { token, user };
+    return user;
   },
   async signout(parent, args, ctx, info) {
     ctx.response.clearCookie('token');
     return { message: 'Goodbye!' };
-  },
-  async refreshToken(parent, { token }, context, info) {
-    const userId = getUserId(context, token);
-    return jwt.sign({ userId }, process.env.APP_SECRET);
   },
 
   // ////////////////////////////////////////////////////////////////////
