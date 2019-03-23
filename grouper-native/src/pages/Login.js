@@ -5,6 +5,8 @@ import { Button, Text, Icon, Container, Spinner } from 'native-base';
 import { Mutation, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { TOKEN_KEY } from '../constants';
+import { CURRENT_USER_QUERY } from '../components/User';
+import Error from '../components/ErrorMessage';
 
 const styles = StyleSheet.create({
   container: {
@@ -81,54 +83,48 @@ class Login extends React.Component {
     const { history } = this.props;
     return (
       <Container>
-        <Mutation mutation={LOGIN_USER_MUTATION} variables={this.state}>
-          {(login, { data, loading, error }) => {
-            console.log('data', data);
-            return (
-              <View style={styles.container}>
-                <Text style={styles.heading}>Grouper</Text>
-                <Text style={styles.paragraph}>Login and start group shopping today.</Text>
-                {isSubmitting && <Spinner color="#ef8354" />}
-                <TextInput
-                  placeholder="Email"
-                  autoCapitalize="none"
-                  style={styles.textInput}
-                  onChangeText={email => this.setState({ email })}
-                  value={email}
-                />
-                <TextInput
-                  secureTextEntry
-                  placeholder="Password"
-                  autoCapitalize="none"
-                  style={styles.textInput}
-                  onChangeText={password => this.setState({ password })}
-                  value={password}
-                />
-                <Button
-                  block
-                  style={styles.orangeButton}
-                  onPress={async () => {
-                    this.setState({ isSubmitting: true });
-                    await login();
-                    this.setState({ isSubmitting: false });
-                    history.push('/');
-                  }}
-                >
-                  <Text style={styles.orangeButtonText}>Sign{isSubmitting && 'ing'} Up</Text>
-                  <Icon name="md-arrow-round-forward" />
-                </Button>
-                <Button
-                  transparent
-                  light
-                  block
-                  style={styles.transparentButton}
-                  onPress={() => history.push('/signup')}
-                >
-                  <Text style={styles.transparentButtonStyle}>Don't have an Account? Sign Up Now.</Text>
-                </Button>
-              </View>
-            );
-          }}
+        <Mutation
+          mutation={LOGIN_USER_MUTATION}
+          variables={this.state}
+          refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+        >
+          {(login, { data, loading, error }) => (
+            <View style={styles.container}>
+              <Text style={styles.heading}>Grouper</Text>
+              <Text style={styles.paragraph}>Login and start group shopping today.</Text>
+              {loading && <Spinner color="#ef8354" />}
+              {error && <Error error={error} />}
+              <TextInput
+                placeholder="Email"
+                autoCapitalize="none"
+                style={styles.textInput}
+                onChangeText={email => this.setState({ email })}
+                value={email}
+              />
+              <TextInput
+                secureTextEntry
+                placeholder="Password"
+                autoCapitalize="none"
+                style={styles.textInput}
+                onChangeText={password => this.setState({ password })}
+                value={password}
+              />
+              <Button
+                block
+                style={styles.orangeButton}
+                onPress={async () => {
+                  await login();
+                  history.push('/');
+                }}
+              >
+                <Text style={styles.orangeButtonText}>Log{loading && 'ging'} In</Text>
+                <Icon name="md-arrow-round-forward" />
+              </Button>
+              <Button transparent light block style={styles.transparentButton} onPress={() => history.push('/signup')}>
+                <Text style={styles.transparentButtonStyle}>Don't have an Account? Sign Up Now.</Text>
+              </Button>
+            </View>
+          )}
         </Mutation>
       </Container>
     );

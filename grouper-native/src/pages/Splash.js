@@ -1,41 +1,10 @@
+/* eslint-disable global-require */
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { Container, Button, Text, Spinner } from 'native-base';
 import User from '../components/User';
-
-const Splash = ({ history }) => (
-  <User>
-    {({ data: { me }, loading, error }) => (
-      <Container>
-        <View style={styles.container}>
-          <Text style={styles.heading}>Grouper</Text>
-          <View style={styles.mainImage}>
-            <Image source={require('../../assets/images/colorfish.png')} resizeMode="contain" />
-          </View>
-          <Text style={styles.paragraph}>Shop Faster. Shop Together. Shop Smarter</Text>
-          {loading ? (
-            <Spinner color="#ef8354" />
-          ) : me ? (
-            <>
-              <Button block style={styles.orangeButton} onPress={() => history.push('/lists')}>
-                <Text style={styles.orangeButtonText}>Go To Lists</Text>
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button block style={styles.orangeButton} onPress={() => history.push('/signup')}>
-                <Text style={styles.orangeButtonText}>Sign Up</Text>
-              </Button>
-              <Button block style={styles.orangeButton} onPress={() => history.push('/login')}>
-                <Text style={styles.orangeButtonText}>Login</Text>
-              </Button>
-            </>
-          )}
-        </View>
-      </Container>
-    )}
-  </User>
-);
+import Error from '../components/ErrorMessage';
 
 const styles = StyleSheet.create({
   container: {
@@ -76,5 +45,58 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
 });
+
+class Splash extends React.Component {
+  state = { isSubmitting: false };
+
+  componentDidMount() {
+    this.setState({ isSubmitting: true });
+    setTimeout(() => {
+      this.setState({ isSubmitting: false });
+    }, 1000);
+  }
+
+  render() {
+    const { isSubmitting } = this.state;
+    const { history } = this.props;
+    return (
+      <User>
+        {({ data: { me }, loading, error }) => (
+          <Container>
+            <View style={styles.container}>
+              <Text style={styles.heading}>Grouper</Text>
+              <View style={styles.mainImage}>
+                <Image source={require('../../assets/images/colorfish.png')} resizeMode="contain" />
+              </View>
+              <Text style={styles.paragraph}>Shop Faster. Shop Together. Shop Smarter</Text>
+              {error && <Error error={error} />}
+              {loading || isSubmitting ? (
+                <Spinner color="#ef8354" />
+              ) : me ? (
+                <>
+                  <Button block style={styles.orangeButton} onPress={() => history.push('/lists')}>
+                    <Text style={styles.orangeButtonText}>Go To {me.username}'s Lists</Text>
+                  </Button>
+                  <Button block style={styles.orangeButton} onPress={() => history.push('/logout')}>
+                    <Text style={styles.orangeButtonText}>Logout</Text>
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button block style={styles.orangeButton} onPress={() => history.push('/signup')}>
+                    <Text style={styles.orangeButtonText}>Sign Up</Text>
+                  </Button>
+                  <Button block style={styles.orangeButton} onPress={() => history.push('/login')}>
+                    <Text style={styles.orangeButtonText}>Login</Text>
+                  </Button>
+                </>
+              )}
+            </View>
+          </Container>
+        )}
+      </User>
+    );
+  }
+}
 
 export default Splash;

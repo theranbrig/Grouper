@@ -74,45 +74,21 @@ class SignUp extends React.Component {
     email: '',
     password: '',
     username: '',
-    isSubmitting: false,
-  };
-
-  handleSubmit = async () => {
-    if (this.state.isSubmitting) {
-      return;
-    }
-    this.setState({ isSubmitting: true });
-    let response;
-    try {
-      response = await this.props.mutate({
-        variables: { email, password, username },
-      });
-      console.log('Signed Up');
-    } catch (err) {
-      this.setState({
-        errors: err,
-        isSubmitting: false,
-      });
-    }
-
-    // await AsyncStorage.setItem(TOKEN_KEY, response.data.signup.token);
-    // this.setState({ username: '', email: '', password: '', isSubmitting: false });
-    // this.props.history.push('/lists');
   };
 
   render() {
-    const { email, password, username, isSubmitting } = this.state;
+    const { email, password, username } = this.state;
     const { history } = this.props;
     return (
       <Container>
         <Mutation mutation={SIGNUP_USER_MUTATION} variables={this.state}>
           {(signUp, { data, loading, error }) => {
-            console.log("data",data);
+            console.log('data', data);
             return (
               <View style={styles.container}>
                 <Text style={styles.heading}>Grouper</Text>
                 <Text style={styles.paragraph}>Sign up today and start group shopping today.</Text>
-                {isSubmitting && <Spinner color="#ef8354" />}
+                {loading && <Spinner color="#ef8354" />}
                 <TextInput
                   placeholder="Email"
                   autoCapitalize="none"
@@ -139,12 +115,11 @@ class SignUp extends React.Component {
                   block
                   style={styles.orangeButton}
                   onPress={async () => {
-                    this.setState({ isSubmitting: true });
                     await signUp();
-                    this.setState({ isSubmitting: false });
+                    history.push('/');
                   }}
                 >
-                  <Text style={styles.orangeButtonText}>Sign{isSubmitting && 'ing'} Up</Text>
+                  <Text style={styles.orangeButtonText}>Sign{loading && 'ing'} Up</Text>
                   <Icon name="md-arrow-round-forward" />
                 </Button>
                 <Button transparent light block style={styles.transparentButton} onPress={() => history.push('/login')}>

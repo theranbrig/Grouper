@@ -1,32 +1,69 @@
 import React from 'react';
 import { Text, View, Button, StyleSheet } from 'react-native';
+import { Image } from 'react-native';
 import User from '../components/User';
 import LogoutButton from '../components/LogoutButton';
-
-const Login = ({ history }) => (
-  <View style={styles.container}>
-    <Text style={styles.paragraph}>Logout User</Text>
-    <Button title="Create Product" onPress={() => history.push('/')} />
-    <LogoutButton />
-  </View>
-);
+import { CURRENT_USER_QUERY } from '../components/User';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#4f5d75',
+    padding: 10,
   },
-  field: {
-    width: 300,
-    fontSize: 20,
-    borderBottomWidth: 2,
-    marginBottom: 10,
+  textInput: {
+    height: 40,
+    width: '90%',
+    marginTop: 8,
+    color: '#2d3142',
+    paddingLeft: 10,
+    backgroundColor: 'white',
+    borderRadius: 5,
   },
-  paragraph: {
+  heading: {
+    color: '#ef8354',
+    fontFamily: 'Lobster',
+    fontSize: 60,
+  },
+  orangeButton: {
+    marginLeft: '5%',
+    margin: 10,
+    width: '90%',
+    backgroundColor: '#ef8354',
+    fontFamily: 'Roboto',
+  },
+  transparentButton: {
+    marginLeft: '5%',
+    margin: 10,
+    width: '90%',
+    fontFamily: 'Roboto',
     textAlign: 'center',
   },
+  paragraph: {
+    color: '#fefefe',
+    width: '90%',
+    textAlign: 'center',
+    margin: 15,
+    fontFamily: 'Roboto',
+    fontSize: 20,
+  },
+  orangeButtonText: {
+    fontFamily: 'Lobster',
+    fontSize: 25,
+  },
 });
+
+const Login = ({ history }) => (
+  <View style={styles.container}>
+    <Text style={styles.heading}>Grouper</Text>
+    <View style={styles.mainImage}>
+      <Image source={require('../../assets/images/colorfish.png')} resizeMode="contain" />
+    </View>
+    <Text style={styles.paragraph}>We are sorry to see you go. We hope to see you again.</Text>
+    <LogoutButton pushToSplash={() => history.push('/')} />
+  </View>
+);
 
 export default Login;
