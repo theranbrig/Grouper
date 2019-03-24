@@ -4,6 +4,7 @@ import Splash from './Splash';
 import Logout from './Logout';
 import SignUp from './SignUp';
 import Login from './Login';
+import Lists from './Lists';
 
 const AppRouter = () => (
   <NativeRouter>
@@ -12,6 +13,7 @@ const AppRouter = () => (
       <Route exact path="/login" component={Login} />
       <Route exact path="/logout" component={Logout} />
       <Route exact path="/signup" component={SignUp} />
+      <Route exact path="/lists" component={Lists} />
     </Switch>
   </NativeRouter>
 );
