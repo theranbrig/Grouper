@@ -12,6 +12,7 @@ export const mainStyles = StyleSheet.create({
   },
   paragraph: {
     color: 'white',
+    fontFamily: 'Roboto',
   },
   heading1: {
     color: '#ef8354',
@@ -60,14 +61,17 @@ export const mainStyles = StyleSheet.create({
   individualListText: {
     color: '#fefefe',
     fontFamily: 'Roboto',
-    paddingLeft: 10,
+    paddingLeft: 20,
+    fontSize: 20,
   },
   listItem1: {
     borderBottomWidth: 0,
     backgroundColor: '#4f5d75',
     overflow: 'hidden',
     width: '100%',
-   
+    borderColor: 'white',
+    borderWidth: 1,
+    borderBottomWidth: 1,
   },
   noListText: {
     color: '#fefefe',
@@ -75,33 +79,48 @@ export const mainStyles = StyleSheet.create({
     textAlign: 'center',
     padding: 20,
   },
+  listIcon: {
+    color: '#ef8354',
+    fontSize: 25,
+  },
 });
 
-const IndividualList = props => (
-  <View style={mainStyles.listItem}>
-    <SwipeRow
-      style={mainStyles.listItem1}
-      rightOpenValue={-75}
-      leftOpenValue={75}
-      left={
-        <Button style={{ backgroundColor: '#ef8354', color: '#2d3142' }} onPress={() => alert('Trash')}>
-          <Icon active name="edit" />
-        </Button>
-      }
-      body={
-        <TouchableOpacity style={mainStyles.individualList} key={props.list.listId} onPress={props.viewListClick}>
-          <Text style={mainStyles.individualListText}>{props.list.name}</Text>
-          <Text style={mainStyles.individualListText}>{props.list.creator}</Text>
-          <Text style={mainStyles.individualListText}>{props.list.listId}</Text>
-        </TouchableOpacity>
-      }
-      right={
-        <Button style={{ backgroundColor: '#ef8354', color: '#2d3142' }} onPress={() => alert('Trash')}>
-          <Icon active name="trash" />
-        </Button>
-      }
-    />
-  </View>
-);
+const IndividualList = props => {
+  console.log(props);
+  return (
+    <TouchableOpacity style={mainStyles.listItem}>
+      <SwipeRow
+        style={mainStyles.listItem1}
+        rightOpenValue={-75}
+        leftOpenValue={75}
+        left={
+          <Button style={{ backgroundColor: '#ef8354', color: '#2d3142' }} onPress={() => alert('Trash')}>
+            <Icon active name="ios-create" />
+          </Button>
+        }
+        body={
+          <TouchableOpacity style={mainStyles.individualList} key={props.list.listId} onPress={props.viewListClick}>
+            <Text style={mainStyles.individualListText}>
+              {props.list.name} - {props.list.type}
+            </Text>
+            <View style={{ flexWrap: 'wrap', flexDirection: 'row', alignItems: 'flex-end' }}>
+              <Text style={mainStyles.individualListText}>
+                {props.list.items.length} <Icon style={mainStyles.listIcon} active name="ios-cart" />
+              </Text>
+              <Text style={mainStyles.individualListText}>
+                {props.list.users.length} <Icon style={mainStyles.listIcon} active name="ios-person" />
+              </Text>
+            </View>
+          </TouchableOpacity>
+        }
+        right={
+          <Button style={{ backgroundColor: '#ef8354', color: '#2d3142' }} onPress={() => alert('Trash')}>
+            <Icon active name="ios-trash" />
+          </Button>
+        }
+      />
+    </TouchableOpacity>
+  );
+};
 
 export default IndividualList;

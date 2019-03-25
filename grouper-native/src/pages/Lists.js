@@ -19,6 +19,7 @@ const LISTS_QUERY = gql`
       }
       items {
         id
+        inCart
       }
     }
   }
@@ -27,15 +28,14 @@ const LISTS_QUERY = gql`
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#4f5d75',
-    padding: 10,
+    flex: 1,
   },
   paragraph: {
     color: '#fefefe',
-    width: '90%',
     textAlign: 'center',
     margin: 15,
-    fontFamily: 'Roboto',
-    fontSize: 20,
+    fontFamily: 'Lobster',
+    fontSize: 25,
   },
 });
 
@@ -53,7 +53,7 @@ class Lists extends React.PureComponent {
       <User>
         {({ data: { me } }) => (
           <>
-            <Container>
+            <Container style={{ backgroundColor: '#4f5d75' }}>
               <BackHeader backLink={() => history.push('/')} />
               <Query
                 asyncMode
@@ -72,13 +72,12 @@ class Lists extends React.PureComponent {
                       {userLists ? (
                         <>
                           <Text style={styles.paragraph}>
-                            You have {userLists.length} List{userLists.length > 1 && 's'}
+                            {me.username}
+                            {me.username.charAt(me.username.length - 1) === 's' ? "'" : "'s"} Lists
                           </Text>
                           <List>
                             {userLists.map(list => (
-                              <>
-                                <IndividualList key={list.id} list={list} viewListClick={() => history.push('/')} />
-                              </>
+                              <IndividualList key={list.id} list={list} viewListClick={() => history.push('/')} />
                             ))}
                           </List>
                         </>

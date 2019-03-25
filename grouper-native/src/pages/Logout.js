@@ -1,9 +1,11 @@
 import React from 'react';
-import { Text, View, Button, StyleSheet } from 'react-native';
-import { Image } from 'react-native';
+import { Text, View, Button, StyleSheet, Image } from 'react-native';
+import { Container } from 'native-base';
+
 import User from '../components/User';
 import LogoutButton from '../components/LogoutButton';
 import { CURRENT_USER_QUERY } from '../components/User';
+import BackHeader from '../components/BackHeader';
 
 const styles = StyleSheet.create({
   container: {
@@ -56,14 +58,17 @@ const styles = StyleSheet.create({
 });
 
 const Login = ({ history }) => (
-  <View style={styles.container}>
-    <Text style={styles.heading}>Grouper</Text>
-    <View style={styles.mainImage}>
-      <Image source={require('../../assets/images/colorfish.png')} resizeMode="contain" />
+  <Container>
+    <BackHeader backLink={() => history.push('/')} />
+    <View style={styles.container}>
+      <Text style={styles.heading}>Grouper</Text>
+      <View style={styles.mainImage}>
+        <Image source={require('../../assets/images/colorfish.png')} resizeMode="contain" />
+      </View>
+      <Text style={styles.paragraph}>We are sorry to see you go. We hope to see you again.</Text>
+      <LogoutButton pushToSplash={() => history.push('/')} />
     </View>
-    <Text style={styles.paragraph}>We are sorry to see you go. We hope to see you again.</Text>
-    <LogoutButton pushToSplash={() => history.push('/')} />
-  </View>
+  </Container>
 );
 
 export default Login;
