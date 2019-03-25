@@ -26,9 +26,6 @@ const LISTS_QUERY = gql`
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#4f5d75',
     padding: 10,
   },
@@ -42,32 +39,36 @@ const styles = StyleSheet.create({
   },
 });
 
-class Lists extends React.Component {
-  state = { isSubmitting: false };
+class Lists extends React.PureComponent {
+  state = { isCompleted: false };
 
   componentDidMount() {
-    this.setState({ isSubmitting: true });
-    setTimeout(() => {
-      this.setState({ isSubmitting: false });
-    }, 1000);
+    this.setState({ isCompleted: true });
   }
 
   render() {
+    const { isCompleted } = this.state;
+    const { history } = this.props;
     return (
       <User>
         {({ data: { me } }) => (
           <>
-            <Containe>
-              <BackHeader backLink={() => this.props.history.push('/')} />
-              <Query asyncMode query={LISTS_QUERY} pollInterval={10000}>
+            <Container>
+              <BackHeader backLink={() => history.push('/')} />
+              <Query
+                asyncMode
+                query={LISTS_QUERY}
+                pollInterval={10000}
+                onCompleted={() => this.setState({ isCompleted: false })}
+              >
                 {(data, loading, error) => {
                   let userLists;
                   if (data.data.lists) {
                     userLists = data.data.lists.filter(list => list.users.some(user => user.id === me.id));
                   }
-                  if (this.state.isSubmitting || loading) return <Spinner color="#ef8354" />;
+                  if (isCompleted || loading) return <Spinner color="#ef8354" />;
                   return (
-                    <View>
+                    <View style={styles.container}>
                       {userLists ? (
                         <>
                           <Text style={styles.paragraph}>
@@ -76,11 +77,7 @@ class Lists extends React.Component {
                           <List>
                             {userLists.map(list => (
                               <>
-                                <IndividualList
-                                  key={list.id}
-                                  list={list}
-                                  viewListClick={() => this.props.history.push('/')}
-                                />
+                                <IndividualList key={list.id} list={list} viewListClick={() => history.push('/')} />
                               </>
                             ))}
                           </List>

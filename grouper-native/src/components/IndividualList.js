@@ -67,6 +67,7 @@ export const mainStyles = StyleSheet.create({
     backgroundColor: '#4f5d75',
     overflow: 'hidden',
     width: '100%',
+   
   },
   noListText: {
     color: '#fefefe',
