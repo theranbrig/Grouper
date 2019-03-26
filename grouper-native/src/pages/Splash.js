@@ -63,35 +63,39 @@ class Splash extends React.Component {
       <User>
         {({ data: { me }, loading, error }) => (
           <Container>
-            <View style={styles.container}>
-              <Text style={styles.heading}>Grouper</Text>
-              <View style={styles.mainImage}>
-                <Image source={require('../../assets/images/colorfish.png')} resizeMode="contain" />
+            {me === undefined ? (
+              <Text>Loading...</Text>
+            ) : (
+              <View style={styles.container}>
+                <Text style={styles.heading}>Grouper</Text>
+                <View style={styles.mainImage}>
+                  <Image source={require('../../assets/images/colorfish.png')} resizeMode="contain" />
+                </View>
+                <Text style={styles.paragraph}>Shop Faster. Shop Together. Shop Smarter</Text>
+                {error && <Error error={error} />}
+                {loading || isSubmitting ? (
+                  <Spinner color="#ef8354" />
+                ) : me ? (
+                  <>
+                    <Button block style={styles.orangeButton} onPress={() => history.push('/lists')}>
+                      <Text style={styles.orangeButtonText}>Go To {me.username}'s Lists</Text>
+                    </Button>
+                    <Button block style={styles.orangeButton} onPress={() => history.push('/logout')}>
+                      <Text style={styles.orangeButtonText}>Logout</Text>
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button block style={styles.orangeButton} onPress={() => history.push('/signup')}>
+                      <Text style={styles.orangeButtonText}>Sign Up</Text>
+                    </Button>
+                    <Button block style={styles.orangeButton} onPress={() => history.push('/login')}>
+                      <Text style={styles.orangeButtonText}>Login</Text>
+                    </Button>
+                  </>
+                )}
               </View>
-              <Text style={styles.paragraph}>Shop Faster. Shop Together. Shop Smarter</Text>
-              {error && <Error error={error} />}
-              {loading || isSubmitting ? (
-                <Spinner color="#ef8354" />
-              ) : me ? (
-                <>
-                  <Button block style={styles.orangeButton} onPress={() => history.push('/lists')}>
-                    <Text style={styles.orangeButtonText}>Go To {me.username}'s Lists</Text>
-                  </Button>
-                  <Button block style={styles.orangeButton} onPress={() => history.push('/logout')}>
-                    <Text style={styles.orangeButtonText}>Logout</Text>
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Button block style={styles.orangeButton} onPress={() => history.push('/signup')}>
-                    <Text style={styles.orangeButtonText}>Sign Up</Text>
-                  </Button>
-                  <Button block style={styles.orangeButton} onPress={() => history.push('/login')}>
-                    <Text style={styles.orangeButtonText}>Login</Text>
-                  </Button>
-                </>
-              )}
-            </View>
+            )}
           </Container>
         )}
       </User>

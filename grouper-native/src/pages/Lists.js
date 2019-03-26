@@ -1,11 +1,12 @@
 import gql from 'graphql-tag';
 import React from 'react';
 import { Query } from 'react-apollo';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { Container, View, Text, List, ListItem, Spinner } from 'native-base';
 import User from '../components/User';
 import BackHeader from '../components/BackHeader';
 import IndividualList from '../components/IndividualList';
+import AddList from '../components/AddList';
 
 const LISTS_QUERY = gql`
   query LISTS_QUERY {
@@ -36,6 +37,11 @@ const styles = StyleSheet.create({
     margin: 15,
     fontFamily: 'Lobster',
     fontSize: 25,
+  },
+  bottom: {
+    color: 'blue',
+    paddingTop: 40,
+    paddingBottom: 40,
   },
 });
 
@@ -68,23 +74,28 @@ class Lists extends React.PureComponent {
                   }
                   if (isCompleted || loading) return <Spinner color="#ef8354" />;
                   return (
-                    <View style={styles.container}>
-                      {userLists ? (
-                        <>
-                          <Text style={styles.paragraph}>
-                            {me.username}
-                            {me.username.charAt(me.username.length - 1) === 's' ? "'" : "'s"} Lists
-                          </Text>
-                          <List>
-                            {userLists.map(list => (
-                              <IndividualList key={list.id} list={list} viewListClick={() => history.push('/')} />
-                            ))}
-                          </List>
-                        </>
-                      ) : (
-                        <Text>Sorry. Nothing could be found. Please try again</Text>
-                      )}
-                    </View>
+                    <ScrollView>
+                      <View style={styles.container}>
+                        {userLists ? (
+                          <>
+                            <Text style={styles.paragraph}>
+                              {me.username}
+                              {me.username.charAt(me.username.length - 1) === 's' ? "'" : "'s"} Lists
+                            </Text>
+                            <List style={{ borderTopWidth: 0.2, borderColor: 'white' }}>
+                              {userLists.map(list => (
+                                <IndividualList key={list.id} list={list} viewListClick={() => history.push('/')} />
+                              ))}
+                            </List>
+                          </>
+                        ) : (
+                          <Text>Sorry. No Lists Found. Add More Below.</Text>
+                        )}
+                      </View>
+                      <View style={styles.bottom}>
+                        <AddList />
+                      </View>
+                    </ScrollView>
                   );
                 }}
               </Query>
