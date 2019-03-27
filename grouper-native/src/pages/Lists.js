@@ -2,11 +2,12 @@ import gql from 'graphql-tag';
 import React from 'react';
 import { Query } from 'react-apollo';
 import { StyleSheet, ScrollView } from 'react-native';
-import { Container, View, Text, List, ListItem, Spinner } from 'native-base';
+import { Container, View, Text, List, ListItem, Spinner, Button, Icon } from 'native-base';
 import User from '../components/User';
 import BackHeader from '../components/BackHeader';
 import IndividualList from '../components/IndividualList';
 import AddList from '../components/AddList';
+import EditList from '../components/EditList';
 
 const LISTS_QUERY = gql`
   query LISTS_QUERY {
@@ -40,20 +41,37 @@ const styles = StyleSheet.create({
   },
   bottom: {
     color: 'blue',
-    paddingTop: 40,
-    paddingBottom: 40,
+  },
+  orangeButton: {
+    backgroundColor: '#ef8354',
+    fontFamily: 'Roboto',
+    marginTop: 10,
+    marginRight: 14,
+  },
+  topInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignContent: 'center',
   },
 });
 
 class Lists extends React.PureComponent {
-  state = { isCompleted: false };
+  state = { isCompleted: false, showEdit: false, showAdd: false };
 
   componentDidMount() {
     this.setState({ isCompleted: true });
   }
 
+  showEdit = () => {
+    this.setState({ showEdit: !this.state.showEdit });
+  };
+
+  showAdd = () => {
+    this.setState({ showAdd: !this.state.showAdd });
+  };
+
   render() {
-    const { isCompleted } = this.state;
+    const { isCompleted, showEdit, showAdd } = this.state;
     const { history } = this.props;
     return (
       <User>
@@ -61,6 +79,7 @@ class Lists extends React.PureComponent {
           <>
             <Container style={{ backgroundColor: '#4f5d75' }}>
               <BackHeader backLink={() => history.push('/')} />
+
               <Query
                 asyncMode
                 query={LISTS_QUERY}
@@ -78,22 +97,34 @@ class Lists extends React.PureComponent {
                       <View style={styles.container}>
                         {userLists ? (
                           <>
-                            <Text style={styles.paragraph}>
-                              {me.username}
-                              {me.username.charAt(me.username.length - 1) === 's' ? "'" : "'s"} Lists
-                            </Text>
-                            <List style={{ borderTopWidth: 0.2, borderColor: 'white' }}>
+                            <View style={styles.topInfo}>
+                              <Text style={styles.paragraph}>
+                                {me.username}
+                                {me.username.charAt(me.username.length - 1) === 's' ? "'" : "'s"} Lists
+                              </Text>
+                              <Button rounded style={styles.orangeButton} onPress={() => this.showAdd()}>
+                                {showAdd ? <Icon name="md-remove" /> : <Icon name="md-add" />}
+                              </Button>
+                            </View>
+                            {showAdd && (
+                              <View style={styles.bottom}>
+                                <AddList />
+                              </View>
+                            )}
+                            <List style={{ borderTopWidth: 0.2, borderColor: 'white', paddingBottom: 40 }}>
                               {userLists.map(list => (
-                                <IndividualList key={list.id} list={list} viewListClick={() => history.push('/')} />
+                                <IndividualList
+                                  key={list.id}
+                                  list={list}
+                                  viewListClick={() => history.push('/')}
+                                  showEdit={this.showEdit}
+                                />
                               ))}
                             </List>
                           </>
                         ) : (
                           <Text>Sorry. No Lists Found. Add More Below.</Text>
                         )}
-                      </View>
-                      <View style={styles.bottom}>
-                        <AddList />
                       </View>
                     </ScrollView>
                   );

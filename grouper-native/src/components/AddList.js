@@ -11,7 +11,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#4f5d75',
+    backgroundColor: '#2d3142',
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 0.2,
   },
   heading: {
     color: '#ef8354',
@@ -23,7 +26,10 @@ const styles = StyleSheet.create({
     margin: 10,
     width: '30%',
     backgroundColor: '#ef8354',
-    fontFamily: 'Roboto',
+  },
+  orangeButtonText: {
+    fontFamily: 'Lobster',
+    fontSize: 25,
   },
   transparentButton: {
     marginLeft: '5%',
@@ -73,8 +79,7 @@ class AddList extends React.Component {
                 onChangeText={name => this.setState({ name })}
                 value={this.state.name}
                 style={{ color: '#fff', fontFamily: 'Roboto', paddingLeft: 15, fontSize: 18 }}
-                placeholder="List Name"
-                placeholderTextColor="white"
+                placeholderTextColor="gray"
               />
             </Item>
             <Item picker>
@@ -95,10 +100,8 @@ class AddList extends React.Component {
                 note
                 mode="dropdown"
                 iosIcon={<Icon name="arrow-dropdown-circle" style={{ color: '#ef8354' }} />}
-                style={{ width: undefined, color: 'white' }}
+                style={{ width: undefined }}
                 selectedValue={this.state.type}
-                placeholder="Select List Type"
-                placeholderStyle={{ color: 'white' }}
                 textStyle={{ color: 'white', fontSize: 18 }}
                 placeholderIconColor="#ef8354"
                 itemStyle={{
@@ -128,7 +131,7 @@ class AddList extends React.Component {
                 this.setState({ name: '', type: 'General' });
               }}
             >
-              {loading ? <Spinner color="white" /> : <Icon name="md-add" />}
+              <Text style={styles.orangeButtonText}>Add{loading && 'ing'}</Text>
             </Button>
           </View>
         )}
