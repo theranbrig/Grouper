@@ -116,7 +116,7 @@ class Lists extends React.PureComponent {
                                 <IndividualList
                                   key={list.id}
                                   list={list}
-                                  viewListClick={() => history.push('/')}
+                                  viewListClick={() => history.push(`/list/${list.id}`)}
                                   showEdit={this.showEdit}
                                 />
                               ))}

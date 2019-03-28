@@ -1,10 +1,8 @@
+/* eslint-disable global-require */
 import React from 'react';
-import { Text, View, Button, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet, Image } from 'react-native';
 import { Container } from 'native-base';
-
-import User from '../components/User';
 import LogoutButton from '../components/LogoutButton';
-import { CURRENT_USER_QUERY } from '../components/User';
 import BackHeader from '../components/BackHeader';
 
 const styles = StyleSheet.create({
