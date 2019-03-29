@@ -54,6 +54,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'center',
+    borderBottomWidth: 0.2,
+    borderBottomColor: 'white',
   },
   orangeButton: {
     backgroundColor: '#ef8354',
