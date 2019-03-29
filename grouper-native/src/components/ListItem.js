@@ -2,7 +2,7 @@ import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Button, Text, Icon, SwipeRow } from 'native-base';
 import DeleteItemButton from './DeleteItemButton';
-import EditList from './EditList';
+import EditListItem from './EditItem';
 
 export const mainStyles = StyleSheet.create({
   paragraph: {
@@ -40,7 +40,7 @@ class ListItem extends React.Component {
   };
 
   render() {
-    console.log(this.props);
+    const { item, listId } = this.props;
     return (
       <TouchableOpacity style={mainStyles.listItem}>
         <SwipeRow
@@ -48,7 +48,7 @@ class ListItem extends React.Component {
           rightOpenValue={-75}
           leftOpenValue={75}
           left={
-            <Button style={{ backgroundColor: '#ef8354', color: '#2d3142' }} onPress={() => this.showEdit()}>
+            <Button style={{ backgroundColor: '#ef8354', color: '#2d3142' }}>
               {this.state.showEdit ? (
                 <Icon active name="arrow-dropup-circle" />
               ) : (
@@ -60,15 +60,20 @@ class ListItem extends React.Component {
             <View style={mainStyles.individualList}>
               <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
                 <Text style={mainStyles.individualListText}>
-                  {this.props.item.name} - ${this.props.item.price}
+                  {item.name} - ${item.price}
                 </Text>
-                <Icon style={mainStyles.listIcon} active name="ios-information-circle-outline" />
+                <Icon
+                  style={mainStyles.listIcon}
+                  active
+                  name="ios-information-circle-outline"
+                  onPress={() => this.showEdit()}
+                />
               </View>
             </View>
           }
-          right={<DeleteItemButton id={this.props.item.id} listId={this.props.listId} />}
+          right={<DeleteItemButton id={item.id} listId={listId} />}
         />
-        {this.state.showEdit && <EditList />}
+        {this.state.showEdit && <EditListItem id={item.id} />}
       </TouchableOpacity>
     );
   }
