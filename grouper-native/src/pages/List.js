@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   topArea: {
-    padding: 10,
+    padding: 12,
   },
   topInfo: {
     flexDirection: 'row',
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   orangeButton: {
     backgroundColor: '#ef8354',
     fontFamily: 'Roboto',
-    marginTop: 10,
+    marginTop: 14,
     marginRight: 12,
   },
 });

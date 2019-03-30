@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import { Button, Text, Icon, Item, Input, Spinner } from 'native-base';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
+import { ImagePicker, Permissions } from 'expo';
 import { INDIVIDUAL_LIST_QUERY } from '../pages/List';
 import Error from './ErrorMessage';
 
@@ -22,10 +23,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   orangeButton: {
-    marginLeft: '35%',
-    margin: 10,
-    width: '30%',
     backgroundColor: '#ef8354',
+    margin: 10,
   },
   orangeButtonText: {
     fontFamily: 'Lobster',
@@ -40,6 +39,11 @@ const styles = StyleSheet.create({
   },
   picker: {
     color: 'white',
+  },
+  topInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignContent: 'center',
   },
 });
 
@@ -59,7 +63,31 @@ class AddItem extends React.Component {
     price: 0,
   };
 
+  pickImage = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status) {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+      });
+
+      console.log(result);
+
+      if (!result.cancelled) {
+        this.setState({ image: result.uri });
+      }
+    }
+  };
+
+  handleTextChange = (key, value) => {
+    this.setState(state => ({
+      ...state,
+      [key]: value,
+    }));
+  };
+
   render() {
+    const { image, name, price } = this.state;
     return (
       <Mutation
         mutation={ADD_ITEM_MUTATION}
@@ -75,7 +103,7 @@ class AddItem extends React.Component {
                 autoCapitalize="none"
                 placeholder="Item Name"
                 onChangeText={name => this.setState({ name })}
-                value={this.state.name}
+                value={name}
                 style={{ color: '#fff', fontFamily: 'Roboto', paddingLeft: 15, fontSize: 18 }}
                 placeholderTextColor="gray"
               />
@@ -85,21 +113,26 @@ class AddItem extends React.Component {
                 autoCapitalize="none"
                 placeholder="Item Price"
                 onChangeText={price => this.setState({ price })}
-                value={this.state.price}
+                value={price}
                 style={{ color: '#fff', fontFamily: 'Roboto', paddingLeft: 15, fontSize: 18 }}
                 placeholderTextColor="gray"
               />
             </Item>
-
-            <Button
-              block
-              style={styles.orangeButton}
-              onPress={() => {
-                createItem();
-              }}
-            >
-              <Text style={styles.orangeButtonText}>Add{loading && 'ing'}</Text>
-            </Button>
+            {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+            <View style={styles.topInfo}>
+              <Button style={styles.orangeButton} rounded onPress={this.pickImage}>
+                <Icon style={styles.orangeButtonText} name="ios-images" />
+              </Button>
+              <Button
+                block
+                style={styles.orangeButton}
+                onPress={() => {
+                  createItem();
+                }}
+              >
+                <Text style={styles.orangeButtonText}>Add{loading && 'ing'}</Text>
+              </Button>
+            </View>
           </View>
         )}
       </Mutation>
