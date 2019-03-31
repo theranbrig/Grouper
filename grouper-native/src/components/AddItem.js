@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import { Button, Text, Icon, Item, Input, Spinner } from 'native-base';
+import { Button, Text, Icon, Item, Input, Spinner, Label } from 'native-base';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import { ImagePicker, Permissions } from 'expo';
+import { ReactNativeFile } from 'apollo-upload-client';
 import { INDIVIDUAL_LIST_QUERY } from '../pages/List';
 import Error from './ErrorMessage';
 
@@ -48,8 +49,8 @@ const styles = StyleSheet.create({
 });
 
 const ADD_ITEM_MUTATION = gql`
-  mutation ADD_ITEM_MUTATION($name: String!, $price: Int, $list: String!) {
-    addItem(name: $name, price: $price, list: $list) {
+  mutation ADD_ITEM_MUTATION($name: String!, $price: Int, $image: String, $list: String!) {
+    addItem(name: $name, price: $price, list: $list, image: $image) {
       id
       name
       price
@@ -61,12 +62,52 @@ class AddItem extends React.Component {
   state = {
     name: '',
     price: 0,
+    image: null,
+  };
+
+  uploadFile = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status) {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        base64: true,
+        allowsEditing: true,
+        aspect: [4, 3],
+      });
+
+      console.log(result);
+
+      if (!result.cancelled) {
+        const base64Img = `data:image/jpg;base64,${result.base64}`;
+        const apiUrl = 'https://api.cloudinary.com/v1_1/dq7uyauun/image/upload';
+        const data = {
+          file: base64Img,
+          upload_preset: 'grownphotos',
+        };
+        fetch(apiUrl, {
+          body: JSON.stringify(data),
+          headers: {
+            'content-type': 'application/json',
+          },
+          method: 'POST',
+        })
+          .then(async r => {
+            const data = await r.json();
+            console.log(data.secure_url);
+            await this.setState({
+              image: data.secure_url,
+            });
+            console.log(this.state);
+          })
+          .catch(err => console.log(err));
+      }
+    }
   };
 
   pickImage = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     if (status) {
       const result = await ImagePicker.launchImageLibraryAsync({
+        base64: true,
         allowsEditing: true,
         aspect: [4, 3],
       });
@@ -91,7 +132,7 @@ class AddItem extends React.Component {
     return (
       <Mutation
         mutation={ADD_ITEM_MUTATION}
-        variables={{ list: this.props.id, ...this.state }}
+        variables={{ list: this.props.id, image, name, price }}
         refetchQueries={[{ query: INDIVIDUAL_LIST_QUERY, variables: { id: this.props.id } }]}
       >
         {(createItem, { loading, error }) => (
@@ -109,6 +150,7 @@ class AddItem extends React.Component {
               />
             </Item>
             <Item>
+              <Icon style={{ color: '#fff', fontFamily: 'Roboto', paddingLeft: 15, fontSize: 18 }} active name="logo-usd" />
               <Input
                 autoCapitalize="none"
                 placeholder="Item Price"
@@ -118,15 +160,16 @@ class AddItem extends React.Component {
                 placeholderTextColor="gray"
               />
             </Item>
-            {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+            {image && <Image source={{ uri: image }} style={{ width: 200, height: 200, margin: 5 }} />}
             <View style={styles.topInfo}>
-              <Button style={styles.orangeButton} rounded onPress={this.pickImage}>
+              <Button style={styles.orangeButton} rounded onPress={this.uploadFile}>
                 <Icon style={styles.orangeButtonText} name="ios-images" />
               </Button>
               <Button
                 block
                 style={styles.orangeButton}
-                onPress={() => {
+                onPress={async () => {
+                  console.log(this.state);
                   createItem();
                 }}
               >

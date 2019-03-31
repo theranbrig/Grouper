@@ -22,6 +22,7 @@ const INDIVIDUAL_LIST_QUERY = gql`
         id
         name
         price
+        image
         inCart
         user {
           id
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#4f5d75',
+    paddingBottom: 40,
   },
   heading: {
     fontFamily: 'Lobster',
