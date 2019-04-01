@@ -6,6 +6,7 @@ import { Query } from 'react-apollo';
 import BackHeader from '../components/BackHeader';
 import ListItem from '../components/ListItem';
 import AddItem from '../components/AddItem';
+import ListUser from '../components/ListUser';
 
 const INDIVIDUAL_LIST_QUERY = gql`
   query INDIVIDUAL_LIST_QUERY($id: ID!) {
@@ -51,6 +52,8 @@ const styles = StyleSheet.create({
   },
   topArea: {
     padding: 12,
+    borderBottomWidth: 0.2,
+    borderBottomColor: 'white',
   },
   topInfo: {
     flexDirection: 'row',
@@ -77,9 +80,8 @@ class List extends React.PureComponent {
   };
 
   render() {
-    const { id } = this.props.match.params;
     return (
-      <Query query={INDIVIDUAL_LIST_QUERY} variables={{ id }}>
+      <Query query={INDIVIDUAL_LIST_QUERY} variables={{ id: this.props.match.params.id }}>
         {({ data, loading, error }) => {
           if (loading)
             return (
@@ -88,7 +90,7 @@ class List extends React.PureComponent {
                 <Spinner color="#ef8354" />
               </Container>
             );
-          const { name, items, type, id } = data.list;
+          const { name, items, type, id, users } = data.list;
           return (
             <Container style={styles.container}>
               <BackHeader backLink={() => this.props.history.push('/lists')} />
@@ -105,6 +107,12 @@ class List extends React.PureComponent {
                 {this.state.showAdd && <AddItem id={id} />}
                 {items.map(item => (
                   <ListItem key={item.id} item={item} listId={id} />
+                ))}
+                <View style={styles.topArea}>
+                  <Text style={styles.heading}>{name} Users</Text>
+                </View>
+                {users.map(user => (
+                  <ListUser user={user} />
                 ))}
               </ScrollView>
             </Container>

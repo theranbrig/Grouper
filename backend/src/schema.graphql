@@ -13,7 +13,7 @@ type Mutation {
 	removeList(id: String!): List
 	addUser(email: String!, id: ID!): User!
 	removeUser(email: String!, id: ID!): List
-	addItem(name: String!, price: Int, list: String!): ListItem!
+	addItem(name: String!, price: Int, list: String!, image: String): ListItem!
 	editListItem(id: ID!, name: String, price: Int): ListItem
 	removeListItem(id: String!): ListItem
 	toggleInCart(id: String!): ListItem

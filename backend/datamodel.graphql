@@ -29,4 +29,5 @@ type ListItem {
 	list: String!
 	user: User!
 	inCart: Boolean! @default(value: false)
+	image: String
 }
