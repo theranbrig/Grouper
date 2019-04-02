@@ -47,7 +47,7 @@ class ListUser extends React.Component {
       <TouchableOpacity style={mainStyles.listItem}>
         <SwipeRow
           style={mainStyles.listItem}
-          rightOpenValue={75}
+          rightOpenValue={-75}
           body={
             <View style={mainStyles.individualList}>
               <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
@@ -58,7 +58,11 @@ class ListUser extends React.Component {
           }
           right={<DeleteItemButton id={id} listId={id} />}
         />
-        {this.state.showEdit && <Text>{email}</Text>}
+        {this.state.showEdit && (
+          <Text>
+            {email} - {username}
+          </Text>
+        )}
       </TouchableOpacity>
     );
   }
