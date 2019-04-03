@@ -60,7 +60,7 @@ class ListUser extends React.Component {
         />
         {this.state.showEdit && (
           <Text>
-            {email} - {username}
+            <Icon style={mainStyles.listIcon} active name="ios-contact" /> {username}
           </Text>
         )}
       </TouchableOpacity>
