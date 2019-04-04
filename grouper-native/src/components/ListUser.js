@@ -13,7 +13,7 @@ export const mainStyles = StyleSheet.create({
   },
   individualListText: {
     color: '#fefefe',
-    fontFamily: 'Roboto',
+    fontFamily: 'Lobster',
     paddingLeft: 15,
     paddingRight: 10,
     fontSize: 20,
