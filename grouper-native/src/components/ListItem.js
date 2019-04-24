@@ -22,7 +22,7 @@ export const mainStyles = StyleSheet.create({
     overflow: 'hidden',
     width: '100%',
     borderColor: 'white',
-    borderBottomWidth: 0.2,
+    borderBottomWidth: 0.25,
   },
   listIcon: {
     color: '#ef8354',

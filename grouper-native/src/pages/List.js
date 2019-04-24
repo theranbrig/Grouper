@@ -7,6 +7,7 @@ import BackHeader from '../components/BackHeader';
 import ListItem from '../components/ListItem';
 import AddItem from '../components/AddItem';
 import ListUser from '../components/ListUser';
+import AddUser from '../components/AddUser';
 
 const INDIVIDUAL_LIST_QUERY = gql`
   query INDIVIDUAL_LIST_QUERY($id: ID!) {
@@ -52,15 +53,23 @@ const styles = StyleSheet.create({
   },
   topArea: {
     padding: 12,
-    borderBottomWidth: 0.2,
+    borderBottomWidth: 0.25,
     borderBottomColor: 'white',
+  },
+  bottomArea: {
+    padding: 12,
   },
   topInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'center',
-    borderBottomWidth: 0.2,
+    borderBottomWidth: 0.25,
     borderBottomColor: 'white',
+  },
+  bottomInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignContent: 'center',
   },
   orangeButton: {
     backgroundColor: '#ef8354',
@@ -73,10 +82,15 @@ const styles = StyleSheet.create({
 class List extends React.PureComponent {
   state = {
     showAdd: false,
+    showAddUser: false,
   };
 
   showAdd = () => {
     this.setState({ showAdd: !this.state.showAdd });
+  };
+
+  showAddUser = () => {
+    this.setState({ showAddUser: !this.state.showAddUser });
   };
 
   render() {
@@ -108,9 +122,16 @@ class List extends React.PureComponent {
                 {items.map(item => (
                   <ListItem key={item.id} item={item} listId={id} />
                 ))}
-                <View style={styles.topArea}>
-                  <Text style={styles.heading}>{name} Users</Text>
+
+                <View style={styles.bottomInfo}>
+                  <View style={styles.bottomArea}>
+                    <Text style={styles.heading}>Users</Text>
+                  </View>
+                  <Button rounded style={styles.orangeButton} onPress={() => this.showAddUser()}>
+                    {this.state.showAddUser ? <Icon name="md-remove" /> : <Icon name="person-add" />}
+                  </Button>
                 </View>
+                {this.state.showAddUser && <AddUser />}
                 {users.map(user => (
                   <ListUser user={user} />
                 ))}

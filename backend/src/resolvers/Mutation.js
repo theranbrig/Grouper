@@ -70,6 +70,7 @@ const Mutations = {
   // ////////////////////////////////////////////////////////////////////
   //         LIST ACTIONS
   // ////////////////////////////////////////////////////////////////////
+
   async createList(parent, args, ctx, info) {
     if (!ctx.request.userId) {
       throw new Error('You must log in first');
@@ -124,6 +125,28 @@ const Mutations = {
     checkUser(args.id, ctx, args);
     // Check if user exists
     const user = await ctx.db.query.user({ where: { email: args.email } });
+    if (!user) throw new Error('User does not exist');
+    // Add user to list
+    const list = await ctx.db.mutation.updateList(
+      {
+        where: { id: args.id },
+        data: {
+          users: {
+            connect: { id: user.id },
+          },
+        },
+      },
+      info
+    );
+    return user;
+  },
+  async addUserByName(parent, args, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error('You must log in first');
+    }
+    checkUser(args.id, ctx, args);
+    // Check if user exists
+    const user = await ctx.db.query.user({ where: { username: args.username } });
     if (!user) throw new Error('User does not exist');
     // Add user to list
     const list = await ctx.db.mutation.updateList(

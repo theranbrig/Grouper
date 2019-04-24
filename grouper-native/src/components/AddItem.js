@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#2d3142',
     paddingTop: 10,
     paddingBottom: 10,
-    borderBottomWidth: 0.2,
+    borderBottomWidth: 1,
   },
   heading: {
     color: '#ef8354',
@@ -141,7 +141,6 @@ class AddItem extends React.Component {
             {error && <Error error={error} />}
             <Item>
               <Input
-                autoCapitalize="none"
                 placeholder="Item Name"
                 onChangeText={name => this.setState({ name })}
                 value={name}
@@ -150,7 +149,11 @@ class AddItem extends React.Component {
               />
             </Item>
             <Item>
-              <Icon style={{ color: '#fff', fontFamily: 'Roboto', paddingLeft: 15, fontSize: 18 }} active name="logo-usd" />
+              <Icon
+                style={{ color: '#fff', fontFamily: 'Roboto', paddingLeft: 15, fontSize: 18 }}
+                active
+                name="logo-usd"
+              />
               <Input
                 autoCapitalize="none"
                 placeholder="Item Price"
@@ -171,6 +174,7 @@ class AddItem extends React.Component {
                 onPress={async () => {
                   console.log(this.state);
                   createItem();
+                  this.setState({ name: '', price: '' });
                 }}
               >
                 <Text style={styles.orangeButtonText}>Add{loading && 'ing'}</Text>
