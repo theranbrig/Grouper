@@ -26,6 +26,11 @@ export const mainStyles = StyleSheet.create({
     color: '#ef8354',
     fontSize: 25,
   },
+  listText: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
 });
 
 class IndividualList extends React.Component {
@@ -34,7 +39,7 @@ class IndividualList extends React.Component {
   };
 
   showEdit = () => {
-    this.setState({ showEdit: !this.state.showEdit });
+    this.setState(prevState => ({ showEdit: !prevState.showEdit }));
   };
 
   render() {
@@ -59,7 +64,7 @@ class IndividualList extends React.Component {
               <Text style={mainStyles.individualListText}>
                 {name} - {type}
               </Text>
-              <View style={{ flexWrap: 'wrap', flexDirection: 'row', alignItems: 'flex-end' }}>
+              <View style={mainStyles.listText}>
                 <Text style={mainStyles.individualListText}>
                   {items.length} <Icon style={mainStyles.listIcon} active name="ios-cart" />
                 </Text>

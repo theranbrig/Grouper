@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Button, Text, Icon, Item, Picker, Header, Left, Right, Body, Title, Input, Spinner } from 'native-base';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
-import { LISTS_QUERY } from '../pages/Lists';
+import { INDIVIDUAL_LIST_QUERY } from '../pages/List';
 import Error from './ErrorMessage';
 
 const styles = StyleSheet.create({
@@ -41,21 +41,26 @@ const styles = StyleSheet.create({
   picker: {
     color: 'white',
   },
+  input: {
+    color: '#fff',
+    fontFamily: 'Roboto',
+    paddingLeft: 15,
+    fontSize: 18,
+  },
 });
 
-const CREATE_LIST_MUTATION = gql`
-  mutation CREATE_LIST_MUTATION($name: String!, $type: String!) {
-    createList(name: $name, type: $type) {
+const ADD_USER_MUTATION = gql`
+  mutation ADD_USER_MUTATION($username: String!, $id: ID!) {
+    addUserByName(username: $username, id: $id) {
       id
-      name
-      type
+      username
     }
   }
 `;
 
 class AddUser extends React.Component {
   state = {
-    email: '',
+    username: '',
   };
 
   onValueChange(value) {
@@ -65,8 +70,13 @@ class AddUser extends React.Component {
   }
 
   render() {
+    const { username } = this.state;
     return (
-      <Mutation mutation={CREATE_LIST_MUTATION} variables={this.state} refetchQueries={[{ query: LISTS_QUERY }]}>
+      <Mutation
+        mutation={ADD_USER_MUTATION}
+        variables={{ username, id: this.props.listId }}
+        refetchQueries={[{ query: INDIVIDUAL_LIST_QUERY, variables: { id: this.props.listId } }]}
+      >
         {(createList, { loading, error }) => (
           <View style={styles.container}>
             <Text style={styles.heading}>Add Friend</Text>
@@ -75,9 +85,9 @@ class AddUser extends React.Component {
               <Input
                 autoCapitalize="none"
                 placeholder="Friend's Username"
-                onChangeText={name => this.setState({ name })}
-                value={this.state.name}
-                style={{ color: '#fff', fontFamily: 'Roboto', paddingLeft: 15, fontSize: 18 }}
+                onChangeText={username => this.setState({ username })}
+                value={this.state.username}
+                style={styles.input}
                 placeholderTextColor="gray"
               />
             </Item>
@@ -86,7 +96,7 @@ class AddUser extends React.Component {
               style={styles.orangeButton}
               onPress={() => {
                 createList();
-                this.setState({ email: '' });
+                this.setState({ username: '' });
               }}
             >
               <Text style={styles.orangeButtonText}>Add{loading && 'ing'} Friend</Text>

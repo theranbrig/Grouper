@@ -46,6 +46,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignContent: 'center',
   },
+  input: {
+    color: '#fff',
+    fontFamily: 'Roboto',
+    paddingLeft: 15,
+    fontSize: 18,
+  },
 });
 
 const ADD_ITEM_MUTATION = gql`
@@ -73,9 +79,6 @@ class AddItem extends React.Component {
         allowsEditing: true,
         aspect: [4, 3],
       });
-
-      console.log(result);
-
       if (!result.cancelled) {
         const base64Img = `data:image/jpg;base64,${result.base64}`;
         const apiUrl = 'https://api.cloudinary.com/v1_1/dq7uyauun/image/upload';
@@ -144,22 +147,18 @@ class AddItem extends React.Component {
                 placeholder="Item Name"
                 onChangeText={name => this.setState({ name })}
                 value={name}
-                style={{ color: '#fff', fontFamily: 'Roboto', paddingLeft: 15, fontSize: 18 }}
+                style={styles.input}
                 placeholderTextColor="gray"
               />
             </Item>
             <Item>
-              <Icon
-                style={{ color: '#fff', fontFamily: 'Roboto', paddingLeft: 15, fontSize: 18 }}
-                active
-                name="logo-usd"
-              />
+              <Icon style={styles.input} active name="logo-usd" />
               <Input
                 autoCapitalize="none"
                 placeholder="Item Price"
                 onChangeText={price => this.setState({ price })}
                 value={price}
-                style={{ color: '#fff', fontFamily: 'Roboto', paddingLeft: 15, fontSize: 18 }}
+                style={styles.input}
                 placeholderTextColor="gray"
               />
             </Item>

@@ -8,6 +8,7 @@ import ListItem from '../components/ListItem';
 import AddItem from '../components/AddItem';
 import ListUser from '../components/ListUser';
 import AddUser from '../components/AddUser';
+import User from '../components/User';
 
 const INDIVIDUAL_LIST_QUERY = gql`
   query INDIVIDUAL_LIST_QUERY($id: ID!) {
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'center',
+    marginBottom: 10,
   },
   orangeButton: {
     backgroundColor: '#ef8354',
@@ -95,51 +97,66 @@ class List extends React.PureComponent {
 
   render() {
     return (
-      <Query query={INDIVIDUAL_LIST_QUERY} variables={{ id: this.props.match.params.id }}>
-        {({ data, loading, error }) => {
-          if (loading)
-            return (
-              <Container style={styles.container}>
-                <BackHeader backLink={() => this.props.history.push('/lists')} />
-                <Spinner color="#ef8354" />
-              </Container>
-            );
-          const { name, items, type, id, users } = data.list;
-          return (
-            <Container style={styles.container}>
-              <BackHeader backLink={() => this.props.history.push('/lists')} />
-              <ScrollView>
-                <View style={styles.topInfo}>
-                  <View style={styles.topArea}>
-                    <Text style={styles.heading}>{name}</Text>
-                    <Text style={styles.subHeading}>{type}</Text>
-                  </View>
-                  <Button rounded style={styles.orangeButton} onPress={() => this.showAdd()}>
-                    {this.state.showAdd ? <Icon name="md-remove" /> : <Icon name="md-add" />}
-                  </Button>
-                </View>
-                {this.state.showAdd && <AddItem id={id} />}
-                {items.map(item => (
-                  <ListItem key={item.id} item={item} listId={id} />
-                ))}
+      <User>
+        {({ data: { me } }) => (
+          <Query query={INDIVIDUAL_LIST_QUERY} variables={{ id: this.props.match.params.id }}>
+            {({ data, loading, error }) => {
+              if (loading)
+                return (
+                  <Container style={styles.container}>
+                    <BackHeader backLink={() => this.props.history.push('/lists')} />
+                    <Spinner color="#ef8354" />
+                  </Container>
+                );
+              const { name, items, type, id, users } = data.list;
+              const orderedUsers = [];
+              console.log(me.id);
 
-                <View style={styles.bottomInfo}>
-                  <View style={styles.bottomArea}>
-                    <Text style={styles.heading}>Users</Text>
-                  </View>
-                  <Button rounded style={styles.orangeButton} onPress={() => this.showAddUser()}>
-                    {this.state.showAddUser ? <Icon name="md-remove" /> : <Icon name="person-add" />}
-                  </Button>
-                </View>
-                {this.state.showAddUser && <AddUser />}
-                {users.map(user => (
-                  <ListUser user={user} />
-                ))}
-              </ScrollView>
-            </Container>
-          );
-        }}
-      </Query>
+              users.forEach(user => {
+                if (user.id === me.id) {
+                  orderedUsers.unshift(user);
+                } else {
+                  orderedUsers.push(user);
+                }
+              });
+              console.log(orderedUsers);
+              return (
+                <Container style={styles.container}>
+                  <BackHeader backLink={() => this.props.history.push('/lists')} />
+                  <ScrollView>
+                    <View style={styles.topInfo}>
+                      <View style={styles.topArea}>
+                        <Text style={styles.heading}>{name}</Text>
+                        <Text style={styles.subHeading}>{type}</Text>
+                      </View>
+                      <Button rounded style={styles.orangeButton} onPress={() => this.showAdd()}>
+                        {this.state.showAdd ? <Icon name="md-remove" /> : <Icon name="md-add" />}
+                      </Button>
+                    </View>
+                    {this.state.showAdd && <AddItem id={id} />}
+                    {items.map(item => (
+                      <ListItem key={item.id} item={item} listId={id} />
+                    ))}
+
+                    <View style={styles.bottomInfo}>
+                      <View style={styles.bottomArea}>
+                        <Text style={styles.heading}>Users</Text>
+                      </View>
+                      <Button rounded style={styles.orangeButton} onPress={() => this.showAddUser()}>
+                        {this.state.showAddUser ? <Icon name="md-remove" /> : <Icon name="person-add" />}
+                      </Button>
+                    </View>
+                    {this.state.showAddUser && <AddUser listId={id} />}
+                    {orderedUsers.map(user => (
+                      <ListUser key={user.id} user={user} listId={id} />
+                    ))}
+                  </ScrollView>
+                </Container>
+              );
+            }}
+          </Query>
+        )}
+      </User>
     );
   }
 }

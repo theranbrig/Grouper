@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Button, Text, Icon, SwipeRow } from 'native-base';
-import DeleteItemButton from './DeleteItemButton';
+import DeleteUserButton from './DeleteUserButton';
 import EditListItem from './EditItem';
+import User from './User';
 
 export const mainStyles = StyleSheet.create({
   paragraph: {
@@ -30,42 +31,43 @@ export const mainStyles = StyleSheet.create({
     color: '#ef8354',
     fontSize: 25,
   },
+  listIconOrange: {
+    color: '#ef8354',
+    fontSize: 25,
+  },
+  listIconWhite: {
+    color: '#fefefe',
+    fontSize: 25,
+  },
 });
 
-class ListUser extends React.Component {
-  state = {
-    showEdit: false,
-  };
-
-  showEdit = () => {
-    this.setState({ showEdit: !this.state.showEdit });
-  };
-
-  render() {
-    const { username, email, id } = this.props.user;
-    return (
-      <TouchableOpacity style={mainStyles.listItem}>
-        <SwipeRow
-          style={mainStyles.listItem}
-          rightOpenValue={-75}
-          body={
-            <View style={mainStyles.individualList}>
-              <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                <Text style={mainStyles.individualListText}>{username}</Text>
-                <Icon style={mainStyles.listIcon} active name="ios-contact" onPress={() => this.showEdit()} />
+const ListUser = props => {
+  const { username, email, id } = props.user;
+  return (
+    <User>
+      {({ data: { me } }) => (
+        <TouchableOpacity style={mainStyles.listItem}>
+          <SwipeRow
+            style={mainStyles.listItem}
+            rightOpenValue={-75}
+            body={
+              <View style={mainStyles.individualList}>
+                <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                  <Text style={mainStyles.individualListText}>{username}</Text>
+                  <Icon
+                    style={id === me.id ? mainStyles.listIconOrange : mainStyles.listIconWhite}
+                    active
+                    name="ios-contact"
+                  />
+                </View>
               </View>
-            </View>
-          }
-          right={<DeleteItemButton id={id} listId={id} />}
-        />
-        {this.state.showEdit && (
-          <Text>
-            <Icon style={mainStyles.listIcon} active name="ios-contact" /> {username}
-          </Text>
-        )}
-      </TouchableOpacity>
-    );
-  }
-}
+            }
+            right={<DeleteUserButton listId={props.listId} email={email} />}
+          />
+        </TouchableOpacity>
+      )}
+    </User>
+  );
+};
 
 export default ListUser;
