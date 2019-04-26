@@ -81,7 +81,6 @@ class Lists extends React.PureComponent {
           <>
             <Container style={{ backgroundColor: '#4f5d75' }}>
               <BackHeader backLink={() => history.push('/')} />
-
               <Query
                 asyncMode
                 query={LISTS_QUERY}
@@ -96,38 +95,43 @@ class Lists extends React.PureComponent {
                   if (isCompleted || loading) return <Spinner color="#ef8354" />;
                   return (
                     <ScrollView>
-                      <View style={styles.container}>
-                        {userLists ? (
-                          <>
-                            <View style={styles.topInfo}>
-                              <Text style={styles.paragraph}>
-                                {me.username}
-                                {me.username.charAt(me.username.length - 1) === 's' ? "'" : "'s"} Lists
-                              </Text>
-                              <Button rounded style={styles.orangeButton} onPress={() => this.showAdd()}>
-                                {showAdd ? <Icon name="md-remove" /> : <Icon name="md-add" />}
-                              </Button>
-                            </View>
-                            {showAdd && (
-                              <View style={styles.bottom}>
-                                <AddList />
+                      {me ? (
+                        <View style={styles.container}>
+                          {userLists ? (
+                            <>
+                              <View style={styles.topInfo}>
+                                <Text style={styles.paragraph}>
+                                  {me.username}
+                                  {me.username.charAt(me.username.length - 1) === 's' ? "'" : "'s"} Lists
+                                </Text>
+                                <Button rounded style={styles.orangeButton} onPress={() => this.showAdd()}>
+                                  {showAdd ? <Icon name="md-remove" /> : <Icon name="md-add" />}
+                                </Button>
                               </View>
-                            )}
-                            <List style={{ borderTopWidth: 0.2, borderColor: 'white', paddingBottom: 40 }}>
-                              {userLists.map(list => (
-                                <IndividualList
-                                  key={list.id}
-                                  list={list}
-                                  viewListClick={() => history.push(`/list/${list.id}`)}
-                                  showEdit={this.showEdit}
-                                />
-                              ))}
-                            </List>
-                          </>
-                        ) : (
-                          <Text>Sorry. No Lists Found. Add More Below.</Text>
-                        )}
-                      </View>
+                              {showAdd && (
+                                <View style={styles.bottom}>
+                                  <AddList />
+                                </View>
+                              )}
+                              <List style={{ borderTopWidth: 0.2, borderColor: 'white', paddingBottom: 40 }}>
+                                {userLists.map(list => (
+                                  <IndividualList
+                                    key={list.id}
+                                    list={list}
+                                    viewListClick={() => history.push(`/list/${list.id}`)}
+                                    showEdit={this.showEdit}
+                                  />
+                                ))}
+                              </List>
+                            </>
+                            {userLists.length === 0 && <Text>You have no Lists.  Start adding.</Text>}
+                          ) : (
+                            <Text>No lists found.</Text>
+                          )}
+                        </View>
+                      ) : (
+                        <Spinner color="#ef8354" />
+                      )}
                     </ScrollView>
                   );
                 }}
@@ -142,27 +146,3 @@ class Lists extends React.PureComponent {
 
 export default Lists;
 export { LISTS_QUERY };
-
-// <Query query={LISTS_QUERY} pollInterval={10000}>
-//   {({ data, loading, error }) => {
-//     const userLists = data.lists.filter(list => list.users.some(user => user.id === me.id));
-//     return (
-//       <Container>
-//         <View>
-//           <Text>{me.username} Lists</Text>
-//           {!userLists.length ? (
-//             <Text>No Lists Yet. Add one today.</Text>
-//           ) : (
-//             <List inverted relaxed>
-//               {userLists.map(list => (
-//                 <ListItem>
-//                   <Text>{list.name}</Text>
-//                 </ListItem>
-//               ))}
-//             </List>
-//           )}
-//         </View>
-//       </Container>
-//     );
-//   }}
-// </Query>

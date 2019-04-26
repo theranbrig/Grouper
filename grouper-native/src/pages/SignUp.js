@@ -4,6 +4,7 @@ import { StyleSheet, TextInput, View } from 'react-native';
 import { Button, Text, Icon, Container, Spinner } from 'native-base';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import { CURRENT_USER_QUERY } from '../components/User';
 
 const styles = StyleSheet.create({
   container: {
@@ -80,7 +81,11 @@ class SignUp extends React.Component {
     const { history } = this.props;
     return (
       <Container>
-        <Mutation mutation={SIGNUP_USER_MUTATION} variables={this.state}>
+        <Mutation
+          mutation={SIGNUP_USER_MUTATION}
+          variables={this.state}
+          refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+        >
           {(signUp, { data, loading, error }) => {
             console.log('data', data);
             return (

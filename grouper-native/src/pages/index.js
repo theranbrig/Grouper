@@ -10,11 +10,11 @@ import List from './List';
 const AppRouter = () => (
   <NativeRouter>
     <Switch>
-      <Route exact path="/" component={Splash} />
+      <Route exact path="/splash" component={Splash} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/logout" component={Logout} />
       <Route exact path="/signup" component={SignUp} />
-      <Route exact path="/lists" component={Lists} />
+      <Route exact path="/" component={Lists} />
       <Route path="/list/:id" component={List} />;
     </Switch>
   </NativeRouter>
