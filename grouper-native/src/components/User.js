@@ -10,6 +10,10 @@ const CURRENT_USER_QUERY = gql`
       email
       username
       token
+      friends {
+        id
+        username
+      }
     }
   }
 `;

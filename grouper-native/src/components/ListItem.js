@@ -41,7 +41,6 @@ class ListItem extends React.Component {
 
   render() {
     const { item, listId } = this.props;
-    console.log(item);
     return (
       <TouchableOpacity style={mainStyles.listItem}>
         <SwipeRow

@@ -4,6 +4,7 @@ import { Button, Text, Icon, SwipeRow } from 'native-base';
 import DeleteUserButton from './DeleteUserButton';
 import EditListItem from './EditItem';
 import User from './User';
+import AddToFriendsButton from './AddToFriends';
 
 export const mainStyles = StyleSheet.create({
   paragraph: {
@@ -50,11 +51,14 @@ const ListUser = props => {
           <SwipeRow
             style={mainStyles.listItem}
             rightOpenValue={-75}
+            leftOpenValue={75}
+            left={<AddToFriendsButton listId={props.listId} email={email} />}
             body={
               <View style={mainStyles.individualList}>
                 <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
                   <Text style={mainStyles.individualListText}>{username}</Text>
                   <Icon
+                    paddingLeft
                     style={id === me.id ? mainStyles.listIconOrange : mainStyles.listIconWhite}
                     active
                     name="ios-contact"

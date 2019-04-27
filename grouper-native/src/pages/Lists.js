@@ -123,8 +123,10 @@ class Lists extends React.PureComponent {
                                   />
                                 ))}
                               </List>
+                              {userLists.length === 0 && (
+                                <Text style={styles.paragraph}>You have no Lists. Start adding.</Text>
+                              )}
                             </>
-                            {userLists.length === 0 && <Text>You have no Lists.  Start adding.</Text>}
                           ) : (
                             <Text>No lists found.</Text>
                           )}
