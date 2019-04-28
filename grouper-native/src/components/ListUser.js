@@ -21,6 +21,14 @@ export const mainStyles = StyleSheet.create({
     fontSize: 20,
     width: '95%',
   },
+  individualListOwnerText: {
+    color: '#ef8354',
+    fontFamily: 'Lobster',
+    paddingLeft: 15,
+    paddingRight: 10,
+    fontSize: 20,
+    width: '95%',
+  },
   listItem: {
     backgroundColor: '#4f5d75',
     overflow: 'hidden',
@@ -46,30 +54,42 @@ const ListUser = props => {
   const { username, email, id } = props.user;
   return (
     <User>
-      {({ data: { me } }) => (
-        <TouchableOpacity style={mainStyles.listItem}>
-          <SwipeRow
-            style={mainStyles.listItem}
-            rightOpenValue={-75}
-            leftOpenValue={75}
-            left={<AddToFriendsButton listId={props.listId} email={email} />}
-            body={
-              <View style={mainStyles.individualList}>
-                <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                  <Text style={mainStyles.individualListText}>{username}</Text>
-                  <Icon
-                    paddingLeft
-                    style={id === me.id ? mainStyles.listIconOrange : mainStyles.listIconWhite}
-                    active
-                    name="ios-contact"
-                  />
+      {({ data: { me } }) => {
+        const isFriend = me.friends.some(friend => `${friend.username}` === `${username}`);
+        return (
+          <TouchableOpacity style={mainStyles.listItem}>
+            <SwipeRow
+              style={mainStyles.listItem}
+              rightOpenValue={id === me.id ? 0 : -75}
+              leftOpenValue={id === me.id ? 0 : 75}
+              left={
+                <AddToFriendsButton
+                  friendName={username}
+                  username={me.username}
+                  listId={props.listId}
+                  isFriend={isFriend}
+                />
+              }
+              body={
+                <View style={mainStyles.individualList}>
+                  <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                    <Text style={id === me.id ? mainStyles.individualListOwnerText : mainStyles.individualListText}>
+                      {username}
+                    </Text>
+                    <Icon
+                      paddingLeft
+                      style={id === me.id || isFriend ? mainStyles.listIconOrange : mainStyles.listIconWhite}
+                      active
+                      name="ios-contact"
+                    />
+                  </View>
                 </View>
-              </View>
-            }
-            right={<DeleteUserButton listId={props.listId} email={email} />}
-          />
-        </TouchableOpacity>
-      )}
+              }
+              right={<DeleteUserButton listId={props.listId} email={email} />}
+            />
+          </TouchableOpacity>
+        );
+      }}
     </User>
   );
 };

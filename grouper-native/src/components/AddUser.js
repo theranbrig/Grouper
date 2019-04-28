@@ -48,6 +48,11 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     fontSize: 18,
   },
+  subText: {
+    color: '#fff',
+    fontFamily: 'Roboto',
+    margin: 5,
+  },
 });
 
 const ADD_USER_MUTATION = gql`
@@ -67,12 +72,12 @@ class AddUser extends React.Component {
 
   onValueChange(value) {
     this.setState({
-      type: value,
+      friend: value,
     });
   }
 
   render() {
-    const { username } = this.state;
+    const { username, friend } = this.state;
     return (
       <User>
         {({ data: { me } }) => {
@@ -80,7 +85,7 @@ class AddUser extends React.Component {
           return (
             <Mutation
               mutation={ADD_USER_MUTATION}
-              variables={{ username, id: this.props.listId }}
+              variables={{ username: username || friend, id: this.props.listId }}
               refetchQueries={[{ query: INDIVIDUAL_LIST_QUERY, variables: { id: this.props.listId } }]}
             >
               {(createList, { loading, error }) => (
@@ -100,8 +105,8 @@ class AddUser extends React.Component {
 
                   {me.friends.length ? (
                     <>
-                      <Text>or</Text>
-                      <Text>Add From Friend List</Text>
+                      <Text style={styles.subText}>or</Text>
+                      <Text style={styles.subText}>Add From Friend List</Text>
                       <Item picker>
                         <Picker
                           renderHeader={backAction => (
@@ -136,7 +141,7 @@ class AddUser extends React.Component {
                           onValueChange={this.onValueChange.bind(this)}
                         >
                           {me.friends.map(friend => (
-                            <Picker.Item label={`${friend.username}`} value={`${friend.username}`} />
+                            <Picker.Item key={friend.id} label={`${friend.username}`} value={`${friend.username}`} />
                           ))}
                         </Picker>
                       </Item>
