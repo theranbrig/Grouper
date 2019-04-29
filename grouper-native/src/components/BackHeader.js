@@ -17,7 +17,7 @@ const BackHeader = props => (
   <Header style={styles.header}>
     <Left>
       <Button transparent onPress={() => props.backLink()}>
-        <Icon style={styles.heading} name="arrow-back" />
+        <Icon style={styles.heading} type="Feather" name="chevron-left" />
       </Button>
     </Left>
     <Body>

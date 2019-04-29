@@ -128,9 +128,9 @@ class List extends React.PureComponent {
                       </View>
                       <Button rounded style={styles.orangeButton} onPress={() => this.showAdd()}>
                         {this.state.showAdd ? (
-                          <Icon type="Feather" name="minus-circle" />
+                          <Icon type="Feather" name="minus" />
                         ) : (
-                          <Icon type="Feather" name="plus-circle" />
+                          <Icon type="Feather" name="plus" />
                         )}
                       </Button>
                     </View>
@@ -144,9 +144,9 @@ class List extends React.PureComponent {
                       </View>
                       <Button rounded style={styles.orangeButton} onPress={() => this.showAddUser()}>
                         {this.state.showAddUser ? (
-                          <Icon type="Feather" name="minus-circle" />
+                          <Icon type="Feather" name="minus" />
                         ) : (
-                          <Icon type="Feather" name="plus-circle" />
+                          <Icon type="Feather" name="plus" />
                         )}
                       </Button>
                     </View>

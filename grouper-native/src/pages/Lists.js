@@ -105,11 +105,7 @@ class Lists extends React.PureComponent {
                                   {me.username.charAt(me.username.length - 1) === 's' ? "'" : "'s"} Lists
                                 </Text>
                                 <Button rounded style={styles.orangeButton} onPress={() => this.showAdd()}>
-                                  {showAdd ? (
-                                    <Icon type="Feather" name="minus-circle" />
-                                  ) : (
-                                    <Icon type="Feather" name="plus-circle" />
-                                  )}
+                                  {showAdd ? <Icon type="Feather" name="minus" /> : <Icon type="Feather" name="plus" />}
                                 </Button>
                               </View>
                               {showAdd && (
