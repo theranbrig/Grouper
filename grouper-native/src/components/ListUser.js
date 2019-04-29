@@ -76,12 +76,13 @@ const ListUser = props => {
                     <Text style={id === me.id ? mainStyles.individualListOwnerText : mainStyles.individualListText}>
                       {username}
                     </Text>
-                    <Icon
-                      paddingLeft
-                      style={id === me.id || isFriend ? mainStyles.listIconOrange : mainStyles.listIconWhite}
-                      active
-                      name="ios-contact"
-                    />
+                    {id === me.id ? (
+                      <Icon style={mainStyles.listIconOrange} type="Feather" name="user" />
+                    ) : isFriend ? (
+                      <Icon style={mainStyles.listIconWhite} type="Feather" name="user-check" />
+                    ) : (
+                      <Icon style={mainStyles.listIconWhite} type="Feather" name="user" />
+                    )}
                   </View>
                 </View>
               }

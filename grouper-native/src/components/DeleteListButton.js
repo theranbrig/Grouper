@@ -28,7 +28,7 @@ const DeleteListButton = props => (
             ])
           }
         >
-          {loading ? <Spinner color="white" /> : <Icon active name="ios-trash" />}
+          {loading ? <Spinner color="white" /> : <Icon type="Feather" name="trash-2" />}
         </Button>
       );
     }}

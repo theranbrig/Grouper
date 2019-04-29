@@ -31,7 +31,7 @@ const AddToFriendsButton = props => {
           <>
             {isFriend ? (
               <Button style={{ backgroundColor: '#ef8354', color: '#2d3142' }}>
-                <Icon name="contacts" />
+                <Icon type="Feather" name="users" />
               </Button>
             ) : (
               <Button
@@ -40,7 +40,7 @@ const AddToFriendsButton = props => {
                   addFriend();
                 }}
               >
-                {loading ? <Spinner color="white" /> : <Icon active name="add" />}
+                {loading ? <Spinner color="white" /> : <Icon type="Feather" name="user-plus" />}
               </Button>
             )}
           </>

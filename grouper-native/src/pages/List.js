@@ -88,11 +88,11 @@ class List extends React.PureComponent {
   };
 
   showAdd = () => {
-    this.setState({ showAdd: !this.state.showAdd });
+    this.setState(prevState => ({ showAdd: !prevState.showAdd }));
   };
 
   showAddUser = () => {
-    this.setState({ showAddUser: !this.state.showAddUser });
+    this.setState(prevState => ({ showAddUser: !prevState.showAddUser }));
   };
 
   render() {
@@ -110,8 +110,6 @@ class List extends React.PureComponent {
                 );
               const { name, items, type, id, users } = data.list;
               const orderedUsers = [];
-              console.log(me.id);
-
               users.forEach(user => {
                 if (user.id === me.id) {
                   orderedUsers.unshift(user);
@@ -119,7 +117,6 @@ class List extends React.PureComponent {
                   orderedUsers.push(user);
                 }
               });
-              console.log(orderedUsers);
               return (
                 <Container style={styles.container}>
                   <BackHeader backLink={() => this.props.history.push('/lists')} />
@@ -130,20 +127,27 @@ class List extends React.PureComponent {
                         <Text style={styles.subHeading}>{type}</Text>
                       </View>
                       <Button rounded style={styles.orangeButton} onPress={() => this.showAdd()}>
-                        {this.state.showAdd ? <Icon name="md-remove" /> : <Icon name="md-add" />}
+                        {this.state.showAdd ? (
+                          <Icon type="Feather" name="minus-circle" />
+                        ) : (
+                          <Icon type="Feather" name="plus-circle" />
+                        )}
                       </Button>
                     </View>
                     {this.state.showAdd && <AddItem id={id} />}
                     {items.map(item => (
                       <ListItem key={item.id} item={item} listId={id} />
                     ))}
-
                     <View style={styles.bottomInfo}>
                       <View style={styles.bottomArea}>
-                        <Text style={styles.heading}>Users</Text>
+                        <Text style={styles.heading}>List Mates</Text>
                       </View>
                       <Button rounded style={styles.orangeButton} onPress={() => this.showAddUser()}>
-                        {this.state.showAddUser ? <Icon name="md-remove" /> : <Icon name="person-add" />}
+                        {this.state.showAddUser ? (
+                          <Icon type="Feather" name="minus-circle" />
+                        ) : (
+                          <Icon type="Feather" name="plus-circle" />
+                        )}
                       </Button>
                     </View>
                     {this.state.showAddUser && <AddUser listId={id} />}

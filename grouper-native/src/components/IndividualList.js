@@ -24,7 +24,7 @@ export const mainStyles = StyleSheet.create({
   },
   listIcon: {
     color: '#ef8354',
-    fontSize: 25,
+    fontSize: 20,
   },
   listText: {
     flexWrap: 'wrap',
@@ -44,6 +44,7 @@ class IndividualList extends React.Component {
 
   render() {
     const { items, name, type, users, id } = this.props.list;
+    const itemsInCart = items.filter(item => item.inCart);
     return (
       <TouchableOpacity style={mainStyles.listItem}>
         <SwipeRow
@@ -52,7 +53,7 @@ class IndividualList extends React.Component {
           leftOpenValue={75}
           left={
             <Button style={{ backgroundColor: '#ef8354', color: '#2d3142' }} onPress={() => this.showEdit()}>
-              {this.state.showEdit ? <Icon active name="arrow-dropup-circle" /> : <Icon active name="ios-create" />}
+              {this.state.showEdit ? <Icon type="Feather" name="chevron-up" /> : <Icon type="Feather" name="edit-3" />}
             </Button>
           }
           body={
@@ -66,10 +67,13 @@ class IndividualList extends React.Component {
               </Text>
               <View style={mainStyles.listText}>
                 <Text style={mainStyles.individualListText}>
-                  {items.length} <Icon style={mainStyles.listIcon} active name="ios-cart" />
+                  {items.length} <Icon style={mainStyles.listIcon} type="Feather" name="check-square" />
                 </Text>
                 <Text style={mainStyles.individualListText}>
-                  {users.length} <Icon style={mainStyles.listIcon} active name="ios-person" />
+                  {itemsInCart.length} <Icon style={mainStyles.listIcon} type="Feather" name="shopping-cart" />
+                </Text>
+                <Text style={mainStyles.individualListText}>
+                  {users.length} <Icon style={mainStyles.listIcon} type="Feather" name="users" />
                 </Text>
               </View>
             </TouchableOpacity>

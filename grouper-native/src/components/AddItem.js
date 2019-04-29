@@ -152,7 +152,7 @@ class AddItem extends React.Component {
               />
             </Item>
             <Item>
-              <Icon style={styles.input} active name="logo-usd" />
+              <Icon style={styles.input} type="Feather" name="dollar-sign" />
               <Input
                 autoCapitalize="none"
                 placeholder="Item Price"
@@ -164,8 +164,8 @@ class AddItem extends React.Component {
             </Item>
             {image && <Image source={{ uri: image }} style={{ width: 200, height: 200, margin: 5 }} />}
             <View style={styles.topInfo}>
-              <Button style={styles.orangeButton} rounded onPress={this.uploadFile}>
-                <Icon style={styles.orangeButtonText} name="ios-images" />
+              <Button style={styles.orangeButton} block onPress={this.uploadFile}>
+                <Icon style={styles.orangeButtonText} type="Feather" name="image" />
               </Button>
               <Button
                 block

@@ -32,7 +32,7 @@ const DeleteItemButton = props => (
             ])
           }
         >
-          {loading ? <Spinner color="white" /> : <Icon active name="close" />}
+          {loading ? <Spinner color="white" /> : <Icon type="Feather" name="trash-2" />}
         </Button>
       );
     }}

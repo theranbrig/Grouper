@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { Button, Text, Icon, SwipeRow } from 'native-base';
+import { Text, Icon, SwipeRow } from 'native-base';
 import DeleteItemButton from './DeleteItemButton';
 import EditListItem from './EditItem';
+import ToggleInCartButton from './ToggleInCart';
 
 export const mainStyles = StyleSheet.create({
   paragraph: {
@@ -24,8 +25,15 @@ export const mainStyles = StyleSheet.create({
     borderColor: 'white',
     borderBottomWidth: 0.25,
   },
+  listItemInCart: {
+    backgroundColor: '#ef8354',
+    overflow: 'hidden',
+    width: '100%',
+    borderColor: 'white',
+    borderBottomWidth: 0.25,
+  },
   listIcon: {
-    color: '#ef8354',
+    color: '#fefefe',
     fontSize: 25,
   },
 });
@@ -44,30 +52,18 @@ class ListItem extends React.Component {
     return (
       <TouchableOpacity style={mainStyles.listItem}>
         <SwipeRow
-          style={mainStyles.listItem}
+          style={item.inCart ? mainStyles.listItemInCart : mainStyles.listItem}
           rightOpenValue={-75}
           leftOpenValue={75}
-          left={
-            <Button style={{ backgroundColor: '#ef8354', color: '#2d3142' }}>
-              {this.state.showEdit ? (
-                <Icon active name="arrow-dropup-circle" />
-              ) : (
-                <Icon active name="ios-checkbox-outline" />
-              )}
-            </Button>
-          }
+          left={<ToggleInCartButton itemId={item.id} listId={listId} />}
           body={
             <View style={mainStyles.individualList}>
               <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
                 <Text style={mainStyles.individualListText}>
-                  {item.name} - ${item.price}
+                  {item.name} - ${item.price}{' '}
+                  {item.inCart && <Icon style={mainStyles.listIcon} type="Feather" name="check" />}
                 </Text>
-                <Icon
-                  style={mainStyles.listIcon}
-                  active
-                  name="ios-information-circle-outline"
-                  onPress={() => this.showEdit()}
-                />
+                <Icon style={mainStyles.listIcon} type="Feather" name="info" onPress={() => this.showEdit()} />
               </View>
             </View>
           }
