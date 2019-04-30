@@ -22,6 +22,10 @@ const LISTS_QUERY = gql`
       items {
         id
         inCart
+        user {
+          id
+          username
+        }
       }
     }
   }
@@ -75,12 +79,16 @@ class Lists extends React.PureComponent {
   render() {
     const { isCompleted, showEdit, showAdd } = this.state;
     const { history } = this.props;
+    const backPath = this.props.history.entries[this.props.history.entries.length - 2].pathname;
     return (
       <User>
         {({ data: { me } }) => (
           <>
             <Container style={{ backgroundColor: '#4f5d75' }}>
-              <BackHeader backLink={() => history.push('/')} />
+              <BackHeader
+                backLink={() => history.push(backPath)}
+                profileLink={() => this.props.history.push('/profile')}
+              />
               <Query
                 asyncMode
                 query={LISTS_QUERY}

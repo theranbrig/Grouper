@@ -96,6 +96,7 @@ class List extends React.PureComponent {
   };
 
   render() {
+    const backPath = this.props.history.entries[this.props.history.entries.length - 2].pathname;
     return (
       <User>
         {({ data: { me } }) => (
@@ -104,7 +105,10 @@ class List extends React.PureComponent {
               if (loading)
                 return (
                   <Container style={styles.container}>
-                    <BackHeader backLink={() => this.props.history.push('/lists')} />
+                    <BackHeader
+                      backLink={() => this.props.history.push(backPath)}
+                      profileLink={() => this.props.history.push('/profile')}
+                    />
                     <Spinner color="#ef8354" />
                   </Container>
                 );
@@ -119,7 +123,10 @@ class List extends React.PureComponent {
               });
               return (
                 <Container style={styles.container}>
-                  <BackHeader backLink={() => this.props.history.push('/lists')} />
+                  <BackHeader
+                    backLink={() => this.props.history.push('/lists')}
+                    profileLink={() => this.props.history.push('/profile')}
+                  />
                   <ScrollView>
                     <View style={styles.topInfo}>
                       <View style={styles.topArea}>

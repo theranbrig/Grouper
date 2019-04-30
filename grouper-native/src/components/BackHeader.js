@@ -23,7 +23,11 @@ const BackHeader = props => (
     <Body>
       <Text style={styles.heading}>Grouper</Text>
     </Body>
-    <Right />
+    <Right>
+      <Button transparent onPress={() => props.profileLink()}>
+        <Icon style={styles.heading} type="Feather" name="user" />
+      </Button>
+    </Right>
   </Header>
 );
 

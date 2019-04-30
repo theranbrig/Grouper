@@ -64,7 +64,7 @@ class Splash extends React.Component {
         {({ data: { me }, loading, error }) => (
           <Container>
             {me === undefined ? (
-              <Text>Loading...</Text>
+              <Spinner color="#ef8354" />
             ) : (
               <View style={styles.container}>
                 <Text style={styles.heading}>Grouper</Text>

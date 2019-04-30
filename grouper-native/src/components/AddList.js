@@ -88,7 +88,7 @@ class AddList extends React.Component {
                   <Header style={{ backgroundColor: '#ef8354' }}>
                     <Left>
                       <Button transparent onPress={backAction}>
-                        <Icon name="arrow-back" style={{ color: '#fff' }} />
+                        <Icon type="Feather" name="arrow-left" style={{ color: '#fff' }} />
                       </Button>
                     </Left>
                     <Body style={{ flex: 3 }}>
@@ -99,7 +99,7 @@ class AddList extends React.Component {
                 )}
                 note
                 mode="dropdown"
-                iosIcon={<Icon name="arrow-dropdown-circle" style={{ color: '#ef8354' }} />}
+                iosIcon={<Icon type="Feather" name="chevrons-down" style={{ color: '#ef8354' }} />}
                 style={{ width: undefined }}
                 selectedValue={this.state.type}
                 textStyle={{ color: 'white', fontSize: 18 }}
