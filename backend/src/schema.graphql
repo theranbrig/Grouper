@@ -19,6 +19,8 @@ type Mutation {
   removeListItem(id: String!): ListItem
   toggleInCart(id: String!): ListItem
   refreshToken(token: String!): String!
+  addFriend(username: String!, friendName: String!): User
+  removeFriend(username: String!, friendName: String!): User
 }
 
 type Query {

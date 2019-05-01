@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/theran-3f2473/grouper/dev
-# timestamp: Sat Mar 30 2019 23:07:30 GMT+0900 (Korean Standard Time)
+# source: https://eu1.prisma.sh/theran-3f2473/grouper-native-back/dev
+# timestamp: Fri Apr 26 2019 23:38:39 GMT+0900 (Korean Standard Time)
 
 type AggregateList {
   count: Int!
@@ -110,10 +110,6 @@ enum ListItemOrderByInput {
   inCart_DESC
   image_ASC
   image_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type ListItemPreviousValues {
@@ -632,10 +628,6 @@ enum ListOrderByInput {
   name_DESC
   type_ASC
   type_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type ListPreviousValues {
@@ -928,6 +920,7 @@ type User implements Node {
   resetTokenExpiry: Float
   permissions: [Permission!]!
   token: String
+  friends(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
 
 """A connection to a list of items."""
@@ -949,6 +942,7 @@ input UserCreateInput {
   resetTokenExpiry: Float
   token: String
   permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
 }
 
 input UserCreateManyInput {
@@ -989,10 +983,6 @@ enum UserOrderByInput {
   resetTokenExpiry_DESC
   token_ASC
   token_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type UserPreviousValues {
@@ -1326,6 +1316,7 @@ input UserUpdateDataInput {
   resetTokenExpiry: Float
   token: String
   permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
 }
 
 input UserUpdateInput {
@@ -1336,6 +1327,7 @@ input UserUpdateInput {
   resetTokenExpiry: Float
   token: String
   permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
 }
 
 input UserUpdateManyDataInput {
@@ -1673,6 +1665,9 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   token_not_ends_with: String
+  friends_every: UserWhereInput
+  friends_some: UserWhereInput
+  friends_none: UserWhereInput
 }
 
 input UserWhereUniqueInput {

@@ -88,6 +88,14 @@ const styles = StyleSheet.create({
   orangeSortButton: {
     backgroundColor: '#ef8354',
     margin: 5,
+    borderWidth: 1,
+    borderColor: '#ef8354',
+  },
+  clearSortButton: {
+    backgroundColor: 'transparent',
+    margin: 5,
+    borderWidth: 1,
+    borderColor: '#fefefe',
   },
 });
 
@@ -95,6 +103,9 @@ class List extends React.PureComponent {
   state = {
     showAdd: false,
     showAddUser: false,
+    listOrder: 'none',
+    numberSort: true,
+    orderedList: [],
   };
 
   showAdd = () => {
@@ -105,8 +116,15 @@ class List extends React.PureComponent {
     this.setState(prevState => ({ showAddUser: !prevState.showAddUser }));
   };
 
+  setListOrder = async (order, number, items) => {
+    const { listOrder, numberSort } = this.state;
+    await this.setState({ listOrder: 'none' });
+    await this.setState({ numberSort: number, listOrder: order, orderedList: items });
+  };
+
   render() {
     const backPath = this.props.history.entries[this.props.history.entries.length - 2].pathname;
+    const { listOrder, numberSort, showAdd, showAddUser, orderedList } = this.state;
     return (
       <User>
         {({ data: { me } }) => (
@@ -131,13 +149,20 @@ class List extends React.PureComponent {
                   orderedUsers.push(user);
                 }
               });
-              const priceSortItems = items.sort((a, b) => a.price - b.price);
-              const alphaSortItems = items.sort((a, b) => {
-                const textA = a.name.toUpperCase();
-                const textB = b.name.toUpperCase();
-                return textA < textB ? -1 : textA > textB ? 1 : 0;
+              const sortedListByLowestPrice = items
+                .concat()
+                .sort((a, b) => (a.price < b.price ? -1 : a.price > b.price ? 1 : 0));
+              const sortedListByHighestPrice = sortedListByLowestPrice.concat().reverse();
+              const sortedListAlphabetical = items.concat().sort((a, b) => {
+                const nameA = a.name.toLowerCase();
+                const nameB = b.name.toLowerCase();
+                if (nameA < nameB) return -1;
+                if (nameA > nameB) return 1;
+                return 0;
               });
-              console.log('alphaSort', alphaSortItems);
+              const sortedListReverseAlphabetical = sortedListAlphabetical.concat().reverse();
+              console.log(sortedListAlphabetical);
+              console.log(sortedListReverseAlphabetical);
               return (
                 <Container style={styles.container}>
                   <BackHeader
@@ -159,16 +184,55 @@ class List extends React.PureComponent {
                       </Button>
                     </View>
                     {this.state.showAdd && <AddItem id={id} />}
-                    {items.map(item => (
-                      <ListItem key={item.id} item={item} listId={id} />
-                    ))}
+                    {listOrder === 'none' && items.map(item => <ListItem key={item.id} item={item} listId={id} />)}
+                    {listOrder !== 'none' &&
+                      orderedList &&
+                      orderedList.map(item => <ListItem key={item.id} item={item} listId={id} />)}
                     <View style={styles.sortButtons}>
-                      <Button style={styles.orangeSortButton}>
-                        <Icon type="FontAwesome" name="sort-numeric-asc" />
-                      </Button>
-                      <Button style={styles.orangeSortButton}>
-                        <Icon type="FontAwesome" name="sort-alpha-asc" />
-                      </Button>
+                      {listOrder === 'asc' && numberSort && (
+                        <Button style={styles.orangeSortButton} onPress={() => this.setListOrder('none', true, items)}>
+                          <Icon type="FontAwesome" name="sort-numeric-asc" />
+                        </Button>
+                      )}
+                      {listOrder === 'desc' && numberSort && (
+                        <Button
+                          style={styles.orangeSortButton}
+                          onPress={() => this.setListOrder('asc', true, sortedListByLowestPrice)}
+                        >
+                          <Icon type="FontAwesome" name="sort-numeric-desc" />
+                        </Button>
+                      )}
+                      {((listOrder === 'none' && numberSort) || !numberSort) && (
+                        <Button
+                          style={styles.clearSortButton}
+                          onPress={() => {
+                            this.setListOrder('desc', true, sortedListByHighestPrice);
+                          }}
+                        >
+                          <Icon type="FontAwesome" name="sort-numeric-asc" />
+                        </Button>
+                      )}
+                      {listOrder === 'asc' && !numberSort && (
+                        <Button
+                          style={styles.orangeSortButton}
+                          onPress={() => this.setListOrder('desc', false, sortedListReverseAlphabetical)}
+                        >
+                          <Icon type="FontAwesome" name="sort-alpha-asc" />
+                        </Button>
+                      )}
+                      {listOrder === 'desc' && !numberSort && (
+                        <Button style={styles.orangeSortButton} onPress={() => this.setListOrder('none', false, items)}>
+                          <Icon type="FontAwesome" name="sort-alpha-desc" />
+                        </Button>
+                      )}
+                      {((this.state.listOrder === 'none' && !numberSort) || numberSort) && (
+                        <Button
+                          style={styles.clearSortButton}
+                          onPress={() => this.setListOrder('asc', false, sortedListAlphabetical)}
+                        >
+                          <Icon type="FontAwesome" name="sort-alpha-asc" />
+                        </Button>
+                      )}
                     </View>
                     <View style={styles.bottomInfo}>
                       <View style={styles.bottomArea}>

@@ -1,33 +1,34 @@
 enum Permission {
-	ADMIN
-	USER
+  ADMIN
+  USER
 }
 
 type User {
-	id: ID! @unique
-	username: String! @unique
-	email: String! @unique
-	password: String!
-	resetToken: String
-	resetTokenExpiry: Float
-	permissions: [Permission]
-	token: String
+  id: ID! @id
+  username: String! @unique
+  email: String! @unique
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: [Permission] @scalarList(strategy: RELATION)
+  token: String
+  friends: [User] @scalarList(strategy: RELATION)
 }
 
 type List {
-	id: ID! @unique
-	users: [User]
-	name: String!
-	type: String!
-	items: [ListItem]
+  id: ID! @id
+  users: [User] @scalarList(strategy: RELATION)
+  name: String!
+  type: String!
+  items: [ListItem] @scalarList(strategy: RELATION)
 }
 
 type ListItem {
-	id: ID! @unique
-	name: String!
-	price: Int
-	list: String!
-	user: User!
-	inCart: Boolean! @default(value: false)
-	image: String
+  id: ID! @id
+  name: String!
+  price: Int
+  list: String!
+  user: User!
+  inCart: Boolean! @default(value: false)
+  image: String
 }

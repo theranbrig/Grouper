@@ -252,6 +252,55 @@ const Mutations = {
     }
     return ctx.db.mutation.deleteListItem({ where: { id: args.id } }, info);
   },
+  // ////////////////////////////////////////////////////////////////////
+  //         FRIEND ACTIONS
+  // ////////////////////////////////////////////////////////////////////
+  async addFriend(parent, args, ctx, info) {
+    const newFriend = await ctx.db.query.user({ where: { username: args.friendName } });
+    if (!newFriend) {
+      throw new Error('That user does not exist');
+    }
+    // Add user to list
+    const updatedUser = await ctx.db.mutation.updateUser(
+      {
+        where: { username: args.username },
+        data: { friends: { connect: { id: newFriend.id } } },
+      },
+      info
+    );
+    const updatedFriend = await ctx.db.mutation.updateUser(
+      {
+        where: { username: args.friendName },
+        data: { friends: { connect: { id: updatedUser.id } } },
+      },
+      info
+    );
+    console.log('updated', updatedUser);
+    return updatedUser;
+  },
+  async removeFriend(parent, args, ctx, info) {
+    const oldFriend = await ctx.db.query.user({ where: { username: args.friendName } });
+    if (!oldFriend) {
+      throw new Error('That user does not exist');
+    }
+    // Add user to list
+    const updatedUser = await ctx.db.mutation.updateUser(
+      {
+        where: { username: args.username },
+        data: { friends: { disconnect: { id: oldFriend.id } } },
+      },
+      info
+    );
+    const updatedFriend = await ctx.db.mutation.updateUser(
+      {
+        where: { username: args.friendName },
+        data: { friends: { disconnect: { id: updatedUser.id } } },
+      },
+      info
+    );
+    console.log('updated', updatedUser);
+    return updatedUser;
+  },
 };
 
 module.exports = Mutations;
