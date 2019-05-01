@@ -112,13 +112,13 @@ class Lists extends React.PureComponent {
                                   {me.username}
                                   {me.username.charAt(me.username.length - 1) === 's' ? "'" : "'s"} Lists
                                 </Text>
-                                <Button rounded style={styles.orangeButton} onPress={() => this.showAdd()}>
+                                <Button block style={styles.orangeButton} onPress={() => this.showAdd()}>
                                   {showAdd ? <Icon type="Feather" name="minus" /> : <Icon type="Feather" name="plus" />}
                                 </Button>
                               </View>
                               {showAdd && (
                                 <View style={styles.bottom}>
-                                  <AddList />
+                                  <AddList showAdd={this.showAdd} />
                                 </View>
                               )}
                               <List style={{ borderTopWidth: 0.2, borderColor: 'white', paddingBottom: 40 }}>

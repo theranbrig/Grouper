@@ -126,9 +126,10 @@ class AddList extends React.Component {
             <Button
               block
               style={styles.orangeButton}
-              onPress={() => {
-                createList();
+              onPress={async () => {
+                await createList();
                 this.setState({ name: '', type: 'General' });
+                this.props.showAdd();
               }}
             >
               <Text style={styles.orangeButtonText}>Add{loading && 'ing'}</Text>

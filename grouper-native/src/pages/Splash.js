@@ -5,6 +5,7 @@ import { View, StyleSheet, Image } from 'react-native';
 import { Container, Button, Text, Spinner } from 'native-base';
 import User from '../components/User';
 import Error from '../components/ErrorMessage';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const styles = StyleSheet.create({
   container: {
@@ -64,7 +65,7 @@ class Splash extends React.Component {
         {({ data: { me }, loading, error }) => (
           <Container>
             {me === undefined ? (
-              <Spinner color="#ef8354" />
+              <LoadingSpinner />
             ) : (
               <View style={styles.container}>
                 <Text style={styles.heading}>Grouper</Text>

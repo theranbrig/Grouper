@@ -4,7 +4,7 @@ import { Button, Text, Icon, SwipeRow } from 'native-base';
 import DeleteUserButton from './DeleteUserButton';
 import EditListItem from './EditItem';
 import User from './User';
-import AddToFriendsButton from './AddToFriends';
+import AddToFriendsButton from './AddToFriendsButton';
 
 export const mainStyles = StyleSheet.create({
   paragraph: {

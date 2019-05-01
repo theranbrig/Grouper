@@ -67,6 +67,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.25,
     borderBottomColor: 'white',
   },
+  sortButtons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    margin: 10,
+  },
   bottomInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -78,6 +84,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     marginTop: 14,
     marginRight: 12,
+  },
+  orangeSortButton: {
+    backgroundColor: '#ef8354',
+    margin: 5,
   },
 });
 
@@ -121,6 +131,13 @@ class List extends React.PureComponent {
                   orderedUsers.push(user);
                 }
               });
+              const priceSortItems = items.sort((a, b) => a.price - b.price);
+              const alphaSortItems = items.sort((a, b) => {
+                const textA = a.name.toUpperCase();
+                const textB = b.name.toUpperCase();
+                return textA < textB ? -1 : textA > textB ? 1 : 0;
+              });
+              console.log('alphaSort', alphaSortItems);
               return (
                 <Container style={styles.container}>
                   <BackHeader
@@ -133,7 +150,7 @@ class List extends React.PureComponent {
                         <Text style={styles.heading}>{name}</Text>
                         <Text style={styles.subHeading}>{type}</Text>
                       </View>
-                      <Button rounded style={styles.orangeButton} onPress={() => this.showAdd()}>
+                      <Button block style={styles.orangeButton} onPress={() => this.showAdd()}>
                         {this.state.showAdd ? (
                           <Icon type="Feather" name="minus" />
                         ) : (
@@ -145,11 +162,19 @@ class List extends React.PureComponent {
                     {items.map(item => (
                       <ListItem key={item.id} item={item} listId={id} />
                     ))}
+                    <View style={styles.sortButtons}>
+                      <Button style={styles.orangeSortButton}>
+                        <Icon type="FontAwesome" name="sort-numeric-asc" />
+                      </Button>
+                      <Button style={styles.orangeSortButton}>
+                        <Icon type="FontAwesome" name="sort-alpha-asc" />
+                      </Button>
+                    </View>
                     <View style={styles.bottomInfo}>
                       <View style={styles.bottomArea}>
                         <Text style={styles.heading}>List Mates</Text>
                       </View>
-                      <Button rounded style={styles.orangeButton} onPress={() => this.showAddUser()}>
+                      <Button block style={styles.orangeButton} onPress={() => this.showAddUser()}>
                         {this.state.showAddUser ? (
                           <Icon type="Feather" name="minus" />
                         ) : (

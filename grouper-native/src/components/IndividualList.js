@@ -53,7 +53,7 @@ class IndividualList extends React.Component {
           leftOpenValue={75}
           left={
             <Button style={{ backgroundColor: '#ef8354', color: '#2d3142' }} onPress={() => this.showEdit()}>
-              {this.state.showEdit ? <Icon type="Feather" name="chevron-up" /> : <Icon type="Feather" name="edit-3" />}
+              {this.state.showEdit ? <Icon type="Feather" name="chevrons-up" /> : <Icon type="Feather" name="edit-3" />}
             </Button>
           }
           body={
@@ -67,10 +67,10 @@ class IndividualList extends React.Component {
               </Text>
               <View style={mainStyles.listText}>
                 <Text style={mainStyles.individualListText}>
-                  {items.length} <Icon style={mainStyles.listIcon} type="Feather" name="check-square" />
+                  {items.length} <Icon style={mainStyles.listIcon} type="Feather" name="list" />
                 </Text>
                 <Text style={mainStyles.individualListText}>
-                  {itemsInCart.length} <Icon style={mainStyles.listIcon} type="Feather" name="shopping-cart" />
+                  {itemsInCart.length} <Icon style={mainStyles.listIcon} type="Feather" name="check" />
                 </Text>
                 <Text style={mainStyles.individualListText}>
                   {users.length} <Icon style={mainStyles.listIcon} type="Feather" name="users" />

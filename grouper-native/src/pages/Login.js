@@ -4,7 +4,6 @@ import { StyleSheet, TextInput, View, AsyncStorage } from 'react-native';
 import { Button, Text, Icon, Container, Spinner } from 'native-base';
 import { Mutation, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { TOKEN_KEY } from '../constants';
 import { CURRENT_USER_QUERY } from '../components/User';
 import Error from '../components/ErrorMessage';
 

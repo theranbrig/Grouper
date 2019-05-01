@@ -154,7 +154,7 @@ class AddUser extends React.Component {
                     style={styles.orangeButton}
                     onPress={() => {
                       createList();
-                      this.setState({ username: '' });
+                      this.setState({ username: '', friend: '' });
                     }}
                   >
                     <Text style={styles.orangeButtonText}>Add{loading && 'ing'} List Mate</Text>

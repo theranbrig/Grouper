@@ -50,4 +50,5 @@ const AddToFriendsButton = props => {
   );
 };
 
+export { ADD_TO_FRIENDS };
 export default AddToFriendsButton;

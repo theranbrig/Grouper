@@ -6,6 +6,9 @@ import BackHeader from '../components/BackHeader';
 import User from '../components/User';
 import { LISTS_QUERY } from './Lists';
 import { mainStyles } from '../components/ListUser';
+import AddFriend from '../components/AddFriend';
+import LoadingSpinner from '../components/LoadingSpinner';
+import RemoveFriendButton from '../components/RemoveFriendButton';
 
 const styles = StyleSheet.create({
   container: {
@@ -44,6 +47,14 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     marginTop: 40,
   },
+  orangeAddButton: {
+    backgroundColor: '#ef8354',
+    fontFamily: 'Roboto',
+    width: '60%',
+    marginLeft: '20%',
+    marginBottom: 10,
+    marginTop: 10,
+  },
   orangeButtonText: {
     color: '#fefefe',
     fontFamily: 'Lobster',
@@ -59,6 +70,11 @@ const styles = StyleSheet.create({
 class Profile extends PureComponent {
   state = {
     isCompleted: true,
+    showAddFriend: false,
+  };
+
+  toggleShowAddFriend = () => {
+    this.setState(prevState => ({ showAddFriend: !prevState.showAddFriend }));
   };
 
   render() {
@@ -70,7 +86,7 @@ class Profile extends PureComponent {
             asyncMode
             query={LISTS_QUERY}
             pollInterval={10000}
-            onCompleted={() => this.setState({ isCompleted: false })}
+            onCompleted={() => this.setState({ onCompleted: true })}
           >
             {(data, loading, error) => {
               let userLists;
@@ -80,22 +96,29 @@ class Profile extends PureComponent {
               return (
                 <>
                   {loading || !this.state.isCompleted ? (
-                    <Spinner color="#ef8345" />
+                    <LoadingSpinner />
                   ) : (
                     <View style={styles.container}>
                       <ScrollView>
                         <BackHeader
                           backLink={() => this.props.history.push(backPath)}
-                          profileLink={() => this.props.history.push('/profile')}
+                          profileLink={() => console.log('on the profile page already')}
                         />
                         <View style={styles.container}>
                           <Text style={styles.heading}>{me.username}'s Profile</Text>
                           <Text style={styles.paragraph}>{me.username}</Text>
                           <Text style={styles.paragraph}>{me.email}</Text>
-                          <Text style={styles.heading}>My Grouper Friends</Text>
+                          <View>
+                            <Text style={styles.heading}>My Grouper Friends</Text>
+                            <Button style={styles.orangeAddButton} block onPress={() => this.toggleShowAddFriend()}>
+                              <Icon style={styles.orangeButtonText} type="Feather" name="user-plus" />
+                            </Button>
+                          </View>
+                          {this.state.showAddFriend && <AddFriend username={me.username} />}
                           <List>
                             {me.friends.map(friend => (
                               <SwipeRow
+                                key={friend.id}
                                 style={styles.row}
                                 rightOpenValue={-75}
                                 body={
@@ -105,11 +128,7 @@ class Profile extends PureComponent {
                                     </Text>
                                   </View>
                                 }
-                                right={
-                                  <Button style={styles.removeFriendButton} danger onPress={() => alert('Trash')}>
-                                    <Icon type="Feather" name="user-minus" />
-                                  </Button>
-                                }
+                                right={<RemoveFriendButton username={me.username} friendName={friend.username} />}
                               />
                             ))}
                           </List>
