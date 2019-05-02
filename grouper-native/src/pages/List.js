@@ -9,6 +9,7 @@ import AddItem from '../components/AddItem';
 import ListUser from '../components/ListUser';
 import AddUser from '../components/AddUser';
 import User from '../components/User';
+import SortButtons from '../components/SortButtons';
 
 const INDIVIDUAL_LIST_QUERY = gql`
   query INDIVIDUAL_LIST_QUERY($id: ID!) {
@@ -116,27 +117,23 @@ class List extends React.PureComponent {
     this.setState(prevState => ({ showAddUser: !prevState.showAddUser }));
   };
 
-  setListOrder = async (order, number, items) => {
-    const { listOrder, numberSort } = this.state;
-    await this.setState({ listOrder: 'none' });
-    await this.setState({ numberSort: number, listOrder: order, orderedList: items });
+  setOrderedList = items => {
+    this.setState({ orderedList: items });
   };
 
   render() {
     const backPath = this.props.history.entries[this.props.history.entries.length - 2].pathname;
     const { listOrder, numberSort, showAdd, showAddUser, orderedList } = this.state;
+    const { match, history } = this.props;
     return (
       <User>
         {({ data: { me } }) => (
-          <Query query={INDIVIDUAL_LIST_QUERY} variables={{ id: this.props.match.params.id }}>
+          <Query query={INDIVIDUAL_LIST_QUERY} variables={{ id: match.params.id }}>
             {({ data, loading, error }) => {
               if (loading)
                 return (
                   <Container style={styles.container}>
-                    <BackHeader
-                      backLink={() => this.props.history.push(backPath)}
-                      profileLink={() => this.props.history.push('/profile')}
-                    />
+                    <BackHeader backLink={() => history.push(backPath)} profileLink={() => history.push('/profile')} />
                     <Spinner color="#ef8354" />
                   </Container>
                 );
@@ -165,10 +162,7 @@ class List extends React.PureComponent {
               console.log(sortedListReverseAlphabetical);
               return (
                 <Container style={styles.container}>
-                  <BackHeader
-                    backLink={() => this.props.history.push('/lists')}
-                    profileLink={() => this.props.history.push('/profile')}
-                  />
+                  <BackHeader backLink={() => history.push('/lists')} profileLink={() => history.push('/profile')} />
                   <ScrollView>
                     <View style={styles.topInfo}>
                       <View style={styles.topArea}>
@@ -183,70 +177,27 @@ class List extends React.PureComponent {
                         )}
                       </Button>
                     </View>
-                    {this.state.showAdd && <AddItem id={id} />}
-                    {listOrder === 'none' && items.map(item => <ListItem key={item.id} item={item} listId={id} />)}
-                    {listOrder !== 'none' &&
-                      orderedList &&
-                      orderedList.map(item => <ListItem key={item.id} item={item} listId={id} />)}
-                    <View style={styles.sortButtons}>
-                      {listOrder === 'asc' && numberSort && (
-                        <Button style={styles.orangeSortButton} onPress={() => this.setListOrder('none', true, items)}>
-                          <Icon type="FontAwesome" name="sort-numeric-asc" />
-                        </Button>
-                      )}
-                      {listOrder === 'desc' && numberSort && (
-                        <Button
-                          style={styles.orangeSortButton}
-                          onPress={() => this.setListOrder('asc', true, sortedListByLowestPrice)}
-                        >
-                          <Icon type="FontAwesome" name="sort-numeric-desc" />
-                        </Button>
-                      )}
-                      {((listOrder === 'none' && numberSort) || !numberSort) && (
-                        <Button
-                          style={styles.clearSortButton}
-                          onPress={() => {
-                            this.setListOrder('desc', true, sortedListByHighestPrice);
-                          }}
-                        >
-                          <Icon type="FontAwesome" name="sort-numeric-asc" />
-                        </Button>
-                      )}
-                      {listOrder === 'asc' && !numberSort && (
-                        <Button
-                          style={styles.orangeSortButton}
-                          onPress={() => this.setListOrder('desc', false, sortedListReverseAlphabetical)}
-                        >
-                          <Icon type="FontAwesome" name="sort-alpha-asc" />
-                        </Button>
-                      )}
-                      {listOrder === 'desc' && !numberSort && (
-                        <Button style={styles.orangeSortButton} onPress={() => this.setListOrder('none', false, items)}>
-                          <Icon type="FontAwesome" name="sort-alpha-desc" />
-                        </Button>
-                      )}
-                      {((this.state.listOrder === 'none' && !numberSort) || numberSort) && (
-                        <Button
-                          style={styles.clearSortButton}
-                          onPress={() => this.setListOrder('asc', false, sortedListAlphabetical)}
-                        >
-                          <Icon type="FontAwesome" name="sort-alpha-asc" />
-                        </Button>
-                      )}
-                    </View>
+                    {showAdd && <AddItem id={id} />}
+                    {!orderedList.length
+                      ? items.map(item => <ListItem key={item.id} item={item} listId={id} />)
+                      : orderedList.map(item => <ListItem key={item.id} item={item} listId={id} />)}
+                    <SortButtons
+                      setOrderedList={this.setOrderedList}
+                      sortHigh={sortedListByHighestPrice}
+                      sortLow={sortedListByLowestPrice}
+                      sortA={sortedListAlphabetical}
+                      sortZ={sortedListReverseAlphabetical}
+                      items={items}
+                    />
                     <View style={styles.bottomInfo}>
                       <View style={styles.bottomArea}>
                         <Text style={styles.heading}>List Mates</Text>
                       </View>
                       <Button block style={styles.orangeButton} onPress={() => this.showAddUser()}>
-                        {this.state.showAddUser ? (
-                          <Icon type="Feather" name="minus" />
-                        ) : (
-                          <Icon type="Feather" name="plus" />
-                        )}
+                        {showAddUser ? <Icon type="Feather" name="minus" /> : <Icon type="Feather" name="plus" />}
                       </Button>
                     </View>
-                    {this.state.showAddUser && <AddUser listId={id} />}
+                    {showAddUser && <AddUser listId={id} />}
                     {orderedUsers.map(user => (
                       <ListUser key={user.id} user={user} listId={id} />
                     ))}
