@@ -37,7 +37,7 @@ server.start(
   {
     cors: {
       credentials: true,
-      origin:[ process.env.FRONTEND_URL, 'http://localhost:19000/', '127.0.0.1:19000', 'exp://192.168.0.178:19000', 'exp://v8-tp4.anonymous.grouper-native.exp.direct:80', '*/' ]
+      origin:[ process.env.FRONTEND_URL, 'http://localhost:19000/', '127.0.0.1:19000', 'exp://192.168.0.178:19000', 'exp://v8-tp4.anonymous.grouper-native.exp.direct:80', '*' ]
     },
   },
   deets => {
