@@ -34,7 +34,7 @@ server.start(
   {
     cors: {
       credentials: true,
-      origin:[ process.env.FRONTEND_URL, 'http://localhost:19000/', '127.0.0.1:19000']
+      origin:[ process.env.FRONTEND_URL, 'http://localhost:19000/', '127.0.0.1:19000', 'exp://192.168.0.178:19000']
     },
   },
   deets => {
