@@ -6,7 +6,7 @@ import { Font } from 'expo';
 import Pages from './pages';
 
 const client = new ApolloClient({
-  uri: 'https://grouper-backend-yoga.herokuapp.com/',
+  uri: 'http://localhost:4444',
 });
 
 class AppProvider extends React.Component {

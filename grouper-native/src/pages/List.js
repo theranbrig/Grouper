@@ -128,7 +128,7 @@ class List extends React.PureComponent {
     return (
       <User>
         {({ data: { me } }) => (
-          <Query query={INDIVIDUAL_LIST_QUERY} variables={{ id: match.params.id }}>
+          <Query query={INDIVIDUAL_LIST_QUERY} variables={{ id: match.params.id }} pollInterval={5000}>
             {({ data, loading, error }) => {
               if (loading)
                 return (
