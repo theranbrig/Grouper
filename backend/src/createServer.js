@@ -4,7 +4,7 @@ const Query = require('./resolvers/Query');
 const Subscription = require('./resolvers/Subscription');
 const db = require('./db');
 
-// Create the GraphQL Yoga Server
+// Create the GraphQL Yoga Server for production
 
 function createServer() {
   return new GraphQLServer({
