@@ -79,6 +79,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignContent: 'center',
     marginBottom: 10,
+    borderTopWidth: 1,
+    borderTopColor: 'white'
   },
   orangeButton: {
     backgroundColor: '#ef8354',

@@ -7,6 +7,7 @@ import { ImagePicker, Permissions } from 'expo';
 import { ReactNativeFile } from 'apollo-upload-client';
 import { INDIVIDUAL_LIST_QUERY } from '../pages/List';
 import Error from './ErrorMessage';
+import LoadingSpinner from './LoadingSpinner'
 
 const styles = StyleSheet.create({
   container: {
@@ -69,10 +70,12 @@ class AddItem extends React.Component {
     name: '',
     price: 0,
     image: null,
+    imageLoading: false
   };
 
   uploadFile = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    this.setState({imageLoading: true})
     if (status) {
       const result = await ImagePicker.launchImageLibraryAsync({
         base64: true,
@@ -99,28 +102,12 @@ class AddItem extends React.Component {
             await this.setState({
               image: data.secure_url,
             });
-            console.log(this.state);
+            this.setState({imageLoading: false})
           })
           .catch(err => console.log(err));
       }
     }
-  };
 
-  pickImage = async () => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    if (status) {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        base64: true,
-        allowsEditing: true,
-        aspect: [4, 3],
-      });
-
-      console.log(result);
-
-      if (!result.cancelled) {
-        this.setState({ image: result.uri });
-      }
-    }
   };
 
   handleTextChange = (key, value) => {
@@ -131,7 +118,7 @@ class AddItem extends React.Component {
   };
 
   render() {
-    const { image, name, price } = this.state;
+    const { image, name, price, imageLoading } = this.state;
     return (
       <Mutation
         mutation={ADD_ITEM_MUTATION}
@@ -163,6 +150,7 @@ class AddItem extends React.Component {
               />
             </Item>
             {image && <Image source={{ uri: image }} style={{ width: 200, height: 200, margin: 5 }} />}
+            {imageLoading && <LoadingSpinner/>}
             <View style={styles.topInfo}>
               <Button style={styles.orangeButton} block onPress={this.uploadFile}>
                 <Icon style={styles.orangeButtonText} type="Feather" name="image" />
@@ -170,10 +158,11 @@ class AddItem extends React.Component {
               <Button
                 block
                 style={styles.orangeButton}
+                diabled={imageLoading}
                 onPress={async () => {
                   console.log(this.state);
                   createItem();
-                  this.setState({ name: '', price: '' });
+                  this.setState({ name: '', price: '', image: null });
                 }}
               >
                 <Text style={styles.orangeButtonText}>Add{loading && 'ing'}</Text>
