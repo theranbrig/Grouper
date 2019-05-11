@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
 class SpinningImageLoader extends Component {
   constructor() {
     super();
+    this.state = { stopAnimation: false };
     this.spinValue = new Animated.Value(0);
   }
 
@@ -21,27 +22,45 @@ class SpinningImageLoader extends Component {
 
   spin() {
     this.spinValue.setValue(0);
-    Animated.timing(this.spinValue, {
-      toValue: 1,
-      duration: 100000,
-      easing: Easing.linear,
-    }).start(() => this.spin());
+    Animated.sequence([
+      Animated.delay(0 || this.props.delay),
+      Animated.timing(this.spinValue, {
+        toValue: 1,
+        duration: this.props.speed || 5000,
+        easing: Easing.linear,
+      }),
+    ]).start(() => {
+      if (this.props.rotations > 0) {
+        if (this.props.rotations === 1) {
+          this.setState({ stopAnimation: true });
+        } else {
+          setTimeout(() => {
+            this.setState({ stopAnimation: true });
+          }, (this.props.rotations - 1) * (this.props.speed || 5000) - 500);
+        }
+      }
+      if (!this.state.stopAnimation) {
+        this.spin();
+      }
+    });
   }
 
   render() {
+    const { width, height, source, direction } = this.props;
+    const spinDirection = direction === 'counter' ? '-360deg' : '360deg';
     const spin = this.spinValue.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '360deg'],
+      outputRange: ['0deg', spinDirection],
     });
     return (
       <View style={styles.container}>
         <Animated.Image
           style={{
-            width: 150,
-            height: 100,
+            width,
+            height,
             transform: [{ rotate: spin }],
           }}
-          source={require('../../assets/images/colorfish.png')}
+          source={typeof source === 'string' ? { uri: `${source}` } : { source }}
         />
       </View>
     );

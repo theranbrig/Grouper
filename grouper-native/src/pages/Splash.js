@@ -3,6 +3,7 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { Container, Button, Text, Spinner } from 'native-base';
+import SpinningImageLoader from 'react-native-spinning-image';
 import User from '../components/User';
 import Error from '../components/ErrorMessage';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -46,6 +47,8 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
 });
+
+const fishImage = require('../../assets/images/colorfish.png');
 
 class Splash extends React.Component {
   state = { isSubmitting: false };

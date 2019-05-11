@@ -13,6 +13,7 @@ type User {
   permissions: [Permission] @scalarList(strategy: RELATION)
   token: String
   friends: [User] @scalarList(strategy: RELATION)
+  friendRequests: [FriendRequest] @scalarList(strategy: RELATION)
 }
 
 type List {
@@ -31,4 +32,11 @@ type ListItem {
   user: User!
   inCart: Boolean! @default(value: false)
   image: String
+}
+
+type FriendRequest {
+  id: ID! @id
+  senderId: User!
+  receiverId: String!
+  answered: Boolean! @default(value: false)
 }
