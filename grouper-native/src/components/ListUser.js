@@ -62,7 +62,9 @@ const ListUser = props => {
               style={mainStyles.listItem}
               rightOpenValue={id === me.id ? 0 : -75}
               leftOpenValue={id === me.id ? 0 : 75}
-              left={<AddToFriendsButton senderId={me.id} receiverId={id} isFriend={isFriend} />}
+              left={
+                <AddToFriendsButton senderId={me.id} receiverId={id} receiverUsername={username} isFriend={isFriend} />
+              }
               body={
                 <View style={mainStyles.individualList}>
                   <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>

@@ -43,7 +43,7 @@ const SEND_FRIEND_REQUEST_BY_ID_MUTATION = gql`
 `;
 
 const AddToFriendsButton = props => {
-  const { senderId, receiverId, isFriend } = props;
+  const { senderId, receiverId, isFriend, receiverUsername } = props;
   console.log(props);
   return (
     <Mutation
@@ -62,8 +62,11 @@ const AddToFriendsButton = props => {
             ) : (
               <Button
                 style={{ backgroundColor: '#ef8354', color: '#2d3142' }}
-                onPress={() => {
-                  sendFriendRequest();
+                onPress={async () => {
+                  await sendFriendRequest();
+                  await Alert.alert(`You sent a friend request to ${receiverUsername}`, [
+                    { text: 'OK', onPress: () => console.log('Friend Request Sent') },
+                  ]);
                 }}
               >
                 {loading ? <Spinner color="white" /> : <Icon type="Feather" name="user-plus" />}

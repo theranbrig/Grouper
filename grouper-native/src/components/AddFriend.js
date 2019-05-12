@@ -56,7 +56,7 @@ class AddFriend extends React.Component {
         variables={{ senderId: userId, receiverUsername: this.state.friendName }}
         refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
-        {(createList, { loading, error }) => (
+        {(sendFriendRequestByUsername, { loading, error }) => (
           <View style={styles.container}>
             <Text style={styles.heading}>Add Friend</Text>
             {error && <Error error={error} />}
@@ -73,8 +73,11 @@ class AddFriend extends React.Component {
             <Button
               block
               style={styles.orangeButton}
-              onPress={() => {
-                createList();
+              onPress={async () => {
+                await sendFriendRequestByUsername();
+                await Alert.alert(`You sent a friend request to ${this.state.friendName}`, [
+                  { text: 'OK', onPress: () => console.log('Friend Request Sent') },
+                ]);
                 this.setState({ friendName: '' });
               }}
             >
