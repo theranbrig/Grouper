@@ -16,16 +16,42 @@ const ADD_TO_FRIENDS = gql`
   }
 `;
 
+const SEND_FRIEND_REQUEST_MUTATION = gql`
+  mutation SEND_FRIEND_REQUEST_BY_USERNAME_MUTATION($senderId: String!, $receiverUsername: String!) {
+    sendFriendRequest(senderId: $senderId, receiverUserName: $receiverUserName) {
+      id
+      senderId {
+        id
+        username
+      }
+      receiverId
+    }
+  }
+`;
+
+const SEND_FRIEND_REQUEST_BY_ID_MUTATION = gql`
+  mutation SEND_FRIEND_REQUEST_BY_ID_MUTATION($senderId: String!, $receiverId: String!) {
+    sendFriendRequest(senderId: $senderId, receiverId: $receiverId) {
+      id
+      senderId {
+        id
+        username
+      }
+      receiverId
+    }
+  }
+`;
+
 const AddToFriendsButton = props => {
-  const { friendName, username, isFriend } = props;
+  const { senderId, receiverId, isFriend } = props;
   console.log(props);
   return (
     <Mutation
-      mutation={ADD_TO_FRIENDS}
-      variables={{ username, friendName }}
+      mutation={SEND_FRIEND_REQUEST_BY_ID_MUTATION}
+      variables={{ senderId, receiverId }}
       refetchQueries={[{ query: CURRENT_USER_QUERY }]}
     >
-      {(addFriend, { loading, error }) => {
+      {(sendFriendRequest, { loading, error }) => {
         if (error) return <Error error={error} />;
         return (
           <>
@@ -37,7 +63,7 @@ const AddToFriendsButton = props => {
               <Button
                 style={{ backgroundColor: '#ef8354', color: '#2d3142' }}
                 onPress={() => {
-                  addFriend();
+                  sendFriendRequest();
                 }}
               >
                 {loading ? <Spinner color="white" /> : <Icon type="Feather" name="user-plus" />}

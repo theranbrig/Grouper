@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Button, Text, Icon, Item, Picker, Header, Left, Right, Body, Title, Input, Spinner } from 'native-base';
 import { Mutation } from 'react-apollo';
 import Error from './ErrorMessage';
-import { ADD_TO_FRIENDS } from './AddToFriendsButton';
+import { SEND_FRIEND_REQUEST_MUTATION } from './AddToFriendsButton';
 import { CURRENT_USER_QUERY } from './User';
 
 const styles = StyleSheet.create({
@@ -49,11 +49,11 @@ class AddFriend extends React.Component {
   };
 
   render() {
-    const { username } = this.props;
+    const { userId } = this.props;
     return (
       <Mutation
-        mutation={ADD_TO_FRIENDS}
-        variables={{ friendName: this.state.friendName, username }}
+        mutation={SEND_FRIEND_REQUEST_BY_USERNAME_MUTATION}
+        variables={{ senderId: userId, receiverUsername: this.state.friendName }}
         refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
         {(createList, { loading, error }) => (

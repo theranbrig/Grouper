@@ -21,6 +21,9 @@ type Mutation {
   refreshToken(token: String!): String!
   addFriend(username: String!, friendName: String!): User
   removeFriend(username: String!, friendName: String!): User
+  sendFriendRequestById(senderId: String!, receiverId: String!): FriendRequest
+  sendFriendRequestByUsername(senderId: String!, receiverUsername: String!): FriendRequest
+  removeFriendRequest(id: ID!): FriendRequest
 }
 
 type Query {
