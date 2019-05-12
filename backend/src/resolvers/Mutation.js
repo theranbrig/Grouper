@@ -318,7 +318,7 @@ const Mutations = {
   },
   async sendFriendRequestByUsername(parent, args, ctx, info) {
     const sender = await ctx.db.query.user({ where: { id: args.senderId } });
-    const receiver = await ctx.db.query.user({ where: { id: args.receiverUsername } });
+    const receiver = await ctx.db.query.user({ where: { username: args.receiverUsername } });
     if (!sender || !receiver) {
       throw new Error('User is not found');
     }
