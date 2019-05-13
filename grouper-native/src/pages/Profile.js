@@ -114,7 +114,7 @@ class Profile extends PureComponent {
                               <Icon style={styles.orangeButtonText} type="Feather" name="user-plus" />
                             </Button>
                           </View>
-                          {this.state.showAddFriend && <AddFriend username={me.username} />}
+                          {this.state.showAddFriend && <AddFriend userId={me.id} />}
                           <List>
                             {me.friends.map(friend => (
                               <SwipeRow
@@ -133,7 +133,7 @@ class Profile extends PureComponent {
                             ))}
                           </List>
                         </View>
-                        <Button style={styles.orangeButton} block onPress={() => this.history.push('/logout')}>
+                        <Button style={styles.orangeButton} block onPress={() => this.props.history.push('/logout')}>
                           <Text style={styles.orangeButtonText}>Logout</Text>
                         </Button>
                       </ScrollView>

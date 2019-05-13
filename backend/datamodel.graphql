@@ -36,7 +36,6 @@ type ListItem {
 
 type FriendRequest {
   id: ID! @id
-  senderId: User!
+  senderId: String!
   receiverId: String!
-  answered: Boolean! @default(value: false)
 }

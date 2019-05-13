@@ -16,7 +16,8 @@ const CURRENT_USER_QUERY = gql`
       }
       friendRequests {
         id
-        username
+        senderId
+        receiverId
       }
     }
   }

@@ -1,5 +1,5 @@
 # source: https://grouper-b-665330cbf2.herokuapp.com/backend/dev
-# timestamp: Sat May 11 2019 21:27:15 GMT+0900 (Korean Standard Time)
+# timestamp: Mon May 13 2019 01:02:25 GMT+0900 (Korean Standard Time)
 
 type AggregateFriendRequest {
   count: Int!
@@ -24,8 +24,8 @@ type BatchPayload {
 
 type FriendRequest implements Node {
   id: ID!
-  senderId: User!
-  receiverId: String!
+  senderId: User
+  receiverId: String
   answered: Boolean!
 }
 
@@ -41,9 +41,9 @@ type FriendRequestConnection {
 
 input FriendRequestCreateInput {
   id: ID
-  receiverId: String!
+  receiverId: String
   answered: Boolean
-  senderId: UserCreateOneWithoutFriendRequestsInput!
+  senderId: UserCreateOneWithoutFriendRequestsInput
 }
 
 input FriendRequestCreateManyWithoutSenderIdInput {
@@ -53,7 +53,7 @@ input FriendRequestCreateManyWithoutSenderIdInput {
 
 input FriendRequestCreateWithoutSenderIdInput {
   id: ID
-  receiverId: String!
+  receiverId: String
   answered: Boolean
 }
 
@@ -77,7 +77,7 @@ enum FriendRequestOrderByInput {
 
 type FriendRequestPreviousValues {
   id: ID!
-  receiverId: String!
+  receiverId: String
   answered: Boolean!
 }
 
@@ -218,7 +218,7 @@ input FriendRequestSubscriptionWhereInput {
 input FriendRequestUpdateInput {
   receiverId: String
   answered: Boolean
-  senderId: UserUpdateOneRequiredWithoutFriendRequestsInput
+  senderId: UserUpdateOneWithoutFriendRequestsInput
 }
 
 input FriendRequestUpdateManyDataInput {
@@ -1751,9 +1751,11 @@ input UserUpdateOneRequiredInput {
   upsert: UserUpsertNestedInput
 }
 
-input UserUpdateOneRequiredWithoutFriendRequestsInput {
+input UserUpdateOneWithoutFriendRequestsInput {
   create: UserCreateWithoutFriendRequestsInput
   connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
   update: UserUpdateWithoutFriendRequestsDataInput
   upsert: UserUpsertWithoutFriendRequestsInput
 }

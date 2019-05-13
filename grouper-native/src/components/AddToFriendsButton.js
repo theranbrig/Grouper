@@ -4,7 +4,6 @@ import { Alert } from 'react-native';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import Error from './ErrorMessage';
-import { INDIVIDUAL_LIST_QUERY } from '../pages/List';
 import { CURRENT_USER_QUERY } from './User';
 
 const ADD_TO_FRIENDS = gql`
@@ -12,19 +11,6 @@ const ADD_TO_FRIENDS = gql`
     addFriend(username: $username, friendName: $friendName) {
       id
       username
-    }
-  }
-`;
-
-const SEND_FRIEND_REQUEST_MUTATION = gql`
-  mutation SEND_FRIEND_REQUEST_BY_USERNAME_MUTATION($senderId: String!, $receiverUsername: String!) {
-    sendFriendRequest(senderId: $senderId, receiverUserName: $receiverUserName) {
-      id
-      senderId {
-        id
-        username
-      }
-      receiverId
     }
   }
 `;
@@ -64,9 +50,7 @@ const AddToFriendsButton = props => {
                 style={{ backgroundColor: '#ef8354', color: '#2d3142' }}
                 onPress={async () => {
                   await sendFriendRequest();
-                  await Alert.alert(`You sent a friend request to ${receiverUsername}`, [
-                    { text: 'OK', onPress: () => console.log('Friend Request Sent') },
-                  ]);
+                  await Alert.alert('Friend Request Sent', `${receiverUsername} will confirm your friend request.`);
                 }}
               >
                 {loading ? <Spinner color="white" /> : <Icon type="Feather" name="user-plus" />}

@@ -22,8 +22,7 @@ const Mutations = {
     if (emailCheck) throw new Error(`${args.email} already has an account.  Please Log In.`);
     const nameCheck = await ctx.db.query.user({ where: { username: args.username } });
     // Check if user with submitted username exists
-    if (nameCheck)
-      throw new Error(`${args.username} already exists.  Please choose a new user name.`);
+    if (nameCheck) throw new Error(`${args.username} already exists.  Please choose a new user name.`);
     // Set password hash and user info
     const password = await bcrypt.hash(args.password, 15);
     const user = await ctx.db.mutation.createUser(
@@ -32,8 +31,8 @@ const Mutations = {
           ...args,
           password,
           token: jwt.sign({ userId: args.email }, process.env.APP_SECRET),
-          permissions: { set: ['USER'] }
-        }
+          permissions: { set: ['USER'] },
+        },
       },
       info
     );
@@ -41,7 +40,7 @@ const Mutations = {
     const token = await jwt.sign({ userId: user.id }, process.env.APP_SECRET);
     ctx.response.cookie('token', token, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 14 // Two week token
+      maxAge: 1000 * 60 * 60 * 24 * 14, // Two week token
     });
     return user;
   },
@@ -59,7 +58,7 @@ const Mutations = {
     const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
     ctx.response.cookie('token', token, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 14 // Two week token
+      maxAge: 1000 * 60 * 60 * 24 * 14, // Two week token
     });
     return user;
   },
@@ -83,10 +82,10 @@ const Mutations = {
       {
         data: {
           users: {
-            connect: { id: ctx.request.userId }
+            connect: { id: ctx.request.userId },
           },
-          ...args
-        }
+          ...args,
+        },
       },
       info
     );
@@ -105,8 +104,8 @@ const Mutations = {
       {
         data: updates,
         where: {
-          id: args.id
-        }
+          id: args.id,
+        },
       },
       info
     );
@@ -133,9 +132,9 @@ const Mutations = {
         where: { id: args.id },
         data: {
           users: {
-            connect: { id: user.id }
-          }
-        }
+            connect: { id: user.id },
+          },
+        },
       },
       info
     );
@@ -155,9 +154,9 @@ const Mutations = {
         where: { id: args.id },
         data: {
           users: {
-            connect: { id: user.id }
-          }
-        }
+            connect: { id: user.id },
+          },
+        },
       },
       info
     );
@@ -179,9 +178,9 @@ const Mutations = {
         where: { id: args.id },
         data: {
           users: {
-            disconnect: { id: user.id }
-          }
-        }
+            disconnect: { id: user.id },
+          },
+        },
       },
       info
     );
@@ -202,12 +201,12 @@ const Mutations = {
     const listItem = await ctx.db.mutation.createListItem({
       data: {
         user: { connect: { id: ctx.request.userId } },
-        ...args
-      }
+        ...args,
+      },
     });
     const updatedList = await ctx.db.mutation.updateList({
       where: { id: args.list },
-      data: { items: { connect: { id: listItem.id } } }
+      data: { items: { connect: { id: listItem.id } } },
     });
     return updatedList;
   },
@@ -217,14 +216,14 @@ const Mutations = {
     }
     // Get list item
     const item = await ctx.db.query.listItem({
-      where: { id: args.id }
+      where: { id: args.id },
     });
     // Toggle if in cart
     const listItem = await ctx.db.mutation.updateListItem({
       where: { id: args.id },
       data: {
-        inCart: !item.inCart
-      }
+        inCart: !item.inCart,
+      },
     });
     return listItem;
   },
@@ -241,8 +240,8 @@ const Mutations = {
       {
         data: updates,
         where: {
-          id: args.id
-        }
+          id: args.id,
+        },
       },
       info
     );
@@ -265,14 +264,14 @@ const Mutations = {
     const updatedUser = await ctx.db.mutation.updateUser(
       {
         where: { username: args.username },
-        data: { friends: { connect: { id: newFriend.id } } }
+        data: { friends: { connect: { id: newFriend.id } } },
       },
       info
     );
     const updatedFriend = await ctx.db.mutation.updateUser(
       {
         where: { username: args.friendName },
-        data: { friends: { connect: { id: updatedUser.id } } }
+        data: { friends: { connect: { id: updatedUser.id } } },
       },
       info
     );
@@ -288,14 +287,14 @@ const Mutations = {
     const updatedUser = await ctx.db.mutation.updateUser(
       {
         where: { username: args.username },
-        data: { friends: { disconnect: { id: oldFriend.id } } }
+        data: { friends: { disconnect: { id: oldFriend.id } } },
       },
       info
     );
     const updatedFriend = await ctx.db.mutation.updateUser(
       {
         where: { username: args.friendName },
-        data: { friends: { disconnect: { id: updatedUser.id } } }
+        data: { friends: { disconnect: { id: updatedUser.id } } },
       },
       info
     );
@@ -311,8 +310,8 @@ const Mutations = {
     const friendRequest = await ctx.db.mutation.createFriendRequest({
       data: {
         senderId: { connect: { id: sender.id } },
-        receiverId: receiver.id
-      }
+        receiverId: receiver.id,
+      },
     });
     return friendRequest;
   },
@@ -322,20 +321,34 @@ const Mutations = {
     if (!sender || !receiver) {
       throw new Error('User is not found');
     }
+    console.log(sender);
+    console.log(receiver);
     const friendRequest = await ctx.db.mutation.createFriendRequest({
       data: {
-        senderId: { connect: { id: sender.id } },
-        receiverId: receiver.id
-      }
+        receiverId: receiver.id,
+        senderId: sender.id,
+      },
     });
-    return friendRequest;
+    console.log(friendRequest);
+    // const friendRequest = await ctx.db.mutation.createFriendRequest({
+    //   data: {
+    //     senderId: { connect: { id: sender.id } },
+    //     receiverId: receiver.id,
+    //   },
+    // });
+    // const updatedFriend = await ctx.db.mutation.updateUser({
+    //   where: { id: receiver.id },
+    //   data: { friendRequests: { connect: { id: friendRequest.id } } },
+    // });
+    // console.log(updatedFriend);
+    // return updatedFriend;
   },
   async removeFriendRequest(parent, args, ctx, info) {
     if (!ctx.request.userId) {
       throw new Error('You must log in first');
     }
     return ctx.db.mutation.deleteFriendRequest({ where: { id: args.id } }, info);
-  }
+  },
 };
 
 module.exports = Mutations;

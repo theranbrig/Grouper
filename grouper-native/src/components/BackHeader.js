@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header, Left, Body, Right, Button, Icon, Text } from 'native-base';
 import { StyleSheet } from 'react-native';
+import FriendRequests from './FriendRequests';
 
 const styles = StyleSheet.create({
   header: {
@@ -14,21 +15,24 @@ const styles = StyleSheet.create({
 });
 
 const BackHeader = props => (
-  <Header style={styles.header}>
-    <Left>
-      <Button transparent onPress={() => props.backLink()}>
-        <Icon style={styles.heading} type="Feather" name="chevron-left" />
-      </Button>
-    </Left>
-    <Body>
-      <Text style={styles.heading}>Grouper</Text>
-    </Body>
-    <Right>
-      <Button transparent onPress={() => props.profileLink()}>
-        <Icon style={styles.heading} type="Feather" name="user" />
-      </Button>
-    </Right>
-  </Header>
+  <>
+    <Header style={styles.header}>
+      <Left>
+        <Button transparent onPress={() => props.backLink()}>
+          <Icon style={styles.heading} type="Feather" name="chevron-left" />
+        </Button>
+      </Left>
+      <Body>
+        <Text style={styles.heading}>Grouper</Text>
+      </Body>
+      <Right>
+        <Button transparent onPress={() => props.profileLink()}>
+          <Icon style={styles.heading} type="Feather" name="user" />
+        </Button>
+      </Right>
+    </Header>
+    <FriendRequests />
+  </>
 );
 
 export default BackHeader;

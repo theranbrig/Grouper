@@ -17,43 +17,46 @@ const REMOVE_FRIEND_REQUEST = gql`
 const FriendRequests = () => (
   <User>
     {({ data: { me } }) => {
-      let request;
-      if (me.friendRequests && me.friendRequests.length) {
-        request = me.friendRequest[0];
-      }
-      return (
-        <Mutation
-          mutation={ADD_TO_FRIENDS}
-          variables={{ username: me.username, friendName: request.senderId.username }}
-        >
-          {addFriend => {
-            <Mutation
-              mutation={REMOVE_FRIEND_REQUEST}
-              variables={{ id: request.id }}
-              refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-            >
-              {removeFriendRequest => (
-                <Button
-                  onPress={() => {
-                    Alert.alert(`You have a friend request from ${request.senderId.username}`, [
-                      { text: 'Decline', onPress: () => removeFriendRequest(), style: 'cancel' },
-                      {
-                        text: 'Accept',
-                        onPress: async () => {
-                          await addFriend();
-                          await removeFriendRequest();
+      console.log(me.friendRequests);
+      if (me.friendRequests.length) {
+        const request = me.friendRequests[0];
+        return (
+          <Mutation
+            mutation={ADD_TO_FRIENDS}
+            variables={{ username: me.username, friendName: request.senderId.username }}
+          >
+            {addFriend => (
+              <Mutation
+                mutation={REMOVE_FRIEND_REQUEST}
+                variables={{ id: request.id }}
+                refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+              >
+                {removeFriendRequest => (
+                  <Button
+                    onPress={async () => {
+                      await Alert.alert('Friend Request', `You have a friend request from ${request.senderId}`, [
+                        { text: 'Decline', onPress: () => removeFriendRequest(), style: 'cancel' },
+                        {
+                          text: 'Accept',
+                          onPress: async () => {
+                            await removeFriendRequest();
+                            await addFriend();
+                          },
                         },
-                      },
-                    ]);
-                  }}
-                >
-                  <Text>New Friend Request</Text>
-                </Button>
-              )}
-            </Mutation>;
-          }}
-        </Mutation>
-      );
+                      ]);
+                    }}
+                  >
+                    <Text>New Friend Request</Text>
+                  </Button>
+                )}
+              </Mutation>
+            )}
+          </Mutation>
+        );
+      }
+      return <></>;
     }}
   </User>
 );
+
+export default FriendRequests;

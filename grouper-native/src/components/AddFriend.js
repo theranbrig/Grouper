@@ -1,10 +1,23 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Button, Text, Icon, Item, Picker, Header, Left, Right, Body, Title, Input, Spinner } from 'native-base';
+import { StyleSheet, View, Alert } from 'react-native';
+import { Button, Text, Item, Input } from 'native-base';
 import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
 import Error from './ErrorMessage';
-import { SEND_FRIEND_REQUEST_MUTATION } from './AddToFriendsButton';
 import { CURRENT_USER_QUERY } from './User';
+
+const SEND_FRIEND_REQUEST_BY_USERNAME_MUTATION = gql`
+  mutation SEND_FRIEND_REQUEST_BY_USERNAME_MUTATION($senderId: String!, $receiverUsername: String!) {
+    sendFriendRequestByUsername(senderId: $senderId, receiverUsername: $receiverUsername) {
+      id
+      senderId {
+        id
+        username
+      }
+      receiverId
+    }
+  }
+`;
 
 const styles = StyleSheet.create({
   container: {
@@ -75,9 +88,7 @@ class AddFriend extends React.Component {
               style={styles.orangeButton}
               onPress={async () => {
                 await sendFriendRequestByUsername();
-                await Alert.alert(`You sent a friend request to ${this.state.friendName}`, [
-                  { text: 'OK', onPress: () => console.log('Friend Request Sent') },
-                ]);
+                await Alert.alert('Friend Request Sent', 'They will confirm shortly.');
                 this.setState({ friendName: '' });
               }}
             >
