@@ -1,5 +1,5 @@
-# source: https://grouper-b-665330cbf2.herokuapp.com/backend/dev
-# timestamp: Mon May 13 2019 01:02:25 GMT+0900 (Korean Standard Time)
+# source: https://grouper-b-665330cbf2.herokuapp.com/backend-server/prod
+# timestamp: Wed May 15 2019 00:18:05 GMT+0900 (Korean Standard Time)
 
 type AggregateFriendRequest {
   count: Int!
@@ -24,9 +24,8 @@ type BatchPayload {
 
 type FriendRequest implements Node {
   id: ID!
-  senderId: User
-  receiverId: String
-  answered: Boolean!
+  senderId: String!
+  receiverId: String!
 }
 
 """A connection to a list of items."""
@@ -41,20 +40,13 @@ type FriendRequestConnection {
 
 input FriendRequestCreateInput {
   id: ID
-  receiverId: String
-  answered: Boolean
-  senderId: UserCreateOneWithoutFriendRequestsInput
+  senderId: String!
+  receiverId: String!
 }
 
-input FriendRequestCreateManyWithoutSenderIdInput {
-  create: [FriendRequestCreateWithoutSenderIdInput!]
+input FriendRequestCreateManyInput {
+  create: [FriendRequestCreateInput!]
   connect: [FriendRequestWhereUniqueInput!]
-}
-
-input FriendRequestCreateWithoutSenderIdInput {
-  id: ID
-  receiverId: String
-  answered: Boolean
 }
 
 """An edge in a connection."""
@@ -69,16 +61,16 @@ type FriendRequestEdge {
 enum FriendRequestOrderByInput {
   id_ASC
   id_DESC
+  senderId_ASC
+  senderId_DESC
   receiverId_ASC
   receiverId_DESC
-  answered_ASC
-  answered_DESC
 }
 
 type FriendRequestPreviousValues {
   id: ID!
-  receiverId: String
-  answered: Boolean!
+  senderId: String!
+  receiverId: String!
 }
 
 input FriendRequestScalarWhereInput {
@@ -130,6 +122,46 @@ input FriendRequestScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  senderId: String
+
+  """All values that are not equal to given value."""
+  senderId_not: String
+
+  """All values that are contained in given list."""
+  senderId_in: [String!]
+
+  """All values that are not contained in given list."""
+  senderId_not_in: [String!]
+
+  """All values less than the given value."""
+  senderId_lt: String
+
+  """All values less than or equal the given value."""
+  senderId_lte: String
+
+  """All values greater than the given value."""
+  senderId_gt: String
+
+  """All values greater than or equal the given value."""
+  senderId_gte: String
+
+  """All values containing the given string."""
+  senderId_contains: String
+
+  """All values not containing the given string."""
+  senderId_not_contains: String
+
+  """All values starting with the given string."""
+  senderId_starts_with: String
+
+  """All values not starting with the given string."""
+  senderId_not_starts_with: String
+
+  """All values ending with the given string."""
+  senderId_ends_with: String
+
+  """All values not ending with the given string."""
+  senderId_not_ends_with: String
   receiverId: String
 
   """All values that are not equal to given value."""
@@ -170,10 +202,6 @@ input FriendRequestScalarWhereInput {
 
   """All values not ending with the given string."""
   receiverId_not_ends_with: String
-  answered: Boolean
-
-  """All values that are not equal to given value."""
-  answered_not: Boolean
 }
 
 type FriendRequestSubscriptionPayload {
@@ -215,32 +243,36 @@ input FriendRequestSubscriptionWhereInput {
   node: FriendRequestWhereInput
 }
 
-input FriendRequestUpdateInput {
+input FriendRequestUpdateDataInput {
+  senderId: String
   receiverId: String
-  answered: Boolean
-  senderId: UserUpdateOneWithoutFriendRequestsInput
+}
+
+input FriendRequestUpdateInput {
+  senderId: String
+  receiverId: String
 }
 
 input FriendRequestUpdateManyDataInput {
+  senderId: String
   receiverId: String
-  answered: Boolean
 }
 
-input FriendRequestUpdateManyMutationInput {
-  receiverId: String
-  answered: Boolean
-}
-
-input FriendRequestUpdateManyWithoutSenderIdInput {
-  create: [FriendRequestCreateWithoutSenderIdInput!]
+input FriendRequestUpdateManyInput {
+  create: [FriendRequestCreateInput!]
   connect: [FriendRequestWhereUniqueInput!]
   set: [FriendRequestWhereUniqueInput!]
   disconnect: [FriendRequestWhereUniqueInput!]
   delete: [FriendRequestWhereUniqueInput!]
-  update: [FriendRequestUpdateWithWhereUniqueWithoutSenderIdInput!]
+  update: [FriendRequestUpdateWithWhereUniqueNestedInput!]
   updateMany: [FriendRequestUpdateManyWithWhereNestedInput!]
   deleteMany: [FriendRequestScalarWhereInput!]
-  upsert: [FriendRequestUpsertWithWhereUniqueWithoutSenderIdInput!]
+  upsert: [FriendRequestUpsertWithWhereUniqueNestedInput!]
+}
+
+input FriendRequestUpdateManyMutationInput {
+  senderId: String
+  receiverId: String
 }
 
 input FriendRequestUpdateManyWithWhereNestedInput {
@@ -248,20 +280,15 @@ input FriendRequestUpdateManyWithWhereNestedInput {
   data: FriendRequestUpdateManyDataInput!
 }
 
-input FriendRequestUpdateWithoutSenderIdDataInput {
-  receiverId: String
-  answered: Boolean
+input FriendRequestUpdateWithWhereUniqueNestedInput {
+  where: FriendRequestWhereUniqueInput!
+  data: FriendRequestUpdateDataInput!
 }
 
-input FriendRequestUpdateWithWhereUniqueWithoutSenderIdInput {
+input FriendRequestUpsertWithWhereUniqueNestedInput {
   where: FriendRequestWhereUniqueInput!
-  data: FriendRequestUpdateWithoutSenderIdDataInput!
-}
-
-input FriendRequestUpsertWithWhereUniqueWithoutSenderIdInput {
-  where: FriendRequestWhereUniqueInput!
-  update: FriendRequestUpdateWithoutSenderIdDataInput!
-  create: FriendRequestCreateWithoutSenderIdInput!
+  update: FriendRequestUpdateDataInput!
+  create: FriendRequestCreateInput!
 }
 
 input FriendRequestWhereInput {
@@ -313,6 +340,46 @@ input FriendRequestWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  senderId: String
+
+  """All values that are not equal to given value."""
+  senderId_not: String
+
+  """All values that are contained in given list."""
+  senderId_in: [String!]
+
+  """All values that are not contained in given list."""
+  senderId_not_in: [String!]
+
+  """All values less than the given value."""
+  senderId_lt: String
+
+  """All values less than or equal the given value."""
+  senderId_lte: String
+
+  """All values greater than the given value."""
+  senderId_gt: String
+
+  """All values greater than or equal the given value."""
+  senderId_gte: String
+
+  """All values containing the given string."""
+  senderId_contains: String
+
+  """All values not containing the given string."""
+  senderId_not_contains: String
+
+  """All values starting with the given string."""
+  senderId_starts_with: String
+
+  """All values not starting with the given string."""
+  senderId_not_starts_with: String
+
+  """All values ending with the given string."""
+  senderId_ends_with: String
+
+  """All values not ending with the given string."""
+  senderId_not_ends_with: String
   receiverId: String
 
   """All values that are not equal to given value."""
@@ -353,11 +420,6 @@ input FriendRequestWhereInput {
 
   """All values not ending with the given string."""
   receiverId_not_ends_with: String
-  answered: Boolean
-
-  """All values that are not equal to given value."""
-  answered_not: Boolean
-  senderId: UserWhereInput
 }
 
 input FriendRequestWhereUniqueInput {
@@ -1182,28 +1244,28 @@ scalar Long
 
 type Mutation {
   createList(data: ListCreateInput!): List!
-  createFriendRequest(data: FriendRequestCreateInput!): FriendRequest!
   createListItem(data: ListItemCreateInput!): ListItem!
+  createFriendRequest(data: FriendRequestCreateInput!): FriendRequest!
   createUser(data: UserCreateInput!): User!
   updateList(data: ListUpdateInput!, where: ListWhereUniqueInput!): List
-  updateFriendRequest(data: FriendRequestUpdateInput!, where: FriendRequestWhereUniqueInput!): FriendRequest
   updateListItem(data: ListItemUpdateInput!, where: ListItemWhereUniqueInput!): ListItem
+  updateFriendRequest(data: FriendRequestUpdateInput!, where: FriendRequestWhereUniqueInput!): FriendRequest
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   deleteList(where: ListWhereUniqueInput!): List
-  deleteFriendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   deleteListItem(where: ListItemWhereUniqueInput!): ListItem
+  deleteFriendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   deleteUser(where: UserWhereUniqueInput!): User
   upsertList(where: ListWhereUniqueInput!, create: ListCreateInput!, update: ListUpdateInput!): List!
-  upsertFriendRequest(where: FriendRequestWhereUniqueInput!, create: FriendRequestCreateInput!, update: FriendRequestUpdateInput!): FriendRequest!
   upsertListItem(where: ListItemWhereUniqueInput!, create: ListItemCreateInput!, update: ListItemUpdateInput!): ListItem!
+  upsertFriendRequest(where: FriendRequestWhereUniqueInput!, create: FriendRequestCreateInput!, update: FriendRequestUpdateInput!): FriendRequest!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   updateManyLists(data: ListUpdateManyMutationInput!, where: ListWhereInput): BatchPayload!
-  updateManyFriendRequests(data: FriendRequestUpdateManyMutationInput!, where: FriendRequestWhereInput): BatchPayload!
   updateManyListItems(data: ListItemUpdateManyMutationInput!, where: ListItemWhereInput): BatchPayload!
+  updateManyFriendRequests(data: FriendRequestUpdateManyMutationInput!, where: FriendRequestWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   deleteManyLists(where: ListWhereInput): BatchPayload!
-  deleteManyFriendRequests(where: FriendRequestWhereInput): BatchPayload!
   deleteManyListItems(where: ListItemWhereInput): BatchPayload!
+  deleteManyFriendRequests(where: FriendRequestWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
@@ -1241,16 +1303,16 @@ enum Permission {
 
 type Query {
   lists(where: ListWhereInput, orderBy: ListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [List]!
-  friendRequests(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FriendRequest]!
   listItems(where: ListItemWhereInput, orderBy: ListItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ListItem]!
+  friendRequests(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FriendRequest]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   list(where: ListWhereUniqueInput!): List
-  friendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   listItem(where: ListItemWhereUniqueInput!): ListItem
+  friendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   user(where: UserWhereUniqueInput!): User
   listsConnection(where: ListWhereInput, orderBy: ListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ListConnection!
-  friendRequestsConnection(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FriendRequestConnection!
   listItemsConnection(where: ListItemWhereInput, orderBy: ListItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ListItemConnection!
+  friendRequestsConnection(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FriendRequestConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
 
   """Fetches an object given its ID"""
@@ -1262,8 +1324,8 @@ type Query {
 
 type Subscription {
   list(where: ListSubscriptionWhereInput): ListSubscriptionPayload
-  friendRequest(where: FriendRequestSubscriptionWhereInput): FriendRequestSubscriptionPayload
   listItem(where: ListItemSubscriptionWhereInput): ListItemSubscriptionPayload
+  friendRequest(where: FriendRequestSubscriptionWhereInput): FriendRequestSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -1300,7 +1362,7 @@ input UserCreateInput {
   token: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
-  friendRequests: FriendRequestCreateManyWithoutSenderIdInput
+  friendRequests: FriendRequestCreateManyInput
 }
 
 input UserCreateManyInput {
@@ -1313,25 +1375,8 @@ input UserCreateOneInput {
   connect: UserWhereUniqueInput
 }
 
-input UserCreateOneWithoutFriendRequestsInput {
-  create: UserCreateWithoutFriendRequestsInput
-  connect: UserWhereUniqueInput
-}
-
 input UserCreatepermissionsInput {
   set: [Permission!]
-}
-
-input UserCreateWithoutFriendRequestsInput {
-  id: ID
-  username: String!
-  email: String!
-  password: String!
-  resetToken: String
-  resetTokenExpiry: Float
-  token: String
-  permissions: UserCreatepermissionsInput
-  friends: UserCreateManyInput
 }
 
 """An edge in a connection."""
@@ -1692,7 +1737,7 @@ input UserUpdateDataInput {
   token: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
-  friendRequests: FriendRequestUpdateManyWithoutSenderIdInput
+  friendRequests: FriendRequestUpdateManyInput
 }
 
 input UserUpdateInput {
@@ -1704,7 +1749,7 @@ input UserUpdateInput {
   token: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
-  friendRequests: FriendRequestUpdateManyWithoutSenderIdInput
+  friendRequests: FriendRequestUpdateManyInput
 }
 
 input UserUpdateManyDataInput {
@@ -1751,28 +1796,8 @@ input UserUpdateOneRequiredInput {
   upsert: UserUpsertNestedInput
 }
 
-input UserUpdateOneWithoutFriendRequestsInput {
-  create: UserCreateWithoutFriendRequestsInput
-  connect: UserWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: UserUpdateWithoutFriendRequestsDataInput
-  upsert: UserUpsertWithoutFriendRequestsInput
-}
-
 input UserUpdatepermissionsInput {
   set: [Permission!]
-}
-
-input UserUpdateWithoutFriendRequestsDataInput {
-  username: String
-  email: String
-  password: String
-  resetToken: String
-  resetTokenExpiry: Float
-  token: String
-  permissions: UserUpdatepermissionsInput
-  friends: UserUpdateManyInput
 }
 
 input UserUpdateWithWhereUniqueNestedInput {
@@ -1783,11 +1808,6 @@ input UserUpdateWithWhereUniqueNestedInput {
 input UserUpsertNestedInput {
   update: UserUpdateDataInput!
   create: UserCreateInput!
-}
-
-input UserUpsertWithoutFriendRequestsInput {
-  update: UserUpdateWithoutFriendRequestsDataInput!
-  create: UserCreateWithoutFriendRequestsInput!
 }
 
 input UserUpsertWithWhereUniqueNestedInput {

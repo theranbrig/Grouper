@@ -10,10 +10,7 @@ const SEND_FRIEND_REQUEST_BY_USERNAME_MUTATION = gql`
   mutation SEND_FRIEND_REQUEST_BY_USERNAME_MUTATION($senderId: String!, $receiverUsername: String!) {
     sendFriendRequestByUsername(senderId: $senderId, receiverUsername: $receiverUsername) {
       id
-      senderId {
-        id
-        username
-      }
+      senderId
       receiverId
     }
   }
