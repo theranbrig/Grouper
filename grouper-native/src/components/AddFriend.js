@@ -12,6 +12,7 @@ const SEND_FRIEND_REQUEST_BY_USERNAME_MUTATION = gql`
       id
       senderId
       receiverId
+      requestUsername
     }
   }
 `;

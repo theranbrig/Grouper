@@ -7,8 +7,8 @@ import Error from './ErrorMessage';
 import { CURRENT_USER_QUERY } from './User';
 
 const ADD_TO_FRIENDS = gql`
-  mutation ADD_TO_FRIENDS($username: String!, $friendName: String!) {
-    addFriend(username: $username, friendName: $friendName) {
+  mutation ADD_TO_FRIENDS($userId: String!, $friendId: String!) {
+    addFriend(userId: $userId, friendId: $friendId) {
       id
       username
     }

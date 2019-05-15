@@ -256,26 +256,27 @@ const Mutations = {
   //         FRIEND ACTIONS
   // ////////////////////////////////////////////////////////////////////
   async addFriend(parent, args, ctx, info) {
-    const newFriend = await ctx.db.query.user({ where: { username: args.friendName } });
+    const newFriend = await ctx.db.query.user({ where: { id: args.friendId } });
     if (!newFriend) {
       throw new Error('That user does not exist');
     }
     // Add user to list
     const updatedUser = await ctx.db.mutation.updateUser(
       {
-        where: { username: args.username },
+        where: { id: args.userId },
         data: { friends: { connect: { id: newFriend.id } } },
       },
       info
     );
+    console.log(updatedUser);
     const updatedFriend = await ctx.db.mutation.updateUser(
       {
-        where: { username: args.friendName },
+        where: { id: args.friendId },
         data: { friends: { connect: { id: updatedUser.id } } },
       },
       info
     );
-    console.log('updated', updatedUser);
+    console.log(updatedFriend);
     return updatedUser;
   },
   async removeFriend(parent, args, ctx, info) {
@@ -311,6 +312,7 @@ const Mutations = {
       data: {
         senderId: { connect: { id: sender.id } },
         receiverId: receiver.id,
+        requestUsername: sender.username,
       },
     });
     return friendRequest;
@@ -327,21 +329,16 @@ const Mutations = {
       data: {
         receiverId: receiver.id,
         senderId: sender.id,
+        requestUsername: sender.username,
       },
     });
     console.log(friendRequest);
-    // const friendRequest = await ctx.db.mutation.createFriendRequest({
-    //   data: {
-    //     senderId: { connect: { id: sender.id } },
-    //     receiverId: receiver.id,
-    //   },
-    // });
-    // const updatedFriend = await ctx.db.mutation.updateUser({
-    //   where: { id: receiver.id },
-    //   data: { friendRequests: { connect: { id: friendRequest.id } } },
-    // });
-    // console.log(updatedFriend);
-    // return updatedFriend;
+    const updatedFriend = await ctx.db.mutation.updateUser({
+      where: { id: receiver.id },
+      data: { friendRequests: { connect: { id: friendRequest.id } } },
+      info,
+    });
+    console.log(updatedFriend);
   },
   async removeFriendRequest(parent, args, ctx, info) {
     if (!ctx.request.userId) {

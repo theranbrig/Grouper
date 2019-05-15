@@ -63,7 +63,13 @@ const ListUser = props => {
               rightOpenValue={id === me.id ? 0 : -75}
               leftOpenValue={id === me.id ? 0 : 75}
               left={
-                <AddToFriendsButton senderId={me.id} receiverId={id} receiverUsername={username} isFriend={isFriend} />
+                <AddToFriendsButton
+                  senderId={me.id}
+                  receiverId={id}
+                  receiverUsername={username}
+                  isFriend={isFriend}
+                  requestUsername={me.username}
+                />
               }
               body={
                 <View style={mainStyles.individualList}>

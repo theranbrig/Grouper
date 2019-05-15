@@ -1,5 +1,5 @@
 # source: https://grouper-b-665330cbf2.herokuapp.com/backend-server/prod
-# timestamp: Wed May 15 2019 00:18:05 GMT+0900 (Korean Standard Time)
+# timestamp: Thu May 16 2019 02:13:43 GMT+0900 (Korean Standard Time)
 
 type AggregateFriendRequest {
   count: Int!
@@ -26,6 +26,7 @@ type FriendRequest implements Node {
   id: ID!
   senderId: String!
   receiverId: String!
+  requestUsername: String!
 }
 
 """A connection to a list of items."""
@@ -42,6 +43,7 @@ input FriendRequestCreateInput {
   id: ID
   senderId: String!
   receiverId: String!
+  requestUsername: String!
 }
 
 input FriendRequestCreateManyInput {
@@ -65,12 +67,15 @@ enum FriendRequestOrderByInput {
   senderId_DESC
   receiverId_ASC
   receiverId_DESC
+  requestUsername_ASC
+  requestUsername_DESC
 }
 
 type FriendRequestPreviousValues {
   id: ID!
   senderId: String!
   receiverId: String!
+  requestUsername: String!
 }
 
 input FriendRequestScalarWhereInput {
@@ -202,6 +207,46 @@ input FriendRequestScalarWhereInput {
 
   """All values not ending with the given string."""
   receiverId_not_ends_with: String
+  requestUsername: String
+
+  """All values that are not equal to given value."""
+  requestUsername_not: String
+
+  """All values that are contained in given list."""
+  requestUsername_in: [String!]
+
+  """All values that are not contained in given list."""
+  requestUsername_not_in: [String!]
+
+  """All values less than the given value."""
+  requestUsername_lt: String
+
+  """All values less than or equal the given value."""
+  requestUsername_lte: String
+
+  """All values greater than the given value."""
+  requestUsername_gt: String
+
+  """All values greater than or equal the given value."""
+  requestUsername_gte: String
+
+  """All values containing the given string."""
+  requestUsername_contains: String
+
+  """All values not containing the given string."""
+  requestUsername_not_contains: String
+
+  """All values starting with the given string."""
+  requestUsername_starts_with: String
+
+  """All values not starting with the given string."""
+  requestUsername_not_starts_with: String
+
+  """All values ending with the given string."""
+  requestUsername_ends_with: String
+
+  """All values not ending with the given string."""
+  requestUsername_not_ends_with: String
 }
 
 type FriendRequestSubscriptionPayload {
@@ -246,16 +291,19 @@ input FriendRequestSubscriptionWhereInput {
 input FriendRequestUpdateDataInput {
   senderId: String
   receiverId: String
+  requestUsername: String
 }
 
 input FriendRequestUpdateInput {
   senderId: String
   receiverId: String
+  requestUsername: String
 }
 
 input FriendRequestUpdateManyDataInput {
   senderId: String
   receiverId: String
+  requestUsername: String
 }
 
 input FriendRequestUpdateManyInput {
@@ -273,6 +321,7 @@ input FriendRequestUpdateManyInput {
 input FriendRequestUpdateManyMutationInput {
   senderId: String
   receiverId: String
+  requestUsername: String
 }
 
 input FriendRequestUpdateManyWithWhereNestedInput {
@@ -420,6 +469,46 @@ input FriendRequestWhereInput {
 
   """All values not ending with the given string."""
   receiverId_not_ends_with: String
+  requestUsername: String
+
+  """All values that are not equal to given value."""
+  requestUsername_not: String
+
+  """All values that are contained in given list."""
+  requestUsername_in: [String!]
+
+  """All values that are not contained in given list."""
+  requestUsername_not_in: [String!]
+
+  """All values less than the given value."""
+  requestUsername_lt: String
+
+  """All values less than or equal the given value."""
+  requestUsername_lte: String
+
+  """All values greater than the given value."""
+  requestUsername_gt: String
+
+  """All values greater than or equal the given value."""
+  requestUsername_gte: String
+
+  """All values containing the given string."""
+  requestUsername_contains: String
+
+  """All values not containing the given string."""
+  requestUsername_not_contains: String
+
+  """All values starting with the given string."""
+  requestUsername_starts_with: String
+
+  """All values not starting with the given string."""
+  requestUsername_not_starts_with: String
+
+  """All values ending with the given string."""
+  requestUsername_ends_with: String
+
+  """All values not ending with the given string."""
+  requestUsername_not_ends_with: String
 }
 
 input FriendRequestWhereUniqueInput {
