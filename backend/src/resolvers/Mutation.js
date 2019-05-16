@@ -346,6 +346,16 @@ const Mutations = {
     }
     return ctx.db.mutation.deleteFriendRequest({ where: { id: args.id } }, info);
   },
+  hideFriendRequest(parent, args, ctx, info) {
+    const friendRequest = ctx.db.mutation.updateFriendRequest(
+      {
+        where: { id: args.id },
+        data: { hidden: true },
+      },
+      info
+    );
+    return friendRequest;
+  },
 };
 
 module.exports = Mutations;

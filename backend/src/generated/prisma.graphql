@@ -1,5 +1,5 @@
 # source: https://grouper-b-665330cbf2.herokuapp.com/backend-server/prod
-# timestamp: Thu May 16 2019 02:13:43 GMT+0900 (Korean Standard Time)
+# timestamp: Fri May 17 2019 00:13:29 GMT+0900 (Korean Standard Time)
 
 type AggregateFriendRequest {
   count: Int!
@@ -27,6 +27,7 @@ type FriendRequest implements Node {
   senderId: String!
   receiverId: String!
   requestUsername: String!
+  hidden: Boolean!
 }
 
 """A connection to a list of items."""
@@ -44,6 +45,7 @@ input FriendRequestCreateInput {
   senderId: String!
   receiverId: String!
   requestUsername: String!
+  hidden: Boolean
 }
 
 input FriendRequestCreateManyInput {
@@ -69,6 +71,8 @@ enum FriendRequestOrderByInput {
   receiverId_DESC
   requestUsername_ASC
   requestUsername_DESC
+  hidden_ASC
+  hidden_DESC
 }
 
 type FriendRequestPreviousValues {
@@ -76,6 +80,7 @@ type FriendRequestPreviousValues {
   senderId: String!
   receiverId: String!
   requestUsername: String!
+  hidden: Boolean!
 }
 
 input FriendRequestScalarWhereInput {
@@ -247,6 +252,10 @@ input FriendRequestScalarWhereInput {
 
   """All values not ending with the given string."""
   requestUsername_not_ends_with: String
+  hidden: Boolean
+
+  """All values that are not equal to given value."""
+  hidden_not: Boolean
 }
 
 type FriendRequestSubscriptionPayload {
@@ -292,18 +301,21 @@ input FriendRequestUpdateDataInput {
   senderId: String
   receiverId: String
   requestUsername: String
+  hidden: Boolean
 }
 
 input FriendRequestUpdateInput {
   senderId: String
   receiverId: String
   requestUsername: String
+  hidden: Boolean
 }
 
 input FriendRequestUpdateManyDataInput {
   senderId: String
   receiverId: String
   requestUsername: String
+  hidden: Boolean
 }
 
 input FriendRequestUpdateManyInput {
@@ -322,6 +334,7 @@ input FriendRequestUpdateManyMutationInput {
   senderId: String
   receiverId: String
   requestUsername: String
+  hidden: Boolean
 }
 
 input FriendRequestUpdateManyWithWhereNestedInput {
@@ -509,6 +522,10 @@ input FriendRequestWhereInput {
 
   """All values not ending with the given string."""
   requestUsername_not_ends_with: String
+  hidden: Boolean
+
+  """All values that are not equal to given value."""
+  hidden_not: Boolean
 }
 
 input FriendRequestWhereUniqueInput {

@@ -5,6 +5,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import User, { CURRENT_USER_QUERY } from './User';
 import { ADD_TO_FRIENDS } from './AddToFriendsButton';
+import HideFriendRequest from './HideFriendRequest';
 
 const REMOVE_FRIEND_REQUEST = gql`
   mutation REMOVE_FRIEND_REQUEST($id: ID!) {
@@ -30,24 +31,33 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   orangeButton: {
-    marginLeft: '20%',
-    margin: 10,
-    width: '60%',
+    marginLeft: '5%',
+    marginTop: 10,
+    marginBottom: 10,
+    width: '90%',
     backgroundColor: '#fefefe',
     borderColor: '#ef8354',
     borderWidth: 2,
   },
   orangeButtonText: {
     fontFamily: 'Lobster',
-    fontSize: 25,
-    color: '#ef8354',
+    fontSize: 20,
+    color: '#2d3142',
+    textAlign: 'center',
   },
   transparentButton: {
     marginLeft: '5%',
-    margin: 10,
+    padding: 2,
+    margin: 5,
     width: '90%',
     fontFamily: 'Roboto',
     textAlign: 'center',
+    backgroundColor: 'transparent',
+  },
+  transparentButtonText: {
+    fontFamily: 'Roboto',
+    textAlign: 'center',
+    fontSize: 15,
   },
   picker: {
     color: 'white',
@@ -74,23 +84,35 @@ const FriendRequests = () => (
                 refetchQueries={[{ query: CURRENT_USER_QUERY }]}
               >
                 {removeFriendRequest => (
-                  <Button
-                    style={styles.orangeButton}
-                    onPress={async () => {
-                      await Alert.alert('Friend Request', `You have a friend request from ${request.requestUsername}`, [
-                        { text: 'Decline', onPress: () => removeFriendRequest(), style: 'cancel' },
-                        {
-                          text: 'Accept',
-                          onPress: async () => {
-                            await removeFriendRequest();
-                            await addFriend();
-                          },
-                        },
-                      ]);
-                    }}
-                  >
-                    <Text style={styles.orangeButtonText}>New Friend Request</Text>
-                  </Button>
+                  <>
+                    {!request.hidden && (
+                      <>
+                        <Button
+                          block
+                          style={styles.orangeButton}
+                          onPress={async () => {
+                            await Alert.alert(
+                              'Friend Request',
+                              `You have a friend request from ${request.requestUsername}`,
+                              [
+                                { text: 'Decline', onPress: () => removeFriendRequest(), style: 'cancel' },
+                                {
+                                  text: 'Accept',
+                                  onPress: async () => {
+                                    await removeFriendRequest();
+                                    await addFriend();
+                                  },
+                                },
+                              ]
+                            );
+                          }}
+                        >
+                          <Text style={styles.orangeButtonText}>New Friend Request from {request.requestUsername}</Text>
+                        </Button>
+                        <HideFriendRequest id={request.id} />
+                      </>
+                    )}
+                  </>
                 )}
               </Mutation>
             )}

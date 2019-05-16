@@ -86,7 +86,7 @@ class AddFriend extends React.Component {
               style={styles.orangeButton}
               onPress={async () => {
                 await sendFriendRequestByUsername();
-                await Alert.alert('Friend Request Sent', 'They will confirm shortly.');
+                await Alert.alert(`Friend Request Sent to ${this.state.friendName}`, 'They will confirm shortly.');
                 this.setState({ friendName: '' });
               }}
             >

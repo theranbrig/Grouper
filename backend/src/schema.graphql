@@ -24,6 +24,7 @@ type Mutation {
   sendFriendRequestById(senderId: String!, receiverId: String!): FriendRequest
   sendFriendRequestByUsername(senderId: String!, receiverUsername: String!): FriendRequest
   removeFriendRequest(id: ID!): FriendRequest
+  hideFriendRequest(id: ID!): FriendRequest
 }
 
 type Query {

@@ -39,4 +39,5 @@ type FriendRequest {
   senderId: String!
   receiverId: String!
   requestUsername: String!
+  hidden: Boolean! @default(value: false)
 }
