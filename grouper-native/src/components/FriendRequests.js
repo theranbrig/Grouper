@@ -59,7 +59,7 @@ const FriendRequests = props => (
               variables={{ userId: props.receiverId, friendId: request.senderId }}
               refetchQueries={[
                 { query: CURRENT_USER_QUERY },
-                { query: GET_FRIEND_REQUESTS, variables: { receiverId: props.receiverId } },
+                { query: GET_FRIEND_REQUESTS, variables: { receiverId: props.receiverId, hidden: false } },
               ]}
             >
               {addFriend => (
@@ -68,7 +68,7 @@ const FriendRequests = props => (
                   variables={{ id: request.id }}
                   refetchQueries={[
                     { query: CURRENT_USER_QUERY },
-                    { query: GET_FRIEND_REQUESTS, variables: { receiverId: props.receiverId } },
+                    { query: GET_FRIEND_REQUESTS, variables: { receiverId: props.receiverId, hidden: false } },
                   ]}
                 >
                   {removeFriendRequest => (
@@ -99,7 +99,7 @@ const FriendRequests = props => (
                               New Friend Request from {request.requestUsername}
                             </Text>
                           </Button>
-                          <HideFriendRequest id={request.id} />
+                          <HideFriendRequest id={request.id} receiverId={request.receiverId} />
                         </>
                       )}
                     </>
@@ -115,4 +115,5 @@ const FriendRequests = props => (
   </Query>
 );
 
+export { GET_FRIEND_REQUESTS };
 export default FriendRequests;

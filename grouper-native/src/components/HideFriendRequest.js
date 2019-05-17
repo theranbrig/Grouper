@@ -4,6 +4,7 @@ import { Button, Text } from 'native-base';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { CURRENT_USER_QUERY } from './User';
+import { GET_FRIEND_REQUESTS } from './FriendRequests';
 
 const HIDE_FRIEND_REQUEST = gql`
   mutation HIDE_FRIEND_REQUEST($id: ID!) {
@@ -30,10 +31,13 @@ const HideFriendRequest = props => (
   <Mutation
     mutation={HIDE_FRIEND_REQUEST}
     variables={{ id: props.id }}
-    refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+    refetchQueries={[
+      { query: CURRENT_USER_QUERY },
+      { query: GET_FRIEND_REQUESTS, variables: { receiverId: props.receiverId, hidden: false } },
+    ]}
   >
     {(hideFriendRequest, { loadng, error }) => (
-      <Button block onPress={async () => await hideFriendRequest()} style={styles.transparentButton}>
+      <Button block small onPress={async () => await hideFriendRequest()} style={styles.transparentButton}>
         <Text style={styles.transparentButtonText}>Not Now</Text>
       </Button>
     )}
