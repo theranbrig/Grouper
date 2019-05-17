@@ -17,7 +17,7 @@ const ADD_TO_FRIENDS = gql`
 
 const SEND_FRIEND_REQUEST_BY_ID_MUTATION = gql`
   mutation SEND_FRIEND_REQUEST_BY_ID_MUTATION($senderId: String!, $receiverId: String!) {
-    sendFriendRequest(senderId: $senderId, receiverId: $receiverId) {
+    sendFriendRequestById(senderId: $senderId, receiverId: $receiverId) {
       id
       senderId {
         id
@@ -37,7 +37,7 @@ const AddToFriendsButton = props => {
       variables={{ senderId, receiverId }}
       refetchQueries={[{ query: CURRENT_USER_QUERY }]}
     >
-      {(sendFriendRequest, { loading, error }) => {
+      {(sendFriendRequestById, { loading, error }) => {
         if (error) return <Error error={error} />;
         return (
           <>
@@ -49,7 +49,7 @@ const AddToFriendsButton = props => {
               <Button
                 style={{ backgroundColor: '#ef8354', color: '#2d3142' }}
                 onPress={async () => {
-                  await sendFriendRequest();
+                  await sendFriendRequestById();
                   await Alert.alert('Friend Request Sent', `${receiverUsername} will confirm your friend request.`);
                 }}
               >

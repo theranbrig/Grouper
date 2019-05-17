@@ -80,13 +80,15 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     marginBottom: 10,
     borderTopWidth: 1,
-    borderTopColor: 'white'
+    borderTopColor: 'white',
   },
   orangeButton: {
     backgroundColor: '#ef8354',
     fontFamily: 'Roboto',
     marginTop: 14,
     marginRight: 12,
+    borderColor: '#fefefe',
+    borderWidth: 2,
   },
   orangeSortButton: {
     backgroundColor: '#ef8354',
@@ -135,7 +137,11 @@ class List extends React.PureComponent {
               if (loading)
                 return (
                   <Container style={styles.container}>
-                    <BackHeader backLink={() => history.push(backPath)} profileLink={() => history.push('/profile')} />
+                    <BackHeader
+                      backLink={() => history.push(backPath)}
+                      profileLink={() => history.push('/profile')}
+                      receiverId={me.id}
+                    />
                     <Spinner color="#ef8354" />
                   </Container>
                 );
@@ -160,11 +166,13 @@ class List extends React.PureComponent {
                 return 0;
               });
               const sortedListReverseAlphabetical = sortedListAlphabetical.concat().reverse();
-              console.log(sortedListAlphabetical);
-              console.log(sortedListReverseAlphabetical);
               return (
                 <Container style={styles.container}>
-                  <BackHeader backLink={() => history.push('/lists')} profileLink={() => history.push('/profile')} />
+                  <BackHeader
+                    backLink={() => history.push('/lists')}
+                    profileLink={() => history.push('/profile')}
+                    receiverId={me.id}
+                  />
                   <ScrollView>
                     <View style={styles.topInfo}>
                       <View style={styles.topArea}>

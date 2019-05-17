@@ -20,6 +20,8 @@ const styles = StyleSheet.create({
     width: '90%',
     backgroundColor: '#ef8354',
     fontFamily: 'Roboto',
+    borderColor: '#fefefe',
+    borderWidth: 2,
   },
   orangeButtonText: {
     fontFamily: 'Lobster',

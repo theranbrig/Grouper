@@ -29,6 +29,8 @@ const styles = StyleSheet.create({
     width: '30%',
     backgroundColor: '#ef8354',
     fontFamily: 'Roboto',
+    borderColor: '#fefefe',
+    borderWidth: 2,
   },
   orangeButtonText: {
     fontFamily: 'Lobster',
@@ -126,7 +128,11 @@ class EditListItem extends React.PureComponent {
                       />
                     </Item>
                     <Item>
-                      <Icon style={{ color: '#fff', fontFamily: 'Roboto', paddingLeft: 15, fontSize: 18 }} active name="logo-usd" />
+                      <Icon
+                        style={{ color: '#fff', fontFamily: 'Roboto', paddingLeft: 15, fontSize: 18 }}
+                        active
+                        name="logo-usd"
+                      />
                       <Input
                         keyboardType="numeric"
                         autoCapitalize="none"

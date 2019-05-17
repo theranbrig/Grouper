@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
     marginLeft: '20%',
     marginBottom: 40,
     marginTop: 40,
+    borderColor: '#fefefe',
+    borderWidth: 2,
   },
   orangeAddButton: {
     backgroundColor: '#ef8354',
@@ -54,6 +56,8 @@ const styles = StyleSheet.create({
     marginLeft: '20%',
     marginBottom: 10,
     marginTop: 10,
+    borderColor: '#fefefe',
+    borderWidth: 2,
   },
   orangeButtonText: {
     color: '#fefefe',
@@ -103,6 +107,7 @@ class Profile extends PureComponent {
                         <BackHeader
                           backLink={() => this.props.history.push(backPath)}
                           profileLink={() => console.log('on the profile page already')}
+                          receiverId={me.id}
                         />
                         <View style={styles.container}>
                           <Text style={styles.heading}>{me.username}'s Profile</Text>

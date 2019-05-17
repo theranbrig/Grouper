@@ -16,6 +16,7 @@ const Query = {
   list: forwardTo('db'),
   lists: forwardTo('db'),
   listItem: forwardTo('db'),
+  friendRequests: forwardTo('db'),
 };
 
 module.exports = Query;

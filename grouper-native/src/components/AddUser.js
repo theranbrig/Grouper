@@ -102,7 +102,6 @@ class AddUser extends React.Component {
                       placeholderTextColor="gray"
                     />
                   </Item>
-
                   {me.friends.length ? (
                     <>
                       <Text style={styles.subText}>or</Text>

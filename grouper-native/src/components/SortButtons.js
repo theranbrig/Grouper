@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
   orangeSortButton: {
     backgroundColor: '#ef8354',
     margin: 5,
-    borderWidth: 1,
-    borderColor: '#ef8354',
+    borderColor: '#fefefe',
+    borderWidth: 2,
   },
   clearSortButton: {
     backgroundColor: 'transparent',

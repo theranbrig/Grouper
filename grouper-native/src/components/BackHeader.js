@@ -31,7 +31,7 @@ const BackHeader = props => (
         </Button>
       </Right>
     </Header>
-    <FriendRequests />
+    <FriendRequests receiverId={props.receiverId} />
   </>
 );
 

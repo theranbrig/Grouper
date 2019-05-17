@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 import React from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
-import { Container } from 'native-base';
+import { Container, Button } from 'native-base';
 import LogoutButton from '../components/LogoutButton';
 import BackHeader from '../components/BackHeader';
 
@@ -33,6 +33,8 @@ const styles = StyleSheet.create({
     width: '90%',
     backgroundColor: '#ef8354',
     fontFamily: 'Roboto',
+    borderColor: '#fefefe',
+    borderWidth: 2,
   },
   transparentButton: {
     marginLeft: '5%',
@@ -52,12 +54,12 @@ const styles = StyleSheet.create({
   orangeButtonText: {
     fontFamily: 'Lobster',
     fontSize: 25,
+    color: '#fefefe',
   },
 });
 
 const Login = ({ history }) => (
   <Container>
-    <BackHeader backLink={() => history.push('/')} />
     <View style={styles.container}>
       <Text style={styles.heading}>Grouper</Text>
       <View style={styles.mainImage}>
@@ -65,6 +67,9 @@ const Login = ({ history }) => (
       </View>
       <Text style={styles.paragraph}>We are sorry to see you go. We hope to see you again.</Text>
       <LogoutButton pushToSplash={() => history.push('/')} />
+      <Button block style={styles.orangeButton} onPress={() => history.push('/')}>
+        <Text style={styles.orangeButtonText}>Back to the App</Text>
+      </Button>
     </View>
   </Container>
 );

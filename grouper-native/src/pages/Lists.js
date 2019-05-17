@@ -51,6 +51,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     marginTop: 10,
     marginRight: 14,
+    borderColor: '#fefefe',
+    borderWidth: 2,
   },
   topInfo: {
     flexDirection: 'row',
@@ -88,6 +90,7 @@ class Lists extends React.PureComponent {
               <BackHeader
                 backLink={() => history.push(backPath)}
                 profileLink={() => this.props.history.push('/profile')}
+                receiverId={me.id}
               />
               <Query
                 asyncMode

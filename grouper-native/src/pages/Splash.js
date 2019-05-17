@@ -30,6 +30,8 @@ const styles = StyleSheet.create({
     width: '90%',
     backgroundColor: '#ef8354',
     fontFamily: 'Lobster',
+    borderColor: '#fefefe',
+    borderWidth: 2,
   },
   orangeButtonText: {
     fontFamily: 'Lobster',

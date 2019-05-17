@@ -26,6 +26,8 @@ const styles = StyleSheet.create({
     margin: 10,
     width: '30%',
     backgroundColor: '#ef8354',
+    borderColor: '#fefefe',
+    borderWidth: 2,
   },
   orangeButtonText: {
     fontFamily: 'Lobster',

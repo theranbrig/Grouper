@@ -7,7 +7,7 @@ import { ImagePicker, Permissions } from 'expo';
 import { ReactNativeFile } from 'apollo-upload-client';
 import { INDIVIDUAL_LIST_QUERY } from '../pages/List';
 import Error from './ErrorMessage';
-import LoadingSpinner from './LoadingSpinner'
+import LoadingSpinner from './LoadingSpinner';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,6 +27,8 @@ const styles = StyleSheet.create({
   orangeButton: {
     backgroundColor: '#ef8354',
     margin: 10,
+    borderColor: '#fefefe',
+    borderWidth: 2,
   },
   orangeButtonText: {
     fontFamily: 'Lobster',
@@ -70,12 +72,12 @@ class AddItem extends React.Component {
     name: '',
     price: 0,
     image: null,
-    imageLoading: false
+    imageLoading: false,
   };
 
   uploadFile = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    this.setState({imageLoading: true})
+    this.setState({ imageLoading: true });
     if (status) {
       const result = await ImagePicker.launchImageLibraryAsync({
         base64: true,
@@ -102,12 +104,11 @@ class AddItem extends React.Component {
             await this.setState({
               image: data.secure_url,
             });
-            this.setState({imageLoading: false})
+            this.setState({ imageLoading: false });
           })
           .catch(err => console.log(err));
       }
     }
-
   };
 
   handleTextChange = (key, value) => {
@@ -150,7 +151,7 @@ class AddItem extends React.Component {
               />
             </Item>
             {image && <Image source={{ uri: image }} style={{ width: 200, height: 200, margin: 5 }} />}
-            {imageLoading && <LoadingSpinner/>}
+            {imageLoading && <LoadingSpinner />}
             <View style={styles.topInfo}>
               <Button style={styles.orangeButton} block onPress={this.uploadFile}>
                 <Icon style={styles.orangeButtonText} type="Feather" name="image" />

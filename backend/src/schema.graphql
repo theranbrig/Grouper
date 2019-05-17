@@ -32,6 +32,7 @@ type Query {
   lists(where: ListWhereInput): [List]!
   list(where: ListWhereInput): List
   listItem(where: ListItemWhereInput): ListItem
+  friendRequests(where: FriendRequestWhereInput): [FriendRequest]
 }
 
 type Subscription {
