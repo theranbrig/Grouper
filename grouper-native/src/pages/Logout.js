@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 import React from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet, Image, StatusBar } from 'react-native';
 import { Container, Button } from 'native-base';
 import LogoutButton from '../components/LogoutButton';
 import BackHeader from '../components/BackHeader';
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
 
 const Login = ({ history }) => (
   <Container>
+    <StatusBar barStyle="light-content" />
     <View style={styles.container}>
       <Text style={styles.heading}>Grouper</Text>
       <View style={styles.mainImage}>

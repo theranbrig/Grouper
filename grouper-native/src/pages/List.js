@@ -1,7 +1,7 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { View, Text, Container, Spinner, Button, Icon } from 'native-base';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, StatusBar } from 'react-native';
 import { Query } from 'react-apollo';
 import BackHeader from '../components/BackHeader';
 import ListItem from '../components/ListItem';
@@ -142,6 +142,7 @@ class List extends React.PureComponent {
                       profileLink={() => history.push('/profile')}
                       receiverId={me.id}
                     />
+                    <StatusBar barStyle="light-content" />
                     <Spinner color="#ef8354" />
                   </Container>
                 );
@@ -174,6 +175,7 @@ class List extends React.PureComponent {
                     receiverId={me.id}
                   />
                   <ScrollView>
+                    <StatusBar barStyle="light-content" />
                     <View style={styles.topInfo}>
                       <View style={styles.topArea}>
                         <Text style={styles.heading}>{name}</Text>

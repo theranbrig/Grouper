@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 import React from 'react';
 import { Query } from 'react-apollo';
-import { StyleSheet, ScrollView } from 'react-native';
-import { Container, View, Text, List, ListItem, Spinner, Button, Icon } from 'native-base';
+import { StyleSheet, ScrollView, StatusBar } from 'react-native';
+import { Container, View, Text, List, Spinner, Button, Icon } from 'native-base';
 import User from '../components/User';
 import BackHeader from '../components/BackHeader';
 import IndividualList from '../components/IndividualList';
@@ -92,6 +92,7 @@ class Lists extends React.PureComponent {
                 profileLink={() => this.props.history.push('/profile')}
                 receiverId={me.id}
               />
+              <StatusBar barStyle="light-content" />
               <Query
                 asyncMode
                 query={LISTS_QUERY}

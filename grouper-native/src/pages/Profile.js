@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Text, View, Button, Spinner, List, SwipeRow, Icon } from 'native-base';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, StatusBar } from 'react-native';
 import { Query } from 'react-apollo';
 import BackHeader from '../components/BackHeader';
 import User from '../components/User';
@@ -112,6 +112,7 @@ class Profile extends PureComponent {
                             profileLink={() => console.log('on the profile page already')}
                             receiverId={me.id}
                           />
+                          <StatusBar barStyle="light-content" />
                           <View style={styles.container}>
                             <Text style={styles.heading}>{me.username}'s Profile</Text>
                             <Text style={styles.paragraph}>{me.username}</Text>

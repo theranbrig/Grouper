@@ -1,8 +1,8 @@
 // SignUp.js
 import React from 'react';
-import { StyleSheet, TextInput, View, AsyncStorage } from 'react-native';
+import { StyleSheet, TextInput, View, StatusBar } from 'react-native';
 import { Button, Text, Icon, Container, Spinner } from 'native-base';
-import { Mutation, graphql } from 'react-apollo';
+import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { CURRENT_USER_QUERY } from '../components/User';
 import Error from '../components/ErrorMessage';
@@ -91,6 +91,7 @@ class Login extends React.Component {
         >
           {(login, { data, loading, error }) => (
             <View style={styles.container}>
+              <StatusBar barStyle="light-content" />
               <Text style={styles.heading}>Grouper</Text>
               <Text style={styles.paragraph}>Login and start group shopping today.</Text>
               {loading && <Spinner color="#ef8354" />}

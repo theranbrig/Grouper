@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 /* eslint-disable no-nested-ternary */
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, StatusBar } from 'react-native';
 import { Container, Button, Text, Spinner } from 'native-base';
 import SpinningImageLoader from 'react-native-spinning-image';
 import User from '../components/User';
@@ -69,6 +69,7 @@ class Splash extends React.Component {
       <User>
         {({ data: { me }, loading, error }) => (
           <Container>
+            <StatusBar barStyle="light-content" />
             {me === undefined ? (
               <LoadingSpinner />
             ) : (

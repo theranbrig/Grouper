@@ -1,6 +1,6 @@
 // SignUp.js
 import React from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, View, StatusBar } from 'react-native';
 import { Button, Text, Icon, Container, Spinner } from 'native-base';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -92,6 +92,7 @@ class SignUp extends React.Component {
             console.log('data', data);
             return (
               <View style={styles.container}>
+                <StatusBar barStyle="light-content" />
                 <Text style={styles.heading}>Grouper</Text>
                 <Text style={styles.paragraph}>Sign up today and start group shopping today.</Text>
                 {loading && <Spinner color="#ef8354" />}
