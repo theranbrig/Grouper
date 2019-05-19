@@ -115,5 +115,5 @@ const FriendRequests = props => (
   </Query>
 );
 
-export { GET_FRIEND_REQUESTS };
+export { GET_FRIEND_REQUESTS, REMOVE_FRIEND_REQUEST };
 export default FriendRequests;

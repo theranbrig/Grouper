@@ -25,13 +25,13 @@ const RemoveFriendButton = props => {
       variables={{ username, friendName }}
       refetchQueries={[{ query: CURRENT_USER_QUERY }]}
     >
-      {(addFriend, { loading, error }) => {
+      {(removeFriend, { loading, error }) => {
         if (error) return <Error error={error} />;
         return (
           <Button
             style={{ backgroundColor: '#ef8354', color: '#2d3142' }}
             onPress={() => {
-              addFriend();
+              removeFriend();
             }}
           >
             {loading ? <Spinner color="white" /> : <Icon type="Feather" name="user-minus" />}

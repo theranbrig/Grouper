@@ -9,6 +9,7 @@ import { mainStyles } from '../components/ListUser';
 import AddFriend from '../components/AddFriend';
 import LoadingSpinner from '../components/LoadingSpinner';
 import RemoveFriendButton from '../components/RemoveFriendButton';
+import PendingFriendRequests from '../components/PendingFriendRequests';
 
 const styles = StyleSheet.create({
   container: {
@@ -85,70 +86,91 @@ class Profile extends PureComponent {
     const backPath = this.props.history.entries[this.props.history.entries.length - 2].pathname;
     return (
       <User>
-        {({ data: { me } }) => (
-          <Query
-            asyncMode
-            query={LISTS_QUERY}
-            pollInterval={10000}
-            onCompleted={() => this.setState({ onCompleted: true })}
-          >
-            {(data, loading, error) => {
-              let userLists;
-              if (data.data.lists) {
-                userLists = data.data.lists.filter(list => list.users.some(user => user.id === me.id));
-              }
-              return (
-                <>
-                  {loading || !this.state.isCompleted ? (
-                    <LoadingSpinner />
-                  ) : (
-                    <View style={styles.container}>
-                      <ScrollView>
-                        <BackHeader
-                          backLink={() => this.props.history.push(backPath)}
-                          profileLink={() => console.log('on the profile page already')}
-                          receiverId={me.id}
-                        />
-                        <View style={styles.container}>
-                          <Text style={styles.heading}>{me.username}'s Profile</Text>
-                          <Text style={styles.paragraph}>{me.username}</Text>
-                          <Text style={styles.paragraph}>{me.email}</Text>
-                          <View>
-                            <Text style={styles.heading}>My Grouper Friends</Text>
-                            <Button style={styles.orangeAddButton} block onPress={() => this.toggleShowAddFriend()}>
-                              <Icon style={styles.orangeButtonText} type="Feather" name="user-plus" />
-                            </Button>
+        {({ data: { me } }) => {
+          console.log(me);
+          return (
+            <Query
+              asyncMode
+              query={LISTS_QUERY}
+              pollInterval={10000}
+              onCompleted={() => this.setState({ onCompleted: true })}
+            >
+              {(data, loading, error) => {
+                let userLists;
+                if (data.data.lists) {
+                  userLists = data.data.lists.filter(list => list.users.some(user => user.id === me.id));
+                }
+                return (
+                  <>
+                    {loading || !this.state.isCompleted ? (
+                      <LoadingSpinner />
+                    ) : (
+                      <View style={styles.container}>
+                        <ScrollView>
+                          <BackHeader
+                            backLink={() => this.props.history.push(backPath)}
+                            profileLink={() => console.log('on the profile page already')}
+                            receiverId={me.id}
+                          />
+                          <View style={styles.container}>
+                            <Text style={styles.heading}>{me.username}'s Profile</Text>
+                            <Text style={styles.paragraph}>{me.username}</Text>
+                            <Text style={styles.paragraph}>{me.email}</Text>
+                            <View>
+                              <Text style={styles.heading}>My Grouper Friends</Text>
+                              <Button style={styles.orangeAddButton} block onPress={() => this.toggleShowAddFriend()}>
+                                <Icon style={styles.orangeButtonText} type="Feather" name="user-plus" />
+                              </Button>
+                            </View>
+                            {this.state.showAddFriend && <AddFriend userId={me.id} />}
+                            <List>
+                              {me.friends.map(friend => (
+                                <SwipeRow
+                                  key={friend.id}
+                                  style={styles.row}
+                                  rightOpenValue={-75}
+                                  body={
+                                    <View>
+                                      <Text style={styles.rowText}>
+                                        <Icon style={styles.rowText} type="Feather" name="user" /> {friend.username}
+                                      </Text>
+                                    </View>
+                                  }
+                                  right={<RemoveFriendButton username={me.username} friendName={friend.username} />}
+                                />
+                              ))}
+                            </List>
+                            {me.friendRequests.length ? (
+                              <>
+                                <Text style={styles.heading}>Pending Friend Requests</Text>
+                                <List>
+                                  {me.friendRequests.map(request => (
+                                    <PendingFriendRequests
+                                      key={request.id}
+                                      id={request.id}
+                                      username={request.requestUsername}
+                                      senderId={request.senderId}
+                                      receiverId={request.receiverId}
+                                    />
+                                  ))}
+                                </List>
+                              </>
+                            ) : (
+                              <></>
+                            )}
                           </View>
-                          {this.state.showAddFriend && <AddFriend userId={me.id} />}
-                          <List>
-                            {me.friends.map(friend => (
-                              <SwipeRow
-                                key={friend.id}
-                                style={styles.row}
-                                rightOpenValue={-75}
-                                body={
-                                  <View>
-                                    <Text style={styles.rowText}>
-                                      <Icon style={styles.rowText} type="Feather" name="user" /> {friend.username}
-                                    </Text>
-                                  </View>
-                                }
-                                right={<RemoveFriendButton username={me.username} friendName={friend.username} />}
-                              />
-                            ))}
-                          </List>
-                        </View>
-                        <Button style={styles.orangeButton} block onPress={() => this.props.history.push('/logout')}>
-                          <Text style={styles.orangeButtonText}>Logout</Text>
-                        </Button>
-                      </ScrollView>
-                    </View>
-                  )}
-                </>
-              );
-            }}
-          </Query>
-        )}
+                          <Button style={styles.orangeButton} block onPress={() => this.props.history.push('/logout')}>
+                            <Text style={styles.orangeButtonText}>Logout</Text>
+                          </Button>
+                        </ScrollView>
+                      </View>
+                    )}
+                  </>
+                );
+              }}
+            </Query>
+          );
+        }}
       </User>
     );
   }
