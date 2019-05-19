@@ -233,7 +233,6 @@ const Mutations = {
     }
     // Create Updates
     const updates = { ...args };
-    console.log(updates);
     // Remove new ID to save old ID over it
     delete updates.id;
     return ctx.db.mutation.updateListItem(
@@ -268,7 +267,6 @@ const Mutations = {
       },
       info
     );
-    console.log(updatedUser);
     const updatedFriend = await ctx.db.mutation.updateUser(
       {
         where: { id: args.friendId },
@@ -276,7 +274,6 @@ const Mutations = {
       },
       info
     );
-    console.log(updatedFriend);
     return updatedUser;
   },
   async removeFriend(parent, args, ctx, info) {
@@ -299,7 +296,6 @@ const Mutations = {
       },
       info
     );
-    console.log('updated', updatedUser);
     return updatedUser;
   },
   async sendFriendRequestById(parent, args, ctx, info) {
@@ -308,6 +304,7 @@ const Mutations = {
     if (!sender || !receiver) {
       throw new Error('User is not found');
     }
+
     const friendRequest = await ctx.db.mutation.createFriendRequest({
       data: {
         senderId: { connect: { id: sender.id } },
@@ -323,8 +320,6 @@ const Mutations = {
     if (!sender || !receiver) {
       throw new Error('User is not found');
     }
-    console.log(sender);
-    console.log(receiver);
     const friendRequest = await ctx.db.mutation.createFriendRequest({
       data: {
         receiverId: receiver.id,
@@ -332,13 +327,12 @@ const Mutations = {
         requestUsername: sender.username,
       },
     });
-    console.log(friendRequest);
     const updatedFriend = await ctx.db.mutation.updateUser({
       where: { id: receiver.id },
       data: { friendRequests: { connect: { id: friendRequest.id } } },
       info,
     });
-    console.log(updatedFriend);
+    return updatedFriend;
   },
   async removeFriendRequest(parent, args, ctx, info) {
     if (!ctx.request.userId) {
