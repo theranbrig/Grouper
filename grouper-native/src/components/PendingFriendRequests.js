@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flex: 1,
     borderWidth: 0,
-    flex: 1,
     marginLeft: 0,
   },
   itemText: {
@@ -66,7 +65,7 @@ const PendingFriendRequests = props => (
                 </Button>
               )}
             </Mutation>
-            <Button onPress={async () => await removeFriendRequest()} block small style={styles.orangeButton}>
+            <Button onPress={() => removeFriendRequest()} block small style={styles.orangeButton}>
               <Icon style={styles.orangeButtonText} type="Feather" name="x" />
             </Button>
           </>

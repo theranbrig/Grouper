@@ -120,7 +120,11 @@ class Profile extends PureComponent {
                             <View>
                               <Text style={styles.heading}>My Grouper Friends</Text>
                               <Button style={styles.orangeAddButton} block onPress={() => this.toggleShowAddFriend()}>
-                                <Icon style={styles.orangeButtonText} type="Feather" name="user-plus" />
+                                <Icon
+                                  style={styles.orangeButtonText}
+                                  type="Feather"
+                                  name={!this.state.showAddFriend ? 'user-plus' : 'minus-square'}
+                                />
                               </Button>
                             </View>
                             {this.state.showAddFriend && <AddFriend userId={me.id} />}

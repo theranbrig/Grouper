@@ -301,6 +301,9 @@ const Mutations = {
   async sendFriendRequestById(parent, args, ctx, info) {
     const sender = await ctx.db.query.user({ where: { id: args.senderId } });
     const receiver = await ctx.db.query.user({ where: { id: args.receiverId } });
+    if (sender.id === receiver.id) {
+      throw new Error("Sorry. Can't be your own friend.");
+    }
     if (!sender || !receiver) {
       throw new Error('User is not found');
     }
@@ -312,11 +315,13 @@ const Mutations = {
         requestUsername: sender.username,
       },
     });
-    return friendRequest;
   },
   async sendFriendRequestByUsername(parent, args, ctx, info) {
     const sender = await ctx.db.query.user({ where: { id: args.senderId } });
     const receiver = await ctx.db.query.user({ where: { username: args.receiverUsername } });
+    if (sender.id === receiver.id) {
+      throw new Error("Sorry. Can't be your own friend.");
+    }
     if (!sender || !receiver) {
       throw new Error('User is not found');
     }
@@ -332,7 +337,6 @@ const Mutations = {
       data: { friendRequests: { connect: { id: friendRequest.id } } },
       info,
     });
-    return updatedFriend;
   },
   async removeFriendRequest(parent, args, ctx, info) {
     if (!ctx.request.userId) {

@@ -16,6 +16,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#4f5d75',
     padding: 10,
   },
+  loadingContainer: {
+    backgroundColor: '#4f5d75',
+  },
   paragraph: {
     color: '#fefefe',
     width: '90%',
@@ -68,7 +71,7 @@ class Splash extends React.Component {
     return (
       <User>
         {({ data: { me }, loading, error }) => (
-          <Container>
+          <Container style={styles.loadingContainer}>
             <StatusBar barStyle="light-content" />
             {me === undefined ? (
               <LoadingSpinner />
