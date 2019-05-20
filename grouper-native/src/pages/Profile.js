@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { Text, View, Button, Spinner, List, SwipeRow, Icon } from 'native-base';
-import { StyleSheet, ScrollView, StatusBar } from 'react-native';
+import { Text, View, Button, List, SwipeRow, Icon } from 'native-base';
+import { StyleSheet, ScrollView, StatusBar, RefreshControl } from 'react-native';
 import { Query } from 'react-apollo';
 import BackHeader from '../components/BackHeader';
 import User from '../components/User';
@@ -106,12 +106,17 @@ class Profile extends PureComponent {
                       <LoadingSpinner />
                     ) : (
                       <View style={styles.container}>
-                        <ScrollView>
-                          <BackHeader
-                            backLink={() => this.props.history.push(backPath)}
-                            profileLink={() => console.log('on the profile page already')}
-                            receiverId={me.id}
-                          />
+                        <BackHeader
+                          backLink={() => this.props.history.push(backPath)}
+                          profileLink={() => console.log('on the profile page already')}
+                          receiverId={me.id}
+                        />
+                        <ScrollView
+                          refreshControl={
+                            // This enables the pull-to-refresh functionality
+                            <RefreshControl refreshing={data.networkStatus === 4} onRefresh={data.refetch} />
+                          }
+                        >
                           <StatusBar barStyle="light-content" />
                           <View style={styles.container}>
                             <Text style={styles.heading}>{me.username}'s Profile</Text>

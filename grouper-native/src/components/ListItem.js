@@ -15,7 +15,7 @@ export const mainStyles = StyleSheet.create({
     fontFamily: 'Roboto',
     paddingLeft: 15,
     paddingRight: 10,
-    fontSize: 20,
+    fontSize: 18,
     width: '95%',
   },
   listItem: {
@@ -34,7 +34,7 @@ export const mainStyles = StyleSheet.create({
   },
   listIcon: {
     color: '#fefefe',
-    fontSize: 25,
+    fontSize: 18,
   },
 });
 

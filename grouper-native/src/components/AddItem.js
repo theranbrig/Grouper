@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   orangeButtonText: {
     fontFamily: 'Lobster',
-    fontSize: 25,
+    fontSize: 20,
   },
   transparentButton: {
     marginLeft: '5%',
@@ -137,6 +137,7 @@ class AddItem extends React.Component {
                 value={name}
                 style={styles.input}
                 placeholderTextColor="gray"
+                required
               />
             </Item>
             <Item>
@@ -147,7 +148,9 @@ class AddItem extends React.Component {
                 onChangeText={price => this.setState({ price })}
                 value={price}
                 style={styles.input}
+                keyboardType="number-pad"
                 placeholderTextColor="gray"
+                required
               />
             </Item>
             {image && <Image source={{ uri: image }} style={{ width: 200, height: 200, margin: 5 }} />}

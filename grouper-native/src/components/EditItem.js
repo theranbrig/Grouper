@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   orangeButtonText: {
     fontFamily: 'Lobster',
-    fontSize: 25,
+    fontSize: 20,
   },
   picker: {
     color: 'white',

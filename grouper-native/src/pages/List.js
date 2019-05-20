@@ -1,7 +1,7 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { View, Text, Container, Spinner, Button, Icon } from 'native-base';
-import { StyleSheet, ScrollView, StatusBar } from 'react-native';
+import { StyleSheet, ScrollView, StatusBar, RefreshControl } from 'react-native';
 import { Query } from 'react-apollo';
 import BackHeader from '../components/BackHeader';
 import ListItem from '../components/ListItem';
@@ -174,7 +174,12 @@ class List extends React.PureComponent {
                     profileLink={() => history.push('/profile')}
                     receiverId={me.id}
                   />
-                  <ScrollView>
+                  <ScrollView
+                    refreshControl={
+                      // This enables the pull-to-refresh functionality
+                      <RefreshControl refreshing={data.networkStatus === 4} onRefresh={data.refetch} />
+                    }
+                  >
                     <StatusBar barStyle="light-content" />
                     <View style={styles.topInfo}>
                       <View style={styles.topArea}>

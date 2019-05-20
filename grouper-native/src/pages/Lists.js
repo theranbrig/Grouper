@@ -1,13 +1,12 @@
 import gql from 'graphql-tag';
 import React from 'react';
 import { Query } from 'react-apollo';
-import { StyleSheet, ScrollView, StatusBar } from 'react-native';
-import { Container, View, Text, List, Spinner, Button, Icon } from 'native-base';
+import { StyleSheet, ScrollView, StatusBar, RefreshControl } from 'react-native';
+import { Container, View, Text, List, Spinner, Button, Icon, Content } from 'native-base';
 import User from '../components/User';
 import BackHeader from '../components/BackHeader';
 import IndividualList from '../components/IndividualList';
 import AddList from '../components/AddList';
-import EditList from '../components/EditList';
 
 const LISTS_QUERY = gql`
   query LISTS_QUERY {
@@ -110,7 +109,12 @@ class Lists extends React.PureComponent {
                       {me ? (
                         <View style={styles.container}>
                           {userLists ? (
-                            <>
+                            <Content
+                              refreshControl={
+                                // This enables the pull-to-refresh functionality
+                                <RefreshControl refreshing={data.networkStatus === 4} onRefresh={data.refetch} />
+                              }
+                            >
                               <View style={styles.topInfo}>
                                 <Text style={styles.paragraph}>
                                   {me.username}
@@ -138,7 +142,7 @@ class Lists extends React.PureComponent {
                               {userLists.length === 0 && (
                                 <Text style={styles.paragraph}>You have no Lists. Start adding.</Text>
                               )}
-                            </>
+                            </Content>
                           ) : (
                             <Text>No lists found.</Text>
                           )}
