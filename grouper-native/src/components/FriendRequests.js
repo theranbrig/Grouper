@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   orangeButtonText: {
     fontFamily: 'Lobster',
-    fontSize: 20,
+    fontSize: 18,
     color: '#2d3142',
     textAlign: 'center',
   },

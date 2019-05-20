@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lobster',
   },
   buttonText: {
-    fontSize: 25,
+    fontSize: 20,
   },
   mainImage: {
     marginBottom: 40,

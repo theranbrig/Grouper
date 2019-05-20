@@ -63,7 +63,12 @@ class ListItem extends React.Component {
                   {item.name} - ${item.price}{' '}
                   {item.inCart && <Icon style={mainStyles.listIcon} type="Feather" name="check" />}
                 </Text>
-                <Icon style={mainStyles.listIcon} type="Feather" name="info" onPress={() => this.showEdit()} />
+                <Icon
+                  style={mainStyles.listIcon}
+                  type="Feather"
+                  name={!this.state.showEdit ? 'info' : 'chevrons-up'}
+                  onPress={() => this.showEdit()}
+                />
               </View>
             </View>
           }

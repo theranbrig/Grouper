@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   orangeButtonText: {
     fontFamily: 'Lobster',
-    fontSize: 25,
+    fontSize: 20,
     color: '#fefefe',
   },
 });

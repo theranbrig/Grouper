@@ -13,7 +13,7 @@ export const mainStyles = StyleSheet.create({
     color: '#fefefe',
     fontFamily: 'Roboto',
     paddingLeft: 20,
-    fontSize: 20,
+    fontSize: 18,
   },
   listItem: {
     backgroundColor: '#4f5d75',
@@ -24,7 +24,7 @@ export const mainStyles = StyleSheet.create({
   },
   listIcon: {
     color: '#ef8354',
-    fontSize: 20,
+    fontSize: 18,
   },
   listText: {
     flexWrap: 'wrap',
