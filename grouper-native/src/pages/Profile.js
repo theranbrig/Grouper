@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   orangeButtonText: {
     color: '#fefefe',
     fontFamily: 'Lobster',
-    fontSize: 25,
+    fontSize: 20,
   },
   removeFriendButton: {
     backgroundColor: '#ef8354',

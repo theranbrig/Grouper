@@ -48,10 +48,14 @@ const styles = StyleSheet.create({
   orangeButton: {
     backgroundColor: '#ef8354',
     fontFamily: 'Roboto',
-    marginTop: 10,
+    marginTop: 14,
     marginRight: 14,
     borderColor: '#fefefe',
     borderWidth: 2,
+  },
+  orangeButtonText: {
+    color: '#fefefe',
+    fontSize: 14,
   },
   topInfo: {
     flexDirection: 'row',
@@ -109,19 +113,18 @@ class Lists extends React.PureComponent {
                       {me ? (
                         <View style={styles.container}>
                           {userLists ? (
-                            <Content
-                              refreshControl={
-                                // This enables the pull-to-refresh functionality
-                                <RefreshControl refreshing={data.networkStatus === 4} onRefresh={data.refetch} />
-                              }
-                            >
+                            <View>
                               <View style={styles.topInfo}>
                                 <Text style={styles.paragraph}>
                                   {me.username}
                                   {me.username.charAt(me.username.length - 1) === 's' ? "'" : "'s"} Lists
                                 </Text>
-                                <Button block style={styles.orangeButton} onPress={() => this.showAdd()}>
-                                  {showAdd ? <Icon type="Feather" name="minus" /> : <Icon type="Feather" name="plus" />}
+                                <Button block small style={styles.orangeButton} onPress={() => this.showAdd()}>
+                                  {showAdd ? (
+                                    <Icon style={styles.orangeButtonText} type="Feather" name="minus" />
+                                  ) : (
+                                    <Icon style={styles.orangeButtonText} type="Feather" name="plus" />
+                                  )}
                                 </Button>
                               </View>
                               {showAdd && (
@@ -129,20 +132,28 @@ class Lists extends React.PureComponent {
                                   <AddList showAdd={this.showAdd} />
                                 </View>
                               )}
-                              <List style={{ borderTopWidth: 0.2, borderColor: 'white', paddingBottom: 40 }}>
-                                {userLists.map(list => (
-                                  <IndividualList
-                                    key={list.id}
-                                    list={list}
-                                    viewListClick={() => history.push(`/list/${list.id}`)}
-                                    showEdit={this.showEdit}
-                                  />
-                                ))}
-                              </List>
+                              <View
+                                refreshControl={
+                                  <RefreshControl refreshing={data.networkStatus === 4} onRefresh={data.refetch} />
+                                }
+                              >
+                                <List
+                                  style={{ borderTopWidth: 0.2, borderColor: 'white', paddingBottom: 40 }}
+                                  dataArray={userLists}
+                                  renderRow={list => (
+                                    <IndividualList
+                                      key={list.id}
+                                      list={list}
+                                      viewListClick={() => history.push(`/list/${list.id}`)}
+                                      showEdit={this.showEdit}
+                                    />
+                                  )}
+                                />
+                              </View>
                               {userLists.length === 0 && (
                                 <Text style={styles.paragraph}>You have no Lists. Start adding.</Text>
                               )}
-                            </Content>
+                            </View>
                           ) : (
                             <Text>No lists found.</Text>
                           )}

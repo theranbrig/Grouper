@@ -82,6 +82,14 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: 'white',
   },
+  orangeButtonTop: {
+    backgroundColor: '#ef8354',
+    fontFamily: 'Roboto',
+    marginTop: 20,
+    marginRight: 12,
+    borderColor: '#fefefe',
+    borderWidth: 2,
+  },
   orangeButton: {
     backgroundColor: '#ef8354',
     fontFamily: 'Roboto',
@@ -89,6 +97,10 @@ const styles = StyleSheet.create({
     marginRight: 12,
     borderColor: '#fefefe',
     borderWidth: 2,
+  },
+  orangeButtonText: {
+    color: '#fefefe',
+    fontSize: 15,
   },
   orangeSortButton: {
     backgroundColor: '#ef8354',
@@ -186,11 +198,11 @@ class List extends React.PureComponent {
                         <Text style={styles.heading}>{name}</Text>
                         <Text style={styles.subHeading}>{type}</Text>
                       </View>
-                      <Button block style={styles.orangeButton} onPress={() => this.showAdd()}>
+                      <Button small block style={styles.orangeButtonTop} onPress={() => this.showAdd()}>
                         {this.state.showAdd ? (
-                          <Icon type="Feather" name="minus" />
+                          <Icon style={styles.orangeButtonText} type="Feather" name="minus" />
                         ) : (
-                          <Icon type="Feather" name="plus" />
+                          <Icon style={styles.orangeButtonText} type="Feather" name="plus" />
                         )}
                       </Button>
                     </View>
@@ -210,8 +222,12 @@ class List extends React.PureComponent {
                       <View style={styles.bottomArea}>
                         <Text style={styles.heading}>List Mates</Text>
                       </View>
-                      <Button block style={styles.orangeButton} onPress={() => this.showAddUser()}>
-                        {showAddUser ? <Icon type="Feather" name="minus" /> : <Icon type="Feather" name="plus" />}
+                      <Button small block style={styles.orangeButton} onPress={() => this.showAddUser()}>
+                        {showAddUser ? (
+                          <Icon style={styles.orangeButtonText} type="Feather" name="minus" />
+                        ) : (
+                          <Icon style={styles.orangeButtonText} type="Feather" name="plus" />
+                        )}
                       </Button>
                     </View>
                     {showAddUser && <AddUser listId={id} />}
