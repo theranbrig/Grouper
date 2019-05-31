@@ -99,7 +99,7 @@ export default class SortButtons extends Component {
               this.setListOrder('desc', true, sortHigh);
             }}
           >
-            <Icon type="FontAwesome" name="sort-numeric-asc" />
+            <Icon type="FontAwesome" name="sort-numeric-desc" />
           </Button>
         )}
         {listOrder === 'asc' && !numberSort && (
@@ -112,7 +112,7 @@ export default class SortButtons extends Component {
             <Icon type="FontAwesome" name="sort-alpha-desc" />
           </Button>
         )}
-        {((this.state.listOrder === 'none' && !numberSort) || numberSort) && (
+        {((listOrder === 'none' && !numberSort) || numberSort) && (
           <Button style={styles.clearSortButton} onPress={() => this.setListOrder('asc', false, sortA)}>
             <Icon type="FontAwesome" name="sort-alpha-asc" />
           </Button>
